@@ -97,7 +97,7 @@ Unfavourable and null results are reported deliberately.
 ## Execution record: how the reported results were produced
 
 **Yes. Every number in this README, in `summary.json` and in the paper comes from simulations that were actually run**, with the code in
-this repository, inside the Emergent development container where the project was built. No value was typed in by hand. The figures
+this repository, inside a cloud development container where the project was built. No value was typed in by hand. The figures
 and tables are regenerated from the saved Parquet data, and `scripts/validate_results.py` checks the SHA-256 hashes of that data.
 
 ### Machine and software

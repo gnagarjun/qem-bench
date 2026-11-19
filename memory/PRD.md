@@ -26,3 +26,11 @@ Repository + web results viewer; pilot + reduced standard run executed; simulato
 - P0 before submission: manually verify [K] references; systematic literature search; external review of hypothesis rules.
 - P1: run `full` profile (100 reps); exponential extrapolation; correlated readout + M3; coupling-map routing.
 - P2: PEC/CDR modules; hardware backend; Zenodo deposit of raw data.
+
+# QEM-Bench PRD
+Reproducible research framework (Python/Qiskit) for resource-aware evaluation of quantum error mitigation, plus a React/FastAPI results viewer. Author: Nagarjun Gopalaswamy, MIT license.
+## Done
+- Framework, pilot + standard Aer runs, 12 figures, LaTeX paper, React viewer, README with execution record.
+- 2026-06: Removed Emergent branding from the viewer (badge script, analytics, title/description) and the README; added a QEM-Bench favicon.
+## Backlog
+- P1 IBM hardware validation; P2 PEC/CDR/symmetry verification; P2 larger scale runs (>8 qubits, 100 reps).
