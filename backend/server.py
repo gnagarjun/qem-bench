@@ -1,4 +1,4 @@
-"""QEM-Bench results viewer API: read-only access to saved, aggregated simulation results."""
+"""QEM-Bench results viewer API: saved results (read-only) plus owner-started simulation runs."""
 
 import json
 import logging
@@ -7,16 +7,23 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Optional
 
-import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
 from fastapi import APIRouter, FastAPI, HTTPException, Query
 from fastapi.responses import FileResponse
+from motor.motor_asyncio import AsyncIOMotorClient
 from starlette.middleware.cors import CORSMiddleware
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / ".env")
 DATA = ROOT_DIR / os.environ["QEM_VIEWER_DATA_DIR"]
+
+import auth  # noqa: E402
+import runs  # noqa: E402
+from util import filt, records  # noqa: E402
+
+mongo = AsyncIOMotorClient(os.environ["MONGO_URL"])
+auth.db = runs.db = mongo[os.environ["DB_NAME"]]
 
 app = FastAPI(title="QEM-Bench Results Viewer")
 api = APIRouter(prefix="/api")
@@ -31,20 +38,6 @@ def table(name: str) -> pd.DataFrame:
 @lru_cache(maxsize=None)
 def blob(name: str) -> dict:
     return json.loads((DATA / name).read_text())
-
-
-def records(df: pd.DataFrame) -> list[dict]:
-    clean = df.replace([np.inf, -np.inf], [1e308, -1e308]).astype(object).where(df.notna(), None)
-    return clean.to_dict(orient="records")
-
-
-def filt(df: pd.DataFrame, **kw) -> pd.DataFrame:
-    for k, v in kw.items():
-        if v is None or v == "":
-            continue
-        col = df[k]
-        df = df[col == (int(v) if col.dtype.kind in "iu" else float(v) if col.dtype.kind == "f" else v)]
-    return df
 
 
 @api.get("/")
@@ -137,5 +130,19 @@ def reproducibility():
 
 
 app.include_router(api)
+app.include_router(auth.router)
+app.include_router(runs.router)
+
+
+@app.on_event("startup")
+async def startup():
+    await auth.db.login_attempts.create_index("identifier")
+    await runs.db.custom_runs.create_index("run_id", unique=True)
+    await runs.mark_interrupted()
+
+
+@app.on_event("shutdown")
+def shutdown():
+    mongo.close()
 app.add_middleware(CORSMiddleware, allow_credentials=True, allow_origins=os.environ.get("CORS_ORIGINS", "*").split(","),
                    allow_methods=["*"], allow_headers=["*"])

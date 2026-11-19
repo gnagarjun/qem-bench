@@ -1,0 +1,43 @@
+{
+  "name": "API test",
+  "seed": 1491841285,
+  "repetitions": 10,
+  "instances": [
+    "bell_cx",
+    "ghz_4"
+  ],
+  "noise": [
+    {
+      "base": "moderate"
+    },
+    {
+      "base": "high",
+      "gate_multiplier": 2.0,
+      "readout_multiplier": 1.0,
+      "label": "high_g2_r1"
+    }
+  ],
+  "shots": [
+    256,
+    4096
+  ],
+  "methods": [
+    "baseline",
+    "readout",
+    "zne_richardson",
+    "combined_linear"
+  ],
+  "comparisons": [
+    "A",
+    "B"
+  ],
+  "zne": {
+    "scale_factors": [
+      1.0,
+      3.0,
+      5.0
+    ],
+    "folding": "global"
+  },
+  "units": 80
+}

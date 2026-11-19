@@ -1,0 +1,19 @@
+{
+  "rows_expected": 960,
+  "rows_found": 960,
+  "complete": true,
+  "n_failed": 0,
+  "failed_have_reason": true,
+  "no_nan_in_ok_estimates": true,
+  "total_equals_primary_plus_calibration": true,
+  "readout_methods_charge_calibration": true,
+  "non_readout_methods_no_calibration": true,
+  "A_zne_primary_scales_with_n_scales": true,
+  "B_never_exceeds_baseline_budget": true,
+  "B_min_budget_utilisation": 0.998046875,
+  "A_baseline_total_is_N_times_settings": true,
+  "ideal_values_bounded": true,
+  "no_duplicate_units": true,
+  "repetitions_not_identical_fraction": 1.0,
+  "passed": true
+}

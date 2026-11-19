@@ -9,6 +9,7 @@ import ChartsTab from "@/components/qem/ChartsTab";
 import StatsTab from "@/components/qem/StatsTab";
 import FiguresTab from "@/components/qem/FiguresTab";
 import ReproTab from "@/components/qem/ReproTab";
+import RunsTab from "@/components/qem/RunsTab";
 
 const TABS = [
   ["overview", "Overview & Hypotheses", OverviewTab],
@@ -17,6 +18,7 @@ const TABS = [
   ["statistical-tests", "Statistical Tests", StatsTab],
   ["figures-gallery", "Publication Figures", FiguresTab],
   ["reproducibility", "Reproducibility", ReproTab],
+  ["run-simulations", "Run Simulations", RunsTab],
 ];
 
 export default function App() {

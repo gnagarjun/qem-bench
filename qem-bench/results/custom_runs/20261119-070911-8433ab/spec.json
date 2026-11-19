@@ -1,0 +1,38 @@
+{
+  "name": "",
+  "seed": 1059053478,
+  "repetitions": 10,
+  "instances": [
+    "bell_cx",
+    "ghz_4",
+    "qaoa_n4_p1"
+  ],
+  "noise": [
+    {
+      "base": "moderate"
+    }
+  ],
+  "shots": [
+    1024,
+    4096
+  ],
+  "methods": [
+    "baseline",
+    "readout",
+    "zne_linear",
+    "combined_linear"
+  ],
+  "comparisons": [
+    "A",
+    "B"
+  ],
+  "zne": {
+    "scale_factors": [
+      1.0,
+      3.0,
+      5.0
+    ],
+    "folding": "global"
+  },
+  "units": 60
+}

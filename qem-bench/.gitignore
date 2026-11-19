@@ -24,3 +24,5 @@ paper/*.log
 paper/*.bbl
 paper/*.blg
 paper/*.out
+results/custom_runs/*/raw_runs/*/raw/
+results/custom_runs/*/raw_runs/*/zne_points/

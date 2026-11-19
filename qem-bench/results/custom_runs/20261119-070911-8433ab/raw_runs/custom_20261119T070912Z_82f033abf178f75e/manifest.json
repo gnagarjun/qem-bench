@@ -1,0 +1,55 @@
+{
+  "run_id": "custom_20261119T070912Z_82f033abf178f75e",
+  "profile": "custom",
+  "config_hash": "82f033abf178f75e",
+  "schema_version": "1.0.0",
+  "completed_utc": "2026-11-19T07:09:13.452644+00:00",
+  "wall_clock_s_this_invocation": 1.0299104890145827,
+  "files": [
+    {
+      "path": "circuits/custom__bell_cx__moderate.parquet",
+      "sha256": "41255b577c64bcd294ca6229effc145b3f43d1841a2c0508cda47d20a79fb409",
+      "rows": 9
+    },
+    {
+      "path": "circuits/custom__ghz_4__moderate.parquet",
+      "sha256": "ff6fb580e199c733d7ea6919e170e9194e970d7ffdf458f11976fbee2948d27d",
+      "rows": 6
+    },
+    {
+      "path": "circuits/custom__qaoa_n4_p1__moderate.parquet",
+      "sha256": "4fb6238967d4079f3368de17f96b5bc1d10cf4432b4aaa35e6c6c4a846802702",
+      "rows": 3
+    },
+    {
+      "path": "raw/custom__bell_cx__moderate.parquet",
+      "sha256": "e64eb2184ce640fe249cff8d8bfc9a915399093d8145cd5e0f65ebfedee8a1c8",
+      "rows": 480
+    },
+    {
+      "path": "raw/custom__ghz_4__moderate.parquet",
+      "sha256": "af585de363df13930fe3848d1a7ec0dc6133061a059446fa7fd841e914b5dd31",
+      "rows": 320
+    },
+    {
+      "path": "raw/custom__qaoa_n4_p1__moderate.parquet",
+      "sha256": "9249dda71c58eff2840af5c9d2fd431ea28807b570c11153019ad7e75eca16b2",
+      "rows": 160
+    },
+    {
+      "path": "zne_points/custom__bell_cx__moderate.parquet",
+      "sha256": "98e86c130c6a68705df21e2eb5b4d3cb8184f3195fd47f6ba643911bb5a22126",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/custom__ghz_4__moderate.parquet",
+      "sha256": "b9de370745aa2cc1f5a5bb1660006ba5a4df58734c49734906a61a0cb6ac64b5",
+      "rows": 120
+    },
+    {
+      "path": "zne_points/custom__qaoa_n4_p1__moderate.parquet",
+      "sha256": "fee971f23831d4ee61c5be1ee1d86cfdfeb419f52f3d6b1d5ec7125cceedd2c2",
+      "rows": 60
+    }
+  ]
+}
