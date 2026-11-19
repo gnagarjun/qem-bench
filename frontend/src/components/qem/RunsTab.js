@@ -33,7 +33,7 @@ export default function RunsTab() {
       </div>
       {owner === false && <RunLogin onLogin={() => setOwner(true)} />}
       {owner && opts.data && <RunForm opts={opts.data} busy={busy} onStarted={started} />}
-      <RunList runs={list} selected={current} onSelect={setSelected} />
+      <RunList runs={list} loading={runs.isLoading} selected={current} onSelect={setSelected} />
       {current && <RunDetail key={current} runId={current} isOwner={!!owner} onDeleted={() => setSelected(null)} />}
     </div>
   );

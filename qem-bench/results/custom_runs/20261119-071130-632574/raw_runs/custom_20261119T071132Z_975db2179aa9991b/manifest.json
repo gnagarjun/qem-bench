@@ -1,0 +1,40 @@
+{
+  "run_id": "custom_20261119T071132Z_975db2179aa9991b",
+  "profile": "custom",
+  "config_hash": "975db2179aa9991b",
+  "schema_version": "1.0.0",
+  "completed_utc": "2026-11-19T07:11:32.431215+00:00",
+  "wall_clock_s_this_invocation": 0.26367865898646414,
+  "files": [
+    {
+      "path": "circuits/custom__bell_cx__high_g2_r1.parquet",
+      "sha256": "7496da5ccb80fac24c05b59b00b4f051b89e18eed4104ba946c0e5fe0888f133",
+      "rows": 9
+    },
+    {
+      "path": "circuits/custom__bell_cx__moderate.parquet",
+      "sha256": "ba79b75ffd0af196871d0e887d0fa6c7731b24a5055f3fa7217703620f36de7e",
+      "rows": 9
+    },
+    {
+      "path": "raw/custom__bell_cx__high_g2_r1.parquet",
+      "sha256": "de7bdf65986dda49234987d07825ab26b365c844e0085e8c8e81d1b6ac9a5d17",
+      "rows": 96
+    },
+    {
+      "path": "raw/custom__bell_cx__moderate.parquet",
+      "sha256": "41210427fc0f0ff57e549be4858ce5444be808549d84ea18ea3f2bd9f7b05a7d",
+      "rows": 96
+    },
+    {
+      "path": "zne_points/custom__bell_cx__high_g2_r1.parquet",
+      "sha256": "078d7079326486d6f95922b5932083d6babf967cec3ff02357fb06bd67c4ee61",
+      "rows": 36
+    },
+    {
+      "path": "zne_points/custom__bell_cx__moderate.parquet",
+      "sha256": "2d4cc228cda9064a283c4f632076f96ee741ae04be7ce96516a5e508d4275f34",
+      "rows": 36
+    }
+  ]
+}

@@ -292,6 +292,17 @@ Optional: build the paper (`brew install --cask mactex-no-gui`, then `make paper
 Everything is driven by YAML in `configs/`. **Changing a configuration changes its hash, so every variant lands in its own run
 directory and nothing is overwritten.**
 
+### 5.0 From the browser: the "Run Simulations" tab
+The web viewer can also start new simulator runs. Sign in with the owner password (`ADMIN_PASSWORD` in `backend/.env`).
+Then pick the circuits, noise levels (including scaled ones such as "high, gate noise ×2"), shot budgets, mitigation
+methods, accounting rules (A/B), repetitions, ZNE scale factors, folding mode and an optional seed. The backend runs
+`scripts/run_custom.py`, which uses the same runner, validation and `analyze_results.py` as the published study. Each run is
+saved on its own in `results/custom_runs/<run_id>/` with its `spec.json`, raw Parquet data, `analysis/` tables and `run.log`.
+The viewer then shows its conditions table and the Wilcoxon/BH test outcomes. The published results are never modified.
+Anyone can browse runs, only the owner can start, cancel or remove them, and only one run happens at a time. A run is capped
+at 20,000 condition-repetitions; small designs finish in a few seconds. Figures and the paper are not rebuilt for custom runs.
+
+
 ### 5.1 Add a noise level (e.g. "what if readout were 3× better?")
 `configs/noise_models.yaml`:
 ```yaml

@@ -11,7 +11,7 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel
 
 ALG = "HS256"
-MAX_FAILS, LOCK_MIN = 5, 15
+MAX_FAILS, GLOBAL_FAILS, LOCK_MIN = 5, 20, 15
 router = APIRouter(prefix="/api/auth")
 bearer = HTTPBearer(auto_error=False)
 _HASH = bcrypt.hashpw(os.environ["ADMIN_PASSWORD"].encode(), bcrypt.gensalt())
@@ -43,19 +43,22 @@ def require_owner(cred: HTTPAuthorizationCredentials = Depends(bearer)) -> str:
 
 @router.post("/login")
 async def login(body: Login, request: Request):
+    # per-client counter plus a global one, since forwarded IPs can be spoofed
     ip = request.headers.get("x-forwarded-for", request.client.host if request.client else "?").split(",")[0].strip()
     now = datetime.now(timezone.utc)
-    rec = await db.login_attempts.find_one({"identifier": ip})
-    if rec and rec.get("locked_until") and rec["locked_until"].replace(tzinfo=timezone.utc) > now:
-        raise HTTPException(429, f"Too many failed attempts. Try again in {LOCK_MIN} minutes.")
+    limits = {ip: MAX_FAILS, "__global__": GLOBAL_FAILS}
+    recs = {r["identifier"]: r async for r in db.login_attempts.find({"identifier": {"$in": list(limits)}})}
+    for rec in recs.values():
+        if rec.get("locked_until") and rec["locked_until"].replace(tzinfo=timezone.utc) > now:
+            raise HTTPException(429, f"Too many failed attempts. Try again in {LOCK_MIN} minutes.")
     if not bcrypt.checkpw(body.password.encode(), _HASH):
-        fails = (rec or {}).get("fails", 0) + 1
-        upd = {"fails": fails, "locked_until": now + timedelta(minutes=LOCK_MIN) if fails >= MAX_FAILS else None}
-        if fails >= MAX_FAILS:
-            upd["fails"] = 0
-        await db.login_attempts.update_one({"identifier": ip}, {"$set": upd}, upsert=True)
+        for ident, limit in limits.items():
+            fails = recs.get(ident, {}).get("fails", 0) + 1
+            locked = fails >= limit
+            await db.login_attempts.update_one({"identifier": ident}, {"$set": {
+                "fails": 0 if locked else fails, "locked_until": now + timedelta(minutes=LOCK_MIN) if locked else None}}, upsert=True)
         raise HTTPException(401, "Wrong password")
-    await db.login_attempts.delete_one({"identifier": ip})
+    await db.login_attempts.update_many({"identifier": {"$in": list(limits)}}, {"$set": {"fails": 0, "locked_until": None}})
     return {"token": make_token()}
 
 

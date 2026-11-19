@@ -1,0 +1,38 @@
+{
+  "name": "TEST_run",
+  "seed": 7,
+  "repetitions": 30,
+  "instances": [
+    "ghz_6",
+    "qaoa_n6_p2"
+  ],
+  "noise": [
+    {
+      "base": "moderate_thermal"
+    }
+  ],
+  "shots": [
+    4096,
+    8192,
+    16384
+  ],
+  "methods": [
+    "baseline",
+    "readout",
+    "zne_richardson",
+    "combined_richardson"
+  ],
+  "comparisons": [
+    "A",
+    "B"
+  ],
+  "zne": {
+    "scale_factors": [
+      1.0,
+      3.0,
+      5.0
+    ],
+    "folding": "global"
+  },
+  "units": 180
+}

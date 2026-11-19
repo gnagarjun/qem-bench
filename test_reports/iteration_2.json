@@ -1,0 +1,43 @@
+{
+  "summary": "Tested the new owner auth and custom simulation runs end to end. Backend: 10/10 pytest tests pass (tests/test_custom_runs_api.py). They cover login (401 'Wrong password' / token), /me with and without a bearer, options (no 'ideal'), 401 on the mutating endpoints without a token, the 422 validation cases (unknown instance, unknown noise incl. 'ideal', unknown shot, reps 1 and 101, unknown method or comparison, the 'Design too large' message), 404 for an unknown id, the full lifecycle (201 -> running -> completed in about 3s with counts, baseline added first, label high_g2_r1 in the rows, all filters on conditions and tests, 409 on a second start, 409 on deleting or cancelling a running run), cancel then soft-delete then 404, the published /api/qem/* endpoints unchanged, and the 5-fail lockout -> 429. A separate probe sent 4 starts at once: only one got 201 and the rest got 409. Cancel kills the subprocess (no run_custom process is left). Frontend: the tab title is correct. Logged out, you get the login form and the run list, with no form and no cancel/remove buttons. A wrong password shows the error. Login works. Baseline is locked. The scaled noise row works. Repetitions out of range and an over-limit design both disable Start. A run started from the UI shows progress, then the summary, outcome counts and condition rows, and all 5 result filters work. Selecting rows, cancel, remove (with confirm), logout and keeping the token after a reload all work. The other tabs work and mobile is 390px wide with no overflow. Found 2 minor bugs and a few code-review notes.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "POST /api/runs (_spec)", "issue": "units / MAX_UNITS check uses len(body.noise) BEFORE noise de-duplication. Duplicate noise entries inflate spec.units and can wrongly reject a design. Repro: UI sent moderate twice -> spec.units=10920 while the design actually had 9100 condition_repetitions. Compute units from the de-duplicated noise list."},
+      {"endpoint": "POST /api/auth/login", "issue": "The lockout identifier is the first X-Forwarded-For entry, which the client controls. Rotating the XFF header gets around the 5-attempt lockout; the tests did exactly this through the public ingress. Use the last trusted proxy hop or the real client IP, or add a global or per-account fail counter."},
+      {"endpoint": "POST /api/runs", "issue": "The single-run guard is check-then-insert and not atomic. A 4-way concurrent probe did not trigger it, but it is still theoretically racy. Consider a partial unique index on status='running', or an asyncio.Lock."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "NoisePicker", "issue": "If you set a custom row's gate and readout multipliers to 1, the row vanishes and becomes a plain preset entry. If that preset is already selected (e.g. moderate), f.noise ends up with a duplicate. The size estimate is then too high (it showed 10,920 instead of 9,100) and the start request contains duplicate noise.", "selector": "[data-testid=run-noise-custom-gate-0]", "priority": "LOW"},
+      {"component": "RunList", "issue": "While /api/runs is still loading, the list shows the empty state 'No custom runs yet' (runs.data undefined -> []) and then flips to the rows. Show a loading state instead.", "selector": "[data-testid=run-list-empty]", "priority": "LOW"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Run list", "issues": ["Pluralization: '1 circuits · 1 budgets'"]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/test_custom_runs_api.py", "/app/test_reports/pytest/pytest_runs.xml"],
+  "action_items": [
+    "Compute units after noise de-duplication in runs._spec (or reject duplicate noise)",
+    "Fix NoisePicker so a custom row with multipliers 1/1 does not create a duplicate preset (keep it as a custom row, or skip it if the preset already exists)",
+    "Stop relying on client-supplied X-Forwarded-For alone for brute-force lockout",
+    "Show a loading state in RunList before the first fetch resolves"
+  ],
+  "critical_code_review_comments": [
+    "runs._watch: if summary.json is missing or invalid after exit code 0, the task raises and the run stays 'running' forever, which blocks all new runs until a restart. Wrap it in try/except and mark the run failed.",
+    "The single-run guard is not atomic (see backend minor).",
+    "Soft-deleted runs keep their directories under results/custom_runs, so disk use only grows. Consider pruning.",
+    "The limit query on /runs/{id}/conditions and /tests has no ge=1; negative values reach df.head(-n).",
+    "RunsTab: when the token expires mid-session, owner stays true and start just shows a 401 toast. Reset owner on a 401.",
+    "CORS is set with allow_credentials=True plus the '*' fallback default. Auth uses bearer tokens, not cookies, so the risk is low, but set explicit origins."
+  ],
+  "updated_files": ["/app/backend/tests/test_custom_runs_api.py"],
+  "success_rate": {"backend": "100% (10/10)", "frontend": "~95% (all requested flows work; 2 low-priority UI bugs)"},
+  "test_credentials": "Owner password qem-VUuXkDCWds9b (from /app/memory/test_credentials.md) works",
+  "seed_data_creation": "Created TEST_ runs (TEST_run, TEST_race, TEST_ui_run plus one unnamed UI run). All were cancelled or completed and then soft-deleted by id. The pre-existing runs 'Run 20261119-070911' and 'API test' were untouched. Lockout records were created only for random 10.x.x.x XFF identifiers.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Run backend tests serially: pytest tests/test_custom_runs_api.py -n 0 (the tests depend on order because only one run can be active). Tests use random X-Forwarded-For headers so the real IP is never locked out. Notes: playbook auth items such as httpOnly cookies and seed_admin do not apply here; the app uses a password-only owner with an in-memory bcrypt hash of ADMIN_PASSWORD and Bearer JWTs in localStorage. The hash is $2b$ and is generated at import."
+}

@@ -1,0 +1,45 @@
+{
+  "runs": [
+    "custom_20261119T071035Z_89b670a541ffc16d"
+  ],
+  "config_hashes": [
+    "89b670a541ffc16d"
+  ],
+  "schema_version": "1.0.0",
+  "n_raw_rows": 360,
+  "n_failed_rows": 0,
+  "n_conditions": 120,
+  "n_tests": 80,
+  "repetitions": [
+    3
+  ],
+  "blocks": [
+    "custom"
+  ],
+  "environment": {
+    "python": "3.11.18",
+    "platform": "Linux-6.12.105+-aarch64-with-glibc2.36",
+    "cpu": "unknown",
+    "cpu_count": 16,
+    "packages": {
+      "qiskit": "2.2.3",
+      "qiskit-aer": "0.17.2",
+      "numpy": "2.4.6",
+      "scipy": "1.17.1",
+      "pandas": "3.1.1",
+      "matplotlib": null,
+      "seaborn": null,
+      "pydantic": "2.14.3",
+      "pyyaml": "6.0.3",
+      "pyarrow": "26.0.1"
+    },
+    "git_commit": "b939f1566d6862ed7182d4df7c03a5f034fcd0c1",
+    "note": "wall-clock timings are machine-specific and not comparable across hosts"
+  },
+  "analysis": {
+    "confidence_level": 0.95,
+    "bootstrap_samples": 2000,
+    "alpha": 0.05,
+    "practical_threshold": 0.1
+  }
+}

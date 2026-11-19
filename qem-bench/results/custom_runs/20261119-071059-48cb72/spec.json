@@ -1,0 +1,33 @@
+{
+  "name": "TEST_race",
+  "seed": 1,
+  "repetitions": 20,
+  "instances": [
+    "ghz_6"
+  ],
+  "noise": [
+    {
+      "base": "moderate"
+    }
+  ],
+  "shots": [
+    8192
+  ],
+  "methods": [
+    "baseline",
+    "zne_richardson"
+  ],
+  "comparisons": [
+    "A",
+    "B"
+  ],
+  "zne": {
+    "scale_factors": [
+      1.0,
+      3.0,
+      5.0
+    ],
+    "folding": "global"
+  },
+  "units": 20
+}

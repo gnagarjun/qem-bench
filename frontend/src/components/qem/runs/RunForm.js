@@ -16,7 +16,8 @@ export default function RunForm({ opts, busy, onStarted }) {
   const [f, setF] = useState(INIT);
   const [sending, setSending] = useState(false);
   const set = (k) => (v) => setF((s) => ({ ...s, [k]: v }));
-  const units = f.instances.length * f.noise.length * f.shots.length * (Number(f.repetitions) || 0);
+  const noiseKeys = new Set(f.noise.map((n) => (n.gate_multiplier === 1 && n.readout_multiplier === 1 ? n.base : `${n.base}_g${n.gate_multiplier}_r${n.readout_multiplier}`)));
+  const units = f.instances.length * noiseKeys.size * f.shots.length * (Number(f.repetitions) || 0);
   const tooBig = units > opts.max_units;
   const valid = f.instances.length && f.noise.length && f.shots.length && f.comparisons.length && f.repetitions >= 2 && f.repetitions <= 100 && !tooBig;
   const submit = async (e) => {

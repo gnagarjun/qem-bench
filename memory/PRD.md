@@ -22,7 +22,9 @@ Repository + web results viewer; pilot + reduced standard run executed; simulato
 - CI workflows, Makefile, pre-commit, CITATION.cff, LICENSE, CONTRIBUTING, CoC, issue templates.
 - Viewer tested (iteration_1): backend 100%, frontend fixes applied (block 'All', mobile repro overflow, header nav).
 
+- 2026-06: Run Simulations tab: owner-password login (JWT, lockout), design picker (circuits, noise incl. scaled, shots, methods, A/B, reps, ZNE scales/folding, seed), background runs via scripts/run_custom.py, separate saved runs (results/custom_runs, Mongo custom_runs), live progress, cancel/soft-delete, per-run conditions + statistical tests. Tested (iteration_2).
 ## Backlog
+- P1 Compare two custom runs side by side; optional figure generation per run
 - P0 before submission: manually verify [K] references; systematic literature search; external review of hypothesis rules.
 - P1: run `full` profile (100 reps); exponential extrapolation; correlated readout + M3; coupling-map routing.
 - P2: PEC/CDR modules; hardware backend; Zenodo deposit of raw data.
@@ -32,5 +34,7 @@ Reproducible research framework (Python/Qiskit) for resource-aware evaluation of
 ## Done
 - Framework, pilot + standard Aer runs, 12 figures, LaTeX paper, React viewer, README with execution record.
 - 2026-06: Removed Emergent branding from the viewer (badge script, analytics, title/description) and the README; added a QEM-Bench favicon.
+- 2026-06: Run Simulations tab: owner-password login (JWT, lockout), design picker (circuits, noise incl. scaled, shots, methods, A/B, reps, ZNE scales/folding, seed), background runs via scripts/run_custom.py, separate saved runs (results/custom_runs, Mongo custom_runs), live progress, cancel/soft-delete, per-run conditions + statistical tests. Tested (iteration_2).
 ## Backlog
+- P1 Compare two custom runs side by side; optional figure generation per run
 - P1 IBM hardware validation; P2 PEC/CDR/symmetry verification; P2 larger scale runs (>8 qubits, 100 reps).

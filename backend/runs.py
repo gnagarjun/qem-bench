@@ -26,6 +26,7 @@ MAX_UNITS = 20000
 router = APIRouter(prefix="/api/runs")
 db = None
 _procs: dict[str, asyncio.subprocess.Process] = {}
+_start_lock = asyncio.Lock()
 
 
 def _yaml(name: str) -> dict:
@@ -77,9 +78,6 @@ def _spec(body: RunIn, opts: dict) -> dict:
         raise HTTPException(422, "Unknown noise level selected")
     if set(body.shots) - set(opts["shots"]):
         raise HTTPException(422, "Unsupported shot budget")
-    units = len(body.instances) * len(body.noise) * len(body.shots) * body.repetitions
-    if units > MAX_UNITS:
-        raise HTTPException(422, f"Design too large ({units:,} condition-repetitions; limit {MAX_UNITS:,}). Reduce the selection.")
     noise, seen = [], set()
     for n in body.noise:
         plain = n.gate_multiplier == 1.0 and n.readout_multiplier == 1.0
@@ -90,6 +88,9 @@ def _spec(body: RunIn, opts: dict) -> dict:
         if key not in seen:
             seen.add(key)
             noise.append(ref)
+    units = len(set(body.instances)) * len(noise) * len(set(body.shots)) * body.repetitions
+    if units > MAX_UNITS:
+        raise HTTPException(422, f"Design too large ({units:,} condition-repetitions; limit {MAX_UNITS:,}). Reduce the selection.")
     return {"name": body.name.strip(), "seed": body.seed if body.seed is not None else int(uuid.uuid4().int % 2**31),
             "repetitions": body.repetitions, "instances": list(dict.fromkeys(body.instances)), "noise": noise,
             "shots": sorted(set(body.shots)), "methods": body.methods, "comparisons": sorted(set(body.comparisons)),
@@ -142,9 +143,14 @@ async def list_runs():
 
 @router.post("", status_code=201)
 async def start_run(body: RunIn, _: str = Depends(require_owner)):
-    if await db.custom_runs.find_one({"status": "running"}):
-        raise HTTPException(409, "Another run is in progress. Wait for it to finish.")
     spec = _spec(body, options())
+    async with _start_lock:
+        if await db.custom_runs.find_one({"status": "running"}):
+            raise HTTPException(409, "Another run is in progress. Wait for it to finish.")
+        return await _launch(spec)
+
+
+async def _launch(spec: dict) -> dict:
     run_id = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S-") + uuid.uuid4().hex[:6]
     out = RUNS / run_id
     out.mkdir(parents=True)

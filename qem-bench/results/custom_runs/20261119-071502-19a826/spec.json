@@ -1,0 +1,39 @@
+{
+  "name": "dedupe",
+  "seed": 3969102,
+  "repetitions": 3,
+  "instances": [
+    "bell_cx"
+  ],
+  "noise": [
+    {
+      "base": "moderate"
+    },
+    {
+      "base": "high",
+      "gate_multiplier": 2.0,
+      "readout_multiplier": 1.0,
+      "label": "high_g2_r1"
+    }
+  ],
+  "shots": [
+    256
+  ],
+  "methods": [
+    "baseline",
+    "readout"
+  ],
+  "comparisons": [
+    "A",
+    "B"
+  ],
+  "zne": {
+    "scale_factors": [
+      1.0,
+      3.0,
+      5.0
+    ],
+    "folding": "global"
+  },
+  "units": 6
+}

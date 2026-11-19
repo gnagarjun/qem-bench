@@ -1,0 +1,41 @@
+{
+  "name": "TEST_ui_run",
+  "seed": 42,
+  "repetitions": 4,
+  "instances": [
+    "bell_cx"
+  ],
+  "noise": [
+    {
+      "base": "moderate"
+    },
+    {
+      "base": "high",
+      "gate_multiplier": 2.0,
+      "readout_multiplier": 1.0,
+      "label": "high_g2_r1"
+    }
+  ],
+  "shots": [
+    1024
+  ],
+  "methods": [
+    "baseline",
+    "readout",
+    "zne_linear",
+    "combined_linear"
+  ],
+  "comparisons": [
+    "A",
+    "B"
+  ],
+  "zne": {
+    "scale_factors": [
+      1.0,
+      2.0,
+      3.0
+    ],
+    "folding": "local"
+  },
+  "units": 8
+}

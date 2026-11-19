@@ -1,0 +1,65 @@
+{
+  "name": "",
+  "seed": 445270214,
+  "repetitions": 20,
+  "instances": [
+    "bell_cx",
+    "ghz_4",
+    "qaoa_n4_p1",
+    "bell_cz",
+    "bell_cx_pad2",
+    "bell_cx_pad4",
+    "ghz_3",
+    "ghz_5",
+    "ghz_6",
+    "ghz_8",
+    "qaoa_n4_p2",
+    "qaoa_n6_p1",
+    "qaoa_n6_p2"
+  ],
+  "noise": [
+    {
+      "base": "moderate"
+    },
+    {
+      "base": "low"
+    },
+    {
+      "base": "high"
+    },
+    {
+      "base": "moderate_symmetric"
+    },
+    {
+      "base": "moderate_thermal"
+    }
+  ],
+  "shots": [
+    256,
+    512,
+    1024,
+    2048,
+    4096,
+    8192,
+    16384
+  ],
+  "methods": [
+    "baseline",
+    "readout",
+    "zne_linear",
+    "combined_linear"
+  ],
+  "comparisons": [
+    "A",
+    "B"
+  ],
+  "zne": {
+    "scale_factors": [
+      1.0,
+      3.0,
+      5.0
+    ],
+    "folding": "global"
+  },
+  "units": 10920
+}

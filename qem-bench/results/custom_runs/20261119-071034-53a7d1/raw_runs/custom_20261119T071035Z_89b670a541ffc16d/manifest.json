@@ -1,0 +1,70 @@
+{
+  "run_id": "custom_20261119T071035Z_89b670a541ffc16d",
+  "profile": "custom",
+  "config_hash": "89b670a541ffc16d",
+  "schema_version": "1.0.0",
+  "completed_utc": "2026-11-19T07:10:36.367237+00:00",
+  "wall_clock_s_this_invocation": 0.47005939899827354,
+  "files": [
+    {
+      "path": "circuits/custom__bell_cx__high_g2_r1.parquet",
+      "sha256": "2412a88b905a393c8f9af560cf51e17febfe379ac20d9f284db7696f23c10f2f",
+      "rows": 9
+    },
+    {
+      "path": "circuits/custom__bell_cx__moderate.parquet",
+      "sha256": "2e5ec0a2e3787fbcd6c0265a26c832aeb72f5c69227f6a143ebe2ade167da7c2",
+      "rows": 9
+    },
+    {
+      "path": "circuits/custom__ghz_3__high_g2_r1.parquet",
+      "sha256": "c399ff7f68fbaac679fbffa58e96ff59631365f914cdbe2891cbfab64823aef9",
+      "rows": 6
+    },
+    {
+      "path": "circuits/custom__ghz_3__moderate.parquet",
+      "sha256": "98450b0b40508fd283323e52ce59349de89ca29bf58eaff840a4e22a06d1844c",
+      "rows": 6
+    },
+    {
+      "path": "raw/custom__bell_cx__high_g2_r1.parquet",
+      "sha256": "0b55df648c8f3b8ec3239e4d66395689a1a9285cee356a262f67139e3b7064fc",
+      "rows": 108
+    },
+    {
+      "path": "raw/custom__bell_cx__moderate.parquet",
+      "sha256": "2b5897facb6e856b6338d5af7bae83a5f3382125eafcee393e43ab188f63900a",
+      "rows": 108
+    },
+    {
+      "path": "raw/custom__ghz_3__high_g2_r1.parquet",
+      "sha256": "b0f526ed58efd4e25c82bf1205193c0dccc1ec836489ea13290f584cd56db785",
+      "rows": 72
+    },
+    {
+      "path": "raw/custom__ghz_3__moderate.parquet",
+      "sha256": "cd4198ea1548880c8ebd4f20aac9a9ce673348db3eb8acf94ee12ac27d13c30d",
+      "rows": 72
+    },
+    {
+      "path": "zne_points/custom__bell_cx__high_g2_r1.parquet",
+      "sha256": "840c55b347af47e84d0e9f519e752ef437bc787c5b47cc1ea0566e6f06316331",
+      "rows": 54
+    },
+    {
+      "path": "zne_points/custom__bell_cx__moderate.parquet",
+      "sha256": "14c91ff33bc1ca7f44d2f8240d7c61e570fc5bfafd6457877724b56e9dd0812f",
+      "rows": 54
+    },
+    {
+      "path": "zne_points/custom__ghz_3__high_g2_r1.parquet",
+      "sha256": "8d7de0e4f1a34340d0916d9d51ea69c069653bf84b498d1a4a4244f849b41e90",
+      "rows": 36
+    },
+    {
+      "path": "zne_points/custom__ghz_3__moderate.parquet",
+      "sha256": "e7b2560694490db82cd2424c2fcf9581773a00d44840c6db7425b98a06b12de0",
+      "rows": 36
+    }
+  ]
+}
