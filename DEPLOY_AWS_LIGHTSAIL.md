@@ -76,7 +76,7 @@ previous version serving traffic, and the workflow prints the container log.
 
 ## 1. Put the code on GitHub
 
-1. In Emergent, click **Save to GitHub** and choose or create your repository (for example `you/qem-bench`).
+1. click **Save to GitHub** and choose or create your repository (for example `you/qem-bench`).
 2. Make sure the default branch is **`main`**. The workflow only deploys from `main`, and the AWS trust in step 3 is
    limited to that branch.
 
@@ -190,7 +190,7 @@ Only people with write access to the repository can press **Run workflow**.
 
 | Task | How |
 |---|---|
-| Ship new code | push or merge to `main` (e.g. Emergent **Save to GitHub**), then **Actions → Deploy to AWS Lightsail → Run workflow** |
+| Ship new code | push or merge to `main` (e.g. **Save to GitHub**), then **Actions → Deploy to AWS Lightsail → Run workflow** |
 | Change the owner password or other secrets | edit the GitHub secret or variable, then run the workflow |
 | See logs | Lightsail console → *Containers → qem-bench → Logs*, or in CloudShell: `aws lightsail get-container-log --service-name qem-bench --container-name app` |
 | Service status / URL | Lightsail console → *Containers*, or `aws lightsail get-container-services --service-name qem-bench` |
