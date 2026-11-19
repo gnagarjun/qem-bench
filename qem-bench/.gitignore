@@ -1,0 +1,27 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+*.egg-info/
+build/
+dist/
+site/
+logs/
+*.tmp
+.env
+.env.*
+*.key
+# large raw experiment data: share via Zenodo/Git LFS; manifests + aggregated outputs are committed
+results/experiments/*/raw/
+results/experiments/*/zne_points/
+results/pilot/*/raw/
+results/pilot/*/zne_points/
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out
+paper/main.pdf

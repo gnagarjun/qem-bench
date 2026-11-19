@@ -1,0 +1,313 @@
+{
+  "config_hash": "4b7d0bd7351ab767",
+  "schema_version": "1.0.0",
+  "config": {
+    "schema_version": "1.0.0",
+    "profile": "pilot",
+    "seed": 20260601,
+    "repetitions": 30,
+    "sampling_mode": "exact",
+    "optimization_level": 1,
+    "noise_levels": {
+      "ideal": {
+        "name": "ideal",
+        "p1": 0.0,
+        "p2": 0.0,
+        "readout_p01": 0.0,
+        "readout_p10": 0.0,
+        "thermal": false,
+        "t1_us": 100.0,
+        "t2_us": 80.0,
+        "gate_time_1q_ns": 35.0,
+        "gate_time_2q_ns": 300.0
+      },
+      "low": {
+        "name": "low",
+        "p1": 0.0005,
+        "p2": 0.005,
+        "readout_p01": 0.004,
+        "readout_p10": 0.006,
+        "thermal": false,
+        "t1_us": 100.0,
+        "t2_us": 80.0,
+        "gate_time_1q_ns": 35.0,
+        "gate_time_2q_ns": 300.0
+      },
+      "moderate": {
+        "name": "moderate",
+        "p1": 0.002,
+        "p2": 0.015,
+        "readout_p01": 0.016,
+        "readout_p10": 0.024,
+        "thermal": false,
+        "t1_us": 100.0,
+        "t2_us": 80.0,
+        "gate_time_1q_ns": 35.0,
+        "gate_time_2q_ns": 300.0
+      },
+      "high": {
+        "name": "high",
+        "p1": 0.005,
+        "p2": 0.03,
+        "readout_p01": 0.04,
+        "readout_p10": 0.06,
+        "thermal": false,
+        "t1_us": 100.0,
+        "t2_us": 80.0,
+        "gate_time_1q_ns": 35.0,
+        "gate_time_2q_ns": 300.0
+      },
+      "moderate_symmetric": {
+        "name": "moderate_symmetric",
+        "p1": 0.002,
+        "p2": 0.015,
+        "readout_p01": 0.02,
+        "readout_p10": 0.02,
+        "thermal": false,
+        "t1_us": 100.0,
+        "t2_us": 80.0,
+        "gate_time_1q_ns": 35.0,
+        "gate_time_2q_ns": 300.0
+      },
+      "moderate_thermal": {
+        "name": "moderate_thermal",
+        "p1": 0.002,
+        "p2": 0.015,
+        "readout_p01": 0.016,
+        "readout_p10": 0.024,
+        "thermal": true,
+        "t1_us": 100.0,
+        "t2_us": 80.0,
+        "gate_time_1q_ns": 35.0,
+        "gate_time_2q_ns": 300.0
+      }
+    },
+    "instances": {
+      "bell_cx": {
+        "family": "bell",
+        "name": "bell_cx",
+        "params": {
+          "variant": "cx",
+          "padding": 0
+        }
+      },
+      "bell_cz": {
+        "family": "bell",
+        "name": "bell_cz",
+        "params": {
+          "variant": "cz",
+          "padding": 0
+        }
+      },
+      "bell_cx_pad2": {
+        "family": "bell",
+        "name": "bell_cx_pad2",
+        "params": {
+          "variant": "cx",
+          "padding": 2
+        }
+      },
+      "bell_cx_pad4": {
+        "family": "bell",
+        "name": "bell_cx_pad4",
+        "params": {
+          "variant": "cx",
+          "padding": 4
+        }
+      },
+      "ghz_3": {
+        "family": "ghz",
+        "name": "ghz_3",
+        "params": {
+          "n_qubits": 3
+        }
+      },
+      "ghz_4": {
+        "family": "ghz",
+        "name": "ghz_4",
+        "params": {
+          "n_qubits": 4
+        }
+      },
+      "ghz_5": {
+        "family": "ghz",
+        "name": "ghz_5",
+        "params": {
+          "n_qubits": 5
+        }
+      },
+      "ghz_6": {
+        "family": "ghz",
+        "name": "ghz_6",
+        "params": {
+          "n_qubits": 6
+        }
+      },
+      "ghz_8": {
+        "family": "ghz",
+        "name": "ghz_8",
+        "params": {
+          "n_qubits": 8
+        }
+      },
+      "qaoa_n4_p1": {
+        "family": "qaoa",
+        "name": "qaoa_n4_p1",
+        "params": {
+          "n_qubits": 4,
+          "p": 1,
+          "edge_prob": 0.5,
+          "graph_seed": 7
+        }
+      },
+      "qaoa_n4_p2": {
+        "family": "qaoa",
+        "name": "qaoa_n4_p2",
+        "params": {
+          "n_qubits": 4,
+          "p": 2,
+          "edge_prob": 0.5,
+          "graph_seed": 7
+        }
+      },
+      "qaoa_n6_p1": {
+        "family": "qaoa",
+        "name": "qaoa_n6_p1",
+        "params": {
+          "n_qubits": 6,
+          "p": 1,
+          "edge_prob": 0.5,
+          "graph_seed": 11
+        }
+      },
+      "qaoa_n6_p2": {
+        "family": "qaoa",
+        "name": "qaoa_n6_p2",
+        "params": {
+          "n_qubits": 6,
+          "p": 2,
+          "edge_prob": 0.5,
+          "graph_seed": 11
+        }
+      }
+    },
+    "readout": {
+      "full_max_qubits": 3,
+      "calibration_shots_equal_primary": "match_primary",
+      "calibration_fraction_equal_budget": 0.2,
+      "physicality": "none",
+      "condition_warning": 1000.0,
+      "condition_failure": 1000000000000.0
+    },
+    "blocks": [
+      {
+        "name": "pilot_aer",
+        "purpose": "Pilot with genuine per-shot Aer sampling (also the wall-clock timing study)",
+        "instances": [
+          "bell_cx",
+          "ghz_4",
+          "qaoa_n4_p1"
+        ],
+        "noise": [
+          {
+            "base": "moderate",
+            "gate_multiplier": 1.0,
+            "readout_multiplier": 1.0,
+            "label": null
+          },
+          {
+            "base": "high",
+            "gate_multiplier": 1.0,
+            "readout_multiplier": 1.0,
+            "label": null
+          }
+        ],
+        "shots": [
+          1024,
+          4096
+        ],
+        "methods": [
+          "baseline",
+          "readout",
+          "zne_linear",
+          "zne_richardson",
+          "combined_linear",
+          "combined_richardson"
+        ],
+        "comparisons": [
+          "A",
+          "B"
+        ],
+        "zne": {
+          "scale_factors": [
+            1.0,
+            3.0,
+            5.0
+          ],
+          "folding": "global",
+          "allocation_equal_budget": "proportional_gamma",
+          "use_effective_scales": true
+        },
+        "repetitions": null,
+        "sampling_mode": "aer"
+      },
+      {
+        "name": "pilot_exact",
+        "purpose": "Identical design with exact-distribution sampling, for mode-equivalence checks",
+        "instances": [
+          "bell_cx",
+          "ghz_4",
+          "qaoa_n4_p1"
+        ],
+        "noise": [
+          {
+            "base": "moderate",
+            "gate_multiplier": 1.0,
+            "readout_multiplier": 1.0,
+            "label": null
+          },
+          {
+            "base": "high",
+            "gate_multiplier": 1.0,
+            "readout_multiplier": 1.0,
+            "label": null
+          }
+        ],
+        "shots": [
+          1024,
+          4096
+        ],
+        "methods": [
+          "baseline",
+          "readout",
+          "zne_linear",
+          "zne_richardson",
+          "combined_linear",
+          "combined_richardson"
+        ],
+        "comparisons": [
+          "A",
+          "B"
+        ],
+        "zne": {
+          "scale_factors": [
+            1.0,
+            3.0,
+            5.0
+          ],
+          "folding": "global",
+          "allocation_equal_budget": "proportional_gamma",
+          "use_effective_scales": true
+        },
+        "repetitions": null,
+        "sampling_mode": "exact"
+      }
+    ],
+    "analysis": {
+      "confidence_level": 0.95,
+      "bootstrap_samples": 2000,
+      "alpha": 0.05,
+      "practical_threshold": 0.1
+    }
+  }
+}

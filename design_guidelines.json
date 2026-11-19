@@ -1,0 +1,181 @@
+{
+  "project_name": "QEM-Bench Research Viewer",
+  "archetype": "ARCHETYPE 4: SWISS & HIGH-CONTRAST + ARCHETYPE 2: THE PERFORMANCE PRO",
+  "theme": "dark_default_with_scientific_clarity",
+  "summary": "Scientific research results viewer & benchmark exploration dashboard for quantum error mitigation (QEM) across Bell, GHZ, and QAOA circuits with Qiskit Aer noise models, Pareto frontiers, statistical hypothesis verifications (H1-H5), publication figure gallery, and reproducibility telemetry.",
+  "target_audience": "Quantum computing researchers, algorithmic benchmarkers, NISQ quantum software engineers, academic reviewers",
+  "design_principles": [
+    "Precision over decoration: Crisp high-contrast monochromatic data density with laser-targeted cobalt/emerald accents.",
+    "Dual-comparison rigor: Explicit UI distinction between Comparison A (equal primary shots) and Comparison B (equal total budget including REM calibration & ZNE folding overhead).",
+    "Evidence-grounded navigation: Hypothesis verdicts (H1-H5), statistical significance badges (adjusted p-values, Cohen's d), and Pareto frontiers front and center.",
+    "Zero digital flatness: Subtle grid line borders, monospaced data readouts, and scientific badge chips with rigorous data-testid attributes."
+  ],
+  "typography": {
+    "font_family_headings": "Barlow Condensed, Manrope, -apple-system, sans-serif",
+    "font_family_body": "IBM Plex Sans, -apple-system, BlinkMacSystemFont, sans-serif",
+    "font_family_mono": "JetBrains Mono, Menlo, Courier New, monospace",
+    "font_size_scale": {
+      "h1": "text-3xl sm:text-4xl font-extrabold tracking-tight",
+      "h2": "text-xl sm:text-2xl font-bold tracking-tight",
+      "h3": "text-lg sm:text-xl font-semibold tracking-tight",
+      "h4": "text-base font-semibold",
+      "body": "text-sm leading-relaxed",
+      "caption": "text-xs font-mono tracking-wider uppercase text-muted-foreground"
+    },
+    "typesetting_rules": [
+      "Headings must use tight letter spacing: tracking-tight or tracking-tighter.",
+      "Labels & metric overlines must be Uppercase + Tiny (text-[11px] or text-xs) + Wide Spacing (tracking-wider).",
+      "Numerical tables and stats (RMSE, Bias, Shots, Overheads, p-values) must render with font-mono for column alignment.",
+      "Never exceed text-5xl for dashboard headings; maintain clean information hierarchy."
+    ]
+  },
+  "colors": {
+    "background": "#0B0E14",
+    "surface": "#111622",
+    "surface_secondary": "#182032",
+    "surface_elevated": "#1F293D",
+    "border": "hsl(217 19% 27%)",
+    "border_subtle": "rgba(255, 255, 255, 0.08)",
+    "foreground": "#F8FAFC",
+    "foreground_muted": "#94A3B8",
+    "brand_primary": "#38BDF8",
+    "brand_accent": "#6366F1",
+    "success_emerald": "#10B981",
+    "warning_amber": "#F59E0B",
+    "danger_rose": "#F43F5E",
+    "methods_color_coding": {
+      "baseline": "#94A3B8",
+      "rem": "#38BDF8",
+      "zne": "#A855F7",
+      "combined": "#10B981"
+    },
+    "contrast_rules": [
+      "All normal text on dark cards must have minimum 4.5:1 contrast against surface backgrounds.",
+      "Never use pure transparent backgrounds on header, dropdowns, popovers, or floating modals; use bg-[#111622]/90 with backdrop-blur-md.",
+      "Hover text must explicitly declare text color e.g. hover:bg-slate-800 hover:text-white."
+    ]
+  },
+  "layout_and_navigation": {
+    "header": {
+      "type": "Fixed top bar with crystal glassmorphism and crisp 1px border",
+      "classes": "sticky top-0 z-50 bg-[#0B0E14]/90 backdrop-blur-md border-b border-white/10 px-6 py-3.5 flex items-center justify-between",
+      "elements": [
+        "Brand badge: QEM-Bench (Quantum Error Mitigation Benchmarks)",
+        "Benchmark engine indicator: Qiskit Aer & NISQ Noise Models",
+        "Primary Tab switcher (Overview, Condition Explorer, Interactive Charts, Publication Figures, Statistical Tests, Reproducibility)",
+        "Quick Action: Export JSON / BibTeX citation copy modal"
+      ]
+    },
+    "spacing_scale": {
+      "page_container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8",
+      "card_padding": "p-5 sm:p-6",
+      "grid_gap": "gap-5 sm:gap-6"
+    },
+    "tab_structure": [
+      {
+        "id": "overview",
+        "label": "Study Overview & H1-H5",
+        "data_testid": "tab-overview",
+        "description": "Executive summary, 5 empirical hypotheses verdicts, key benchmark parameters, and summary cards"
+      },
+      {
+        "id": "condition-explorer",
+        "label": "Condition Explorer",
+        "data_testid": "tab-condition-explorer",
+        "description": "Multi-dimensional filterable data table comparing baseline, REM, ZNE, and combined across circuit families, noise levels, and shot allocations"
+      },
+      {
+        "id": "interactive-charts",
+        "label": "Pareto & Scaling Charts",
+        "data_testid": "tab-interactive-charts",
+        "description": "Interactive Recharts visualizer: RMSE vs Shot Budget curves, and Pareto Frontier (Total shots vs RMSE tradeoff)"
+      },
+      {
+        "id": "statistical-tests",
+        "label": "Statistical Significance",
+        "data_testid": "tab-statistical-tests",
+        "description": "Paired hypothesis tests, Holm-Bonferroni adjusted p-values, Cohen's d effect sizes, and bootstrap 95% confidence intervals"
+      },
+      {
+        "id": "figures-gallery",
+        "label": "Publication Figures",
+        "data_testid": "tab-figures-gallery",
+        "description": "High-fidelity scientific figures gallery with modal zoom, LaTeX captions, and high-res vector/PNG views"
+      },
+      {
+        "id": "reproducibility",
+        "label": "Reproducibility & Specs",
+        "data_testid": "tab-reproducibility",
+        "description": "Environment hashes, package versions (qiskit, qiskit-aer, mitiq, scipy), seed configurations, and CLI reproduction commands"
+      }
+    ]
+  },
+  "component_specifications": {
+    "metric_card": {
+      "style": "bg-[#111622] border border-white/10 rounded-xl p-5 hover:border-sky-500/40 transition-colors shadow-sm",
+      "elements": ["Upper label with font-mono text-[11px] tracking-wider uppercase text-muted-foreground", "Hero value in font-mono text-2xl font-bold", "Sub-indicator or delta badge"]
+    },
+    "hypothesis_card": {
+      "style": "bg-[#111622] border border-white/10 rounded-xl p-5 flex flex-col justify-between space-y-3",
+      "verdict_chips": {
+        "SUPPORTED": "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 px-2.5 py-0.5 rounded text-xs font-mono font-semibold",
+        "QUALIFIED": "bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2.5 py-0.5 rounded text-xs font-mono font-semibold",
+        "REFUTED": "bg-rose-500/10 text-rose-400 border border-rose-500/30 px-2.5 py-0.5 rounded text-xs font-mono font-semibold"
+      }
+    },
+    "data_table": {
+      "style": "w-full border-collapse text-left text-sm",
+      "header_row": "bg-[#182032] border-b border-white/10 text-xs font-mono text-muted-foreground uppercase tracking-wider py-3 px-4",
+      "data_row": "border-b border-white/5 hover:bg-white/[0.02] transition-colors py-3 px-4"
+    },
+    "filter_bar": {
+      "style": "bg-[#111622] border border-white/10 rounded-lg p-4 flex flex-wrap items-center gap-3",
+      "inputs": ["Circuit Family (Bell, GHZ-4, GHZ-8, QAOA-4, QAOA-8)", "Noise Model (Depolarizing, Thermal Relaxation, Readout)", "Comparison Mode (A: Equal Primary Shots vs B: Equal Total Budget)", "Search/Filter input"]
+    }
+  },
+  "interactive_charts_spec": {
+    "chart_1": {
+      "title": "RMSE vs Shot Budget",
+      "type": "LineChart with log-scale support (Recharts)",
+      "x_axis": "Primary Shots (256, 1024, 4096, 16384)",
+      "y_axis": "Root Mean Squared Error (RMSE)",
+      "series": ["Baseline (Unmitigated)", "Readout Error Mitigation (REM)", "Zero-Noise Extrapolation (ZNE)", "Combined (REM + ZNE)"]
+    },
+    "chart_2": {
+      "title": "Pareto Frontier: Accuracy vs Total Shot Consumption",
+      "type": "ScatterChart / Composite line with Pareto boundary curve",
+      "x_axis": "Total Shot Footprint (including calibration & folded circuits)",
+      "y_axis": "RMSE (lower is better)",
+      "insight": "Highlights which method achieves the Pareto-optimal trade-off under strict wall-clock and shot constraints"
+    }
+  },
+  "testing_attributes": {
+    "global_rule": "Every interactive button, tab, filter, and primary metric cell MUST have data-testid in kebab-case.",
+    "key_testids": [
+      "header-brand-title",
+      "tab-overview",
+      "tab-condition-explorer",
+      "tab-interactive-charts",
+      "tab-statistical-tests",
+      "tab-figures-gallery",
+      "tab-reproducibility",
+      "filter-circuit-family-select",
+      "filter-noise-level-select",
+      "filter-comparison-toggle-a",
+      "filter-comparison-toggle-b",
+      "condition-explorer-table",
+      "stat-comparison-table",
+      "reproducibility-config-hash",
+      "btn-copy-citation",
+      "btn-export-json"
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Build the dashboard inside the frontend React application with cleanly separated components in src/components/qem/ (OverviewTab.js, ConditionExplorerTab.js, ChartsTab.js, FiguresTab.js, StatisticsTab.js, ReproducibilityTab.js).",
+    "Include high-fidelity mock research data generated from realistic Qiskit Aer simulations with 4 methods (baseline, REM, ZNE, combined) over Bell, GHZ (3, 4, 8 qubits), and QAOA MaxCut (4, 8 qubits) across 3 noise rates (low 0.005, med 0.02, high 0.05) and 4 shot budgets (512, 2048, 8192, 32768).",
+    "Clearly highlight the core scientific findings: REM drastically reduces readout bias with low overhead (2^n calibration amortizable); ZNE reduces gate error bias but increases variance requiring higher shot counts; Combined achieves lowest RMSE at high noise only when total budget is sufficient.",
+    "Render the 12 publication figures gallery with zoom modal, high-resolution SVG/vector visuals, and academic LaTeX-style captions.",
+    "Ensure all dropdowns and popovers use solid dark background (bg-[#111622] or bg-slate-900) with proper borders and no transparent text collisions.",
+    "Implement Sonner toasts for copy citation, export data, and filter presets."
+  ]
+}

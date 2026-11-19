@@ -1,34 +1,56 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap");
+
+:root {
+  --bg: #0b0e14;
+  --surface: #111622;
+  --surface-2: #182032;
+  --line: rgba(255, 255, 255, 0.09);
+  --fg: #f1f5f9;
+  --muted: #94a3b8;
+  --brand: #38bdf8;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "IBM Plex Sans", sans-serif;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.font-display { font-family: "Barlow Condensed", sans-serif; letter-spacing: -0.01em; }
+.font-mono { font-family: "JetBrains Mono", monospace; }
+
+.grid-bg {
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent 70%);
 }
 
-.App-link {
-    color: #61dafb;
-}
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.overline { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
+.qtable { width: 100%; border-collapse: collapse; font-size: 13px; }
+.qtable th { background: var(--surface-2); text-align: left; padding: 9px 12px; font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); white-space: nowrap; position: sticky; top: 0; }
+.qtable td { padding: 8px 12px; border-top: 1px solid rgba(255,255,255,0.05); white-space: nowrap; }
+.qtable tbody tr { transition: background-color 150ms ease; }
+.qtable tbody tr:hover { background: rgba(255,255,255,0.025); }
+.num { font-family: "JetBrains Mono", monospace; font-variant-numeric: tabular-nums; }
+
+.qselect { background: var(--surface-2); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 7px 10px; font-size: 13px; transition: border-color 150ms ease; }
+.qselect:hover, .qselect:focus { border-color: rgba(56,189,248,0.5); outline: none; }
+
+.tabbtn { position: relative; padding: 8px 14px; font-size: 13px; color: var(--muted); border-radius: 8px; transition: color 150ms ease, background-color 150ms ease; white-space: nowrap; }
+.tabbtn:hover { color: #fff; background: rgba(255,255,255,0.04); }
+.tabbtn[data-active="true"] { color: #fff; background: rgba(56,189,248,0.12); box-shadow: inset 0 -2px 0 var(--brand); }
+
+.chip { font-family: "JetBrains Mono", monospace; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 5px; border: 1px solid; }
+.chip-sup { color: #34d399; background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.35); }
+.chip-part { color: #fbbf24; background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.35); }
+.chip-not { color: #fb7185; background: rgba(244,63,94,0.1); border-color: rgba(244,63,94,0.35); }
+
+.rise { animation: rise 420ms cubic-bezier(.2,.7,.2,1) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; border-radius: 999px; font-size: 13px; border: 1px solid var(--line); background: var(--surface-2); transition: background-color 150ms ease, border-color 150ms ease, transform 150ms ease; }
+.btn:hover { border-color: rgba(56,189,248,0.6); background: #1f293d; }
+.btn:active { transform: scale(0.97); }
+::selection { background: rgba(56,189,248,0.35); }

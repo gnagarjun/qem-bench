@@ -1,0 +1,32 @@
+{
+  "aggregated_from": [
+    {
+      "run": "pilot_20261119T034457Z_4b7d0bd7351ab767",
+      "raw_files": {
+        "pilot_aer__bell_cx__high.parquet": "2d272f946ef2f02bb863a75d68d1062730542077417d99950a8f6457b43b4f36",
+        "pilot_aer__bell_cx__moderate.parquet": "01d67205143b5602eb17c6f04bfa6bc39e24ff4ae8781c5f1c4c266da9b61776",
+        "pilot_aer__ghz_4__high.parquet": "c627b96bf654eab4d6d518cdabc30c0a7de3b5974813088b4f74b09074439e14",
+        "pilot_aer__ghz_4__moderate.parquet": "d930e54101e60a8bcb3ca60a06c7d306d1bf751af93bb8c8e528b962c5ad8027",
+        "pilot_aer__qaoa_n4_p1__high.parquet": "690bd3d131cfdacc9b882dd0e3bcc8047e9e715c8aa63cbafa37cb538be8fecd",
+        "pilot_aer__qaoa_n4_p1__moderate.parquet": "a781d7e0226ecd19914af5af014172b99796c08a160706068d6d7bdfdc1cccae",
+        "pilot_exact__bell_cx__high.parquet": "f4fc91603d3b20676897b8b531957fac0e1e599d3b5d691aac29738c253f1556",
+        "pilot_exact__bell_cx__moderate.parquet": "a47e8876a543fd918ac7dceef6b4dd2827912094f5ed0e3c49029d11bc8446fc",
+        "pilot_exact__ghz_4__high.parquet": "7ca1c75d323baec243f0f7de803df322de8ba4d9899d327e2cf24efa13972671",
+        "pilot_exact__ghz_4__moderate.parquet": "c0c07e648138de69bb70fa450f7ff18cb33a7ca00f0934e2a57a950ee45ffd1c",
+        "pilot_exact__qaoa_n4_p1__high.parquet": "c3ad591e0efc73107bd1092bf65715a0e745ad5473e067d6ec55208d1cdfd7de",
+        "pilot_exact__qaoa_n4_p1__moderate.parquet": "d4aac1d5ef3a0b4b07e0ece676abba1d3fe5251aa5d03516a7a468bd0daa8bc6"
+      }
+    }
+  ],
+  "outputs": {
+    "aggregated.csv": "19ab454ddf9e926a666ef432ec1d1214ac78c693ec75f7b8934a8b0b760dc199",
+    "aggregated.parquet": "b16de50a2d0ce0d00b6ddf4ca93b2492ffe45ea4946a301699fa545b055d2442",
+    "circuits.csv": "0d3d548444e4f6ade424a7e0ba3e389174837ad6a9ff588595064e47f7acb235",
+    "comparisons.csv": "3efd80088a7213c9917b169a3b84f12635f6a95aec6fb68911fccc210fd63878",
+    "comparisons.parquet": "6c26579abf216d387bee78dc4b47c852e64a2b4bd982a3ef5a698cb348ba3a88",
+    "mode_equivalence.csv": "6728d09c452650e5e8d83b314ec73b997b22c80d634322df488059b8f0b2ee3e",
+    "pareto.csv": "8477aab1b86e54fc48a046c382a0cd08365d4058d839836695fd7129e020473a",
+    "timing_study.csv": "e7b2abdf7164d598d04863496dae5bb1018f1a5c0516f7e10174546e678234c6",
+    "zne_points.parquet": "2815340b8469cdbef752d61bec3064af45bf648827ef361b94d7451ac986f863"
+  }
+}

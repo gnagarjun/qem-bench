@@ -1,116 +1,141 @@
-import asyncio
-from contextlib import suppress
-from fastapi import FastAPI, APIRouter, Query
-from dotenv import load_dotenv
-from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
-from pymongo import ASCENDING, DESCENDING, IndexModel
-import os
-import logging
-from pathlib import Path
-from pydantic import BaseModel, Field, ConfigDict
-from typing import List
-import uuid
-from datetime import datetime, timezone
+"""QEM-Bench results viewer API: read-only access to saved, aggregated simulation results."""
 
+import json
+import logging
+import os
+from functools import lru_cache
+from pathlib import Path
+from typing import Optional
+
+import numpy as np
+import pandas as pd
+from dotenv import load_dotenv
+from fastapi import APIRouter, FastAPI, HTTPException, Query
+from fastapi.responses import FileResponse
+from starlette.middleware.cors import CORSMiddleware
 
 ROOT_DIR = Path(__file__).parent
-load_dotenv(ROOT_DIR / '.env')
+load_dotenv(ROOT_DIR / ".env")
+DATA = ROOT_DIR / os.environ["QEM_VIEWER_DATA_DIR"]
 
-# MongoDB connection
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
-
-# One entry per collection: every field a route filters, sorts or dedupes on. Add the index in the same edit as the query.
-INDEXES: dict[str, list[IndexModel]] = {
-    "status_checks": [
-        IndexModel([("id", ASCENDING)], name="id", unique=True),
-        IndexModel([("timestamp", DESCENDING)], name="timestamp_desc"),
-    ],
-}
+app = FastAPI(title="QEM-Bench Results Viewer")
+api = APIRouter(prefix="/api")
+logging.basicConfig(level=logging.INFO)
 
 
-async def ensure_indexes() -> None:
-    for collection, models in INDEXES.items():
-        for model in models:  # one at a time so a bad spec skips only itself
-            try:
-                await db[collection].create_indexes([model])
-            except Exception as exc:  # never block boot on an index; the log line names what to fix
-                logging.getLogger(__name__).error("ensure_indexes(%s.%s): %s", collection, model.document["name"], exc)
-
-# Create the main app without a prefix
-app = FastAPI()
-
-# Create a router with the /api prefix
-api_router = APIRouter(prefix="/api")
+@lru_cache(maxsize=None)
+def table(name: str) -> pd.DataFrame:
+    return pd.read_csv(DATA / f"{name}.csv")
 
 
-# Define Models
-class StatusCheck(BaseModel):
-    model_config = ConfigDict(extra="ignore")  # Ignore MongoDB's _id field
-    
-    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    client_name: str
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+@lru_cache(maxsize=None)
+def blob(name: str) -> dict:
+    return json.loads((DATA / name).read_text())
 
-class StatusCheckCreate(BaseModel):
-    client_name: str
 
-# Add your routes to the router instead of directly to app
-@api_router.get("/")
-async def root():
-    return {"message": "Hello World"}
+def records(df: pd.DataFrame) -> list[dict]:
+    clean = df.replace([np.inf, -np.inf], [1e308, -1e308]).astype(object).where(df.notna(), None)
+    return clean.to_dict(orient="records")
 
-@api_router.post("/status", response_model=StatusCheck)
-async def create_status_check(input: StatusCheckCreate):
-    status_dict = input.model_dump()
-    status_obj = StatusCheck(**status_dict)
-    
-    # Convert to dict and serialize datetime to ISO string for MongoDB
-    doc = status_obj.model_dump()
-    doc['timestamp'] = doc['timestamp'].isoformat()
-    
-    _ = await db.status_checks.insert_one(doc)
-    return status_obj
 
-@api_router.get("/status", response_model=List[StatusCheck])
-async def get_status_checks(limit: int = Query(20, ge=1, le=100)):
-    # Exclude MongoDB's _id field from the query results
-    status_checks = await db.status_checks.find({}, {"_id": 0}).sort("timestamp", -1).limit(limit).to_list(limit)
-    
-    # Convert ISO string timestamps back to datetime objects
-    for check in status_checks:
-        if isinstance(check['timestamp'], str):
-            check['timestamp'] = datetime.fromisoformat(check['timestamp'])
-    
-    return status_checks
+def filt(df: pd.DataFrame, **kw) -> pd.DataFrame:
+    for k, v in kw.items():
+        if v is None or v == "":
+            continue
+        col = df[k]
+        df = df[col == (int(v) if col.dtype.kind in "iu" else float(v) if col.dtype.kind == "f" else v)]
+    return df
 
-# Include the router in the main app
-app.include_router(api_router)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+@api.get("/")
+def root():
+    return {"service": "qem-bench-viewer", "data_available": DATA.exists()}
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
 
-@app.on_event("startup")
-async def start_index_build():
-    app.state.index_task = asyncio.create_task(ensure_indexes())  # background: a big index build must not block boot
+@api.get("/qem/overview")
+def overview():
+    s, p = blob("summary_standard.json"), blob("summary_pilot.json")
+    keys = ["runs", "config_hashes", "schema_version", "n_raw_rows", "n_failed_rows", "n_conditions", "n_tests", "repetitions",
+            "blocks", "hypotheses", "core_method_summary", "eta_categories_A", "max_readout_condition_number",
+            "noise_scaling_max_abs_deviation", "noise_scaling_partial_folding", "all_folds_unitary_preserving"]
+    return {"standard": {k: s.get(k) for k in keys},
+            "pilot": {k: p.get(k) for k in ("runs", "n_raw_rows", "mode_equivalence", "timing_median_total_s_by_method")}}
 
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    app.state.index_task.cancel()  # stop a build still running before its client closes
-    with suppress(asyncio.CancelledError):
-        await app.state.index_task
-    client.close()
+
+@api.get("/qem/filters")
+def filters():
+    a = table("aggregated")
+    return {c: sorted(a[c].dropna().unique().tolist()) for c in
+            ("block", "instance", "noise", "shots_per_circuit", "comparison", "method", "observable", "family")}
+
+
+@api.get("/qem/conditions")
+def conditions(block: Optional[str] = "core", instance: Optional[str] = None, noise: Optional[str] = None,
+               shots_per_circuit: Optional[int] = None, comparison: Optional[str] = None, method: Optional[str] = None,
+               primary_only: bool = True, limit: int = Query(200, le=2000), offset: int = 0):
+    a = filt(table("aggregated"), block=block, instance=instance, noise=noise, shots_per_circuit=shots_per_circuit,
+             comparison=comparison, method=method)
+    if primary_only:
+        a = a[a.primary_observable]
+    return {"total": len(a), "rows": records(a.iloc[offset:offset + limit])}
+
+
+@api.get("/qem/series")
+def series(instance: str, noise: str = "moderate", comparison: str = "A", block: str = "core", observable: Optional[str] = None):
+    a = filt(table("aggregated"), block=block, instance=instance, noise=noise, comparison=comparison)
+    a = a[a.observable == observable] if observable else a[a.primary_observable]
+    if a.empty:
+        raise HTTPException(404, "no data for this selection")
+    cols = ["method", "shots_per_circuit", "rmse", "rmse_ci_lo", "rmse_ci_hi", "total_shots", "bias"]
+    return {"observable": a.observable.iloc[0], "points": records(a[cols].sort_values(["method", "shots_per_circuit"]))}
+
+
+@api.get("/qem/pareto")
+def pareto(instance: str, noise: str = "moderate", block: str = "core"):
+    p = filt(table("pareto"), block=block, instance=instance, noise=noise)
+    p = p[p.primary_observable]
+    if p.empty:
+        raise HTTPException(404, "no data for this selection")
+    return {"observable": p.observable.iloc[0], "points": records(p.sort_values("total_shots"))}
+
+
+@api.get("/qem/tests")
+def tests(block: Optional[str] = "core", instance: Optional[str] = None, noise: Optional[str] = None,
+          shots_per_circuit: Optional[int] = None, comparison: Optional[str] = None, method: Optional[str] = None,
+          reference: Optional[str] = "baseline", outcome: Optional[str] = None, primary_only: bool = True,
+          limit: int = Query(200, le=2000), offset: int = 0):
+    c = filt(table("comparisons"), block=block, instance=instance, noise=noise, shots_per_circuit=shots_per_circuit,
+             comparison=comparison, method=method, reference=reference, outcome=outcome)
+    if primary_only:
+        c = c[c.primary_observable]
+    counts = c.outcome.value_counts().to_dict()
+    return {"total": len(c), "outcome_counts": counts, "rows": records(c.sort_values("q_bh").iloc[offset:offset + limit])}
+
+
+@api.get("/qem/figures")
+def figures():
+    return blob("figures/figures.json")
+
+
+@api.get("/qem/figures/{name}")
+def figure(name: str):
+    path = (DATA / "figures" / name).resolve()
+    if path.parent != (DATA / "figures").resolve() or not path.exists() or path.suffix != ".png":
+        raise HTTPException(404, "figure not found")
+    return FileResponse(path, media_type="image/png")
+
+
+@api.get("/qem/reproducibility")
+def reproducibility():
+    s = blob("summary_standard.json")
+    timing = table("timing_study")
+    return {"environment": s["environment"], "runs": s["runs"], "config_hashes": s["config_hashes"],
+            "schema_version": s["schema_version"], "analysis": s["analysis"], "manifest": blob("manifest_standard.json"),
+            "timing": records(timing[timing.shots_per_circuit == 4096]),
+            "commands": ["uv sync --extra dev", "uv run pytest", "uv run python scripts/run_experiment.py --profile smoke",
+                         "uv run bash scripts/reproduce_all.sh"]}
+
+
+app.include_router(api)
+app.add_middleware(CORSMiddleware, allow_credentials=True, allow_origins=os.environ.get("CORS_ORIGINS", "*").split(","),
+                   allow_methods=["*"], allow_headers=["*"])

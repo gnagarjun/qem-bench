@@ -1,0 +1,200 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,graphicx,hyperref,xcolor}
+\usepackage[numbers,sort&compress]{natbib}
+\graphicspath{{figures/}}
+\newcommand{\fig}[1]{\includegraphics[width=\linewidth]{#1.pdf}}
+
+\title{Resource-Aware Evaluation of Quantum Error Mitigation Techniques\\Under Noisy Circuit Execution}
+\author{Nagarjun Gopalaswamy\\Independent researcher}
+\date{Draft manuscript --- not submitted, not peer reviewed}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Quantum error mitigation (QEM) improves expectation-value estimates from noisy quantum circuits, but it spends extra
+calibration circuits, noise-amplified executions and shots. We ask how readout error mitigation (REM), zero-noise
+extrapolation (ZNE; linear and Richardson) and their combination trade estimation accuracy against statistical uncertainty
+and sampling cost, as circuit depth, noise intensity and measurement budget vary. We built QEM-Bench, an open,
+reproducible harness whose resource ledger counts every executed shot. We evaluated Bell, GHZ (3--8 qubits) and small QAOA
+Max-Cut circuits under phenomenological Qiskit Aer noise at shot budgets from 256 to 16{,}384, with 30 independent
+repetitions per condition and two accounting rules: equal primary shots (A) and equal total budget including calibration (B).
+In 8{,}532 simulated conditions (255{,}960 estimates), REM+ZNE-linear had the lowest median RMSE: $-81\%$ relative to
+baseline under A, where it used $4.3\times$ the shots, and $-68\%$ at equal total budget. REM alone gave $-60\%$ ($-54\%$ under B) for
+$2.3\times$ the shots under A. ZNE alone gave about $-22\%$ ($-19\%$ under B). Under the established shot-normalised improvement
+factor, ZNE alone beat simply spending the extra shots on the baseline in only 10--18\% of conditions. At the smallest budgets with low noise,
+3\% of equal-budget conditions showed no significant benefit from any method, and Richardson ZNE was significantly worse than baseline in 17\% of
+equal-budget conditions at 256 shots. We also found that unweighted partial gate folding can mis-scale noise severely on small
+circuits. All results are simulations with simplified noise, not hardware measurements.
+\end{abstract}
+
+\section{Introduction}
+Noisy intermediate-scale devices suffer gate, decoherence and measurement errors. QEM techniques reduce the bias of
+estimated observables without fault tolerance~\cite{temme2017,li2017,endo2018,cai2023review}, at a sampling cost that is
+unavoidable in general~\cite{takagi2022,quek2024}. Accuracy alone therefore cannot rank techniques: a method that halves the error
+but needs four times the shots may lose to the unmitigated estimator given those same shots. Resource-normalised comparison has
+precedent~\cite{russo2023}. We extend it to readout mitigation and REM+ZNE combinations, using two explicit accounting rules,
+paired statistics with false-discovery-rate control and Pareto analysis.
+
+\paragraph{Research questions.} RQ1: REM benefit versus readout error. RQ2: ZNE versus depth and gate noise. RQ3: whether
+REM+ZNE helps consistently. RQ4: behaviour under constrained shot budgets. RQ5: regions where mitigation costs resources without meaningful
+gain. RQ6: resource-aware ranking.
+
+\paragraph{Contributions (scoped to this simulated study).} (i) An open benchmarking harness with an enforceable
+resource-accounting validator. (ii) A controlled dataset and analysis of four mitigation configurations under equal-shot and
+equal-budget rules. (iii) A dimensionless efficiency metric $\eta$, placed alongside the established improvement factor $\mu$~\cite{russo2023}.
+(iv) A documented noise-scaling pitfall, with its correction. We do not claim to be the first comparison of these techniques.
+
+\section{Related Work}
+ZNE was introduced through Richardson extrapolation of noise-amplified expectation values~\cite{temme2017,li2017} and
+demonstrated on hardware using pulse stretching~\cite{kandala2019}. Digital unitary folding~\cite{giurgica2020} and software frameworks such as
+Mitiq~\cite{larose2022} made ZNE available at the gate level. Exponential extrapolation and PEC with learned noise were
+developed in~\cite{endo2018}, and PEC with sparse Pauli--Lindblad models scales to large processors~\cite{vandenberg2023},
+which also supports large-scale ZNE~\cite{kim2023}. Readout mitigation by detector tomography and matrix inversion~\cite{maciejewski2020} has
+scalable variants~\cite{bravyi2021,nation2021}. Learning-based mitigation includes Clifford data regression~\cite{czarnik2021}.
+Fundamental sampling-cost bounds are given in~\cite{takagi2022,quek2024}, and optimised Richardson node choice and shot allocation in~\cite{krebsbach2022}.
+The closest prior work, Russo et al.~\cite{russo2023}, benchmarks ZNE and PEC across platforms using a shot-normalised
+improvement factor. Reviews~\cite{endo2021,cai2023review} discuss combining techniques and the bias--variance trade-off qualitatively.
+
+\section{Background}
+For an observable $O$ diagonal after basis rotation, the baseline estimator is $\hat\theta=\sum_x\hat p(x)f(x)$, with variance
+$\mathrm{Var}_p[f]/N$. \emph{Readout error} acts as a column-stochastic assignment matrix $A$, giving $p_{\rm meas}=Ap$. REM
+estimates $A$ from basis-state calibration circuits and evaluates $\hat\theta=(A^{-T}f)\cdot\hat p$. This estimator is unbiased for the linear functional
+when $A$ is known, but its variance is inflated. \emph{ZNE} measures $E(\lambda)$ at scale factors $\lambda_i$, obtained here by folding
+$G\to G(G^\dagger G)^k$, and extrapolates $E_0=\sum_i\gamma_iE(\lambda_i)$. Linear least squares and Richardson interpolation are both linear in
+the data, so $\mathrm{Var}(E_0)=\sum_i\gamma_i^2\mathrm{Var}(E_i)$. For $\lambda=(1,3,5)$, Richardson gives
+$\gamma=(15/8,-5/4,3/8)$, $\sum\gamma_i^2\approx4.2$. The \emph{sampling overhead} is $O=N^{\rm tot}_{\rm mit}/N^{\rm tot}_{\rm base}$.
+
+\section{Methodology}
+\textbf{Circuits.} Bell ($|\Phi^+\rangle$ via CX or CZ, and a depth-padded variant with two barrier-protected CX--CX pairs), with observables
+$XX, ZZ, YY$. GHZ with $n\in\{3,4,5,6,8\}$, observables $X^{\otimes n}$ and $Z_0Z_{n-1}$. QAOA Max-Cut on seeded connected $G(n,0.5)$ graphs, $n\in\{4,6\}$,
+$p\in\{1,2\}$, with angles optimised noiselessly and then fixed, and the normalised cut $\langle C\rangle/|E|$ as observable. Exact references come from statevector
+simulation, and Max-Cut is solved by brute force. Circuits are transpiled to $\{rz,sx,x,cx\}$ (all-to-all connectivity).
+
+\textbf{Noise.} Phenomenological depolarizing noise on $sx,x$ ($\lambda_1$) and $cx$ ($\lambda_2$), plus independent asymmetric
+readout error ($p_{1|0}=0.8r$, $p_{0|1}=1.2r$). The levels $(\lambda_1,\lambda_2,r)$ are low $(5\!\times\!10^{-4},5\!\times\!10^{-3},5\!\times\!10^{-3})$,
+moderate $(2\!\times\!10^{-3},0.015,0.02)$ and high $(5\!\times\!10^{-3},0.03,0.05)$. Sensitivity sweeps scale gate noise ($0$--$6\times$) or readout
+noise ($0$--$6\times$) around the moderate level. Variants use symmetric readout or add T1/T2 thermal relaxation. These settings are
+experimental design choices, not hardware claims.
+
+\textbf{Mitigation.} REM uses full $2^n$ calibration for $n\le3$ and a tensored two-circuit model otherwise. It applies an unconstrained inverse,
+records the condition number, and fails explicitly above $10^{12}$. ZNE uses global folding with $\lambda=(1,3,5)$ in the core grid, and local folding,
+$(1,2,3)$ and $(1,3,5,7)$ in a design block. Partial folds are chosen by error-weighted gate selection, and extrapolation uses the
+\emph{measured} error-mass scale $\lambda_{\rm eff}$. REM+ZNE shares one calibration and corrects every scale point before extrapolating, since
+measurements are not folded.
+
+\textbf{Resource accounting.} With $N$ shots per circuit, $S$ settings, $K$ scales and $M$ calibration circuits: under comparison A the baseline spends
+$NS$, REM $NS+MN$, ZNE $NSK$ and REM+ZNE $NSK+MN$. Under comparison B every method spends at most $T=NS$. REM gives 20\% of $T$ to calibration,
+and ZNE allocates shots in proportion to $|\gamma_i|$~\cite{krebsbach2022}. A validator checks these identities on every dataset row.
+
+\textbf{Metrics and statistics.} Bias, variance, MSE, RMSE and MAE, with 95\% percentile-bootstrap CIs~\cite{efron1993} (2000 resamples) and 30
+repetitions per condition, using independent \texttt{SeedSequence} streams. Methods are compared by two-sided Wilcoxon signed-rank tests on
+paired absolute errors (common random numbers under A; paired by repetition under B), with the rank-biserial effect size, paired-bootstrap
+CIs of $\Delta$MSE and Benjamini--Hochberg control~\cite{bh1995} over all 12{,}798 tests (Holm~\cite{holm1979} also reported). We say ``practical''
+for $|\Delta\mathrm{RMSE}|\ge10\%$. The efficiency metric is
+\begin{equation}
+\eta=\frac{(E_b-E_m)/E_b}{(C_m-C_b)/C_b},
+\end{equation}
+with $E$ the RMSE and $C$ the total shots. It is dimensionless, and edge cases ($\Delta C\le0$, $E_b=0$) are labelled explicitly. We also report $\mu=(E_b/E_m)/\sqrt{C_m/C_b}$~\cite{russo2023}.
+Note that $\mu>1$ is algebraically equivalent to a work-normalised MSE ratio below 1. The pre-specified decision rules for H1--H5 are in the supplement.
+
+\section{Experimental Setup}
+Python 3.11.18, Qiskit 2.2.3, Qiskit Aer 0.17.2, NumPy 2.4.6, SciPy 1.17.1, pandas 3.1.1, running on a 4-core aarch64 Linux container.
+Root seed 20260601, transpiler optimisation level 1. Sampling in the standard run is \emph{exact-distribution}: Aer density-matrix simulation plus the exact readout channel,
+followed by multinomial sampling. A pilot (3 instances, 2 noise levels, $N\in\{1024,4096\}$, 30 repetitions) compared this mode with
+per-shot Aer sampling over 288 conditions. No mean difference was significant after FDR correction (4.9\% raw $p<0.05$, consistent with the nominal 5\%), and
+1 of 288 variance tests was significant. The pilot also provided the wall-clock timing study (Table~\ref{tab:timing}). The executed
+\texttt{standard} profile is a reduced factorial: a core grid of 12 instances $\times$ 3 levels $\times$ 7 budgets, two sweeps, noise variants and three ZNE-design
+blocks. The \texttt{full} profile is documented but was not executed.
+
+\section{Results}
+\begin{figure}[t]\fig{fig04_method_comparison}\caption{RMSE per instance, moderate noise, $N=4096$. Bars show 95\% bootstrap CIs.}\label{fig:methods}\end{figure}
+\input{tables/core_summary.tex}
+
+\textbf{Overall (RQ3, RQ6).} Table~\ref{tab:core} and Fig.~\ref{fig:methods} summarise the core grid. REM+ZNE-linear had the best mean
+RMSE rank under both A (1.33 of 6) and B (1.58). REM ranked second under B. Under A, REM+ZNE was significantly better than
+\emph{both} of its components in 69\% of conditions; under B, where its budget is split three ways, this fell to 40\% (Fig.~\ref{fig:comb}).
+
+\textbf{Readout mitigation (RQ1, H1).} In the readout sweep, REM's median RMSE reduction grew monotonically from 7\% (no
+readout error) to 89\% ($6\times$ moderate readout error), and it was significantly better than baseline with lower $|$bias$|$ in all 40
+readout-dominated conditions (H1 SUPPORTED). The 7\% gain with \emph{zero} readout error is an artefact: noisy $x$ gates in the
+calibration circuits are attributed to readout, and the partial inversion happens to counteract depolarizing contraction. The REM
+variance was 1.23$\times$ the shot-noise prediction (median), because calibration uncertainty is not included in the analytic error bar.
+
+\textbf{ZNE (RQ2, H2).} Under A, ZNE was significantly better than baseline in 100\% of moderate-noise conditions with $N\ge4096$, but in only
+78\% at $N=256$. Contrary to the noise component of H2, the fraction \emph{rose} with noise level (low 87\%, moderate 98\%, high 99\%), and in the
+gate sweep the relative improvement of Richardson ZNE grew with the gate-noise multiplier for Bell and GHZ-4 (up to $6\times$), saturating at 3--4$\times$ for GHZ-6 and QAOA. In this regime there is more bias to remove,
+and the folded decay stays well resolved. H2 is supported by the pre-specified rule only through its budget component. ZNE left a substantial residual bias
+(median $|$bias$|$ 0.08 versus 0.12 for baseline, moderate noise, $N=16384$), consistent with near-exponential depolarizing decay. Combined with REM,
+the residual bias fell to 0.002--0.005.
+
+\begin{figure}[t]\fig{fig06_shots_vs_rmse}\caption{Shot budget versus RMSE. Top: comparison A. Bottom: comparison B (equal total budget).}\label{fig:shots}\end{figure}
+
+\textbf{Shot budgets (RQ4) and resource normalisation (RQ5, H5).} Fig.~\ref{fig:shots} shows that baseline RMSE plateaus at its bias while mitigated RMSE keeps falling
+with $N$. At equal total budget and $N=256$, Richardson-based methods had \emph{higher} median RMSE than baseline (ZNE-Richardson $+5\%$,
+REM+ZNE-Richardson $+21\%$), and ZNE-Richardson was significantly worse in 17\% of those conditions. Across the core grid, 3.3\% of equal-budget
+conditions (all low noise, $N\le1024$) showed no significant benefit from any method (H5 SUPPORTED in its weak form). No condition had every method
+significantly worse. Under the shot-normalised factor $\mu$, ZNE-linear exceeded 1 in only 10\% of comparison-A conditions (Richardson 18\%), versus 84\% for REM and
+89\% for REM+ZNE-linear. In other words, by this criterion ZNE alone was usually less efficient than spending the extra shots on the
+baseline, even though its accuracy gain was statistically significant. The median $\eta$ was 0.46 for REM, 0.24 for REM+ZNE-linear and 0.11 for ZNE (Fig.~\ref{fig:eff}).
+Baseline points made up 16\% of the core Pareto frontier, all at the smallest shot totals; REM+ZNE-linear made up 48\% (Fig.~\ref{fig:pareto}).
+
+\begin{figure}[t]\fig{fig08_efficiency_heatmap}\caption{Efficiency $\eta$ (comparison A, clipped) and RMSE reduction at equal budget (comparison B).}\label{fig:eff}\end{figure}
+\begin{figure}[t]\fig{fig09_pareto_frontier}\caption{Pareto frontiers (RMSE versus total shots) across methods and budgets.}\label{fig:pareto}\end{figure}
+
+\textbf{Depth (H4).} The pre-specified pooled test found no positive correlation between two-qubit gate count and baseline $|$bias$|$
+(Spearman $\rho=-0.25$ to $-0.42$, $p>0.16$; H4 NOT SUPPORTED). The test design pooled observables with different bias scales: QAOA's
+normalised cut tends towards 0.5 under depolarizing noise, so its absolute bias is small despite deep circuits. An exploratory within-family
+analysis found perfectly monotone growth for GHZ ($\rho=1$ at every level), and state fidelity fell from 0.99 (Bell) to 0.61 (QAOA $n=6,p=2$) at moderate
+noise (Fig.~\ref{fig:depth}). Because this analysis is post hoc, it does not change the verdict.
+
+\begin{figure}[t]\fig{fig02_depth_vs_error}\caption{Two-qubit gate count versus RMSE (comparison A, $N=16384$).}\label{fig:depth}\end{figure}
+\begin{figure}[t]\fig{fig12_combined_vs_individual}\caption{Combined mitigation versus the better individual method.}\label{fig:comb}\end{figure}
+
+\textbf{ZNE design and noise scaling.} With unweighted gate-count partial folding (as in common digital-ZNE practice), our validation
+measured $\lambda_{\rm eff}=1.18$ and $2.93$ for nominal $\lambda=2$ on GHZ-4, because the virtual $rz$ gates and the $sx$/$cx$ imbalance distort the count.
+Error-weighted selection reduced the range to $[2.00,2.05]$ across the design block, and extrapolation uses the measured values (a regression test guards this).
+Odd-integer folding scaled the error mass exactly (maximum deviation $2\times10^{-14}$) and preserved the unitary in every case. Median ZNE gains were similar across
+designs (Fig.~\ref{fig:zne}). Adding the node $\lambda=7$ reduced the linear-fit gain (16\% versus 21\%), consistent with curvature in the decay.
+
+\begin{figure}[t]\fig{fig11_zne_scale_factor}\caption{Expectation values versus scale factor, and ZNE design comparison.}\label{fig:zne}\end{figure}
+
+\textbf{Families and noise variants.} \input{tables/family_summary.tex} REM helped QAOA least (median $-32\%$ versus $-75\%$ for Bell under A), because the normalised cut is
+less sensitive to readout flips. ZNE helped QAOA most. Results under symmetric readout and T1/T2 relaxation were qualitatively unchanged (supplement).
+\textbf{Timing.} In per-shot Aer sampling, mitigation multiplied wall-clock time by about 2.6 (REM), 3.6 (ZNE) and 5.2 (REM+ZNE) relative to baseline
+(median, Table~\ref{tab:timing}). The classical post-processing time was below 1 ms. These timings are machine-specific.
+\input{tables/timing.tex}
+
+\section{Discussion}
+In this simulated regime, the readout error contributed a large and easily removable share of the bias, so REM gave the best
+efficiency per extra shot, and REM+ZNE the best accuracy. ZNE removed part of the gate-induced bias, but its variance amplification
+($\sum\gamma_i^2\approx4.2$ for Richardson) and residual extrapolation bias meant that, after normalising for shots, it seldom paid off on its own.
+This is consistent with the theoretical cost of mitigation~\cite{takagi2022,cai2023review}, and with the platform-dependent ZNE results of~\cite{russo2023}.
+The accounting rule changed the conclusions: comparison A overstates the benefit of ZNE and of the combination relative to an
+equal-budget view, and the most budget-sensitive configurations were the Richardson-based ones. Our efficiency metric $\eta$ and the established $\mu$
+rank methods similarly, but they answer different questions. $\eta$ measures relative accuracy gained per relative extra cost. $\mu$ asks whether mitigation beats
+spending the same shots on the baseline, and it implicitly assumes that baseline error falls as $1/\sqrt N$, which fails when the baseline is bias-dominated.
+
+\section{Threats to Validity}
+(1) \emph{Simulator and noise model:} depolarizing plus uncorrelated readout noise is favourable to tensored REM and to folding-based
+ZNE (gate noise scales exactly with folding). Coherent, correlated, non-Markovian and drifting noise is absent. (2) \emph{Scale:} at most 8 qubits and
+no routing, far from the asymptotic regime of~\cite{quek2024}. (3) \emph{Statistics:} 30 repetitions per condition, and
+bootstrap CIs can be slightly anti-conservative (empirical coverage lay within the 0.90--0.98 acceptance band of our synthetic test). Conditions share instances, so tests are not
+independent, although BH remains valid under positive dependence. (4) \emph{Extrapolation choices:} the scale sets, linear and Richardson
+models only (no exponential fit), and a fixed calibration fraction of 20\%. (5) \emph{Accounting definitions:} conclusions under comparison B depend on
+the calibration fraction and allocation rule. (6) \emph{Hypothesis rules} were fixed by the author without external review, and the H4 rule was poorly
+designed (pooled observables). (7) \emph{Generalisation to hardware} is not established: no hardware experiments were run.
+
+\section{Conclusion}
+Under controlled simulated noise, REM and REM+ZNE reduced estimation error substantially and robustly, even at equal total budget,
+whereas ZNE alone yielded statistically significant but resource-inefficient gains, and Richardson variants could be worse than no
+mitigation at small budgets. Future work includes the \texttt{full} profile, correlated readout noise with M3~\cite{nation2021},
+exponential and optimised-node extrapolation~\cite{krebsbach2022}, PEC and CDR, coupling-map-aware compilation, and hardware validation.
+
+\paragraph{Data and code availability.} All code, configurations, raw data manifests and figure scripts are in the QEM-Bench repository
+(MIT license). Figures and tables are regenerated from saved data by \texttt{scripts/reproduce\_all.sh}.
+
+\bibliographystyle{unsrtnat}
+\bibliography{references}
+\end{document}

@@ -1,0 +1,14 @@
+instances:
+  bell_cx:      {family: bell, params: {variant: cx, padding: 0}}
+  bell_cz:      {family: bell, params: {variant: cz, padding: 0}}
+  bell_cx_pad2: {family: bell, params: {variant: cx, padding: 2}}
+  bell_cx_pad4: {family: bell, params: {variant: cx, padding: 4}}
+  ghz_3: {family: ghz, params: {n_qubits: 3}}
+  ghz_4: {family: ghz, params: {n_qubits: 4}}
+  ghz_5: {family: ghz, params: {n_qubits: 5}}
+  ghz_6: {family: ghz, params: {n_qubits: 6}}
+  ghz_8: {family: ghz, params: {n_qubits: 8}}
+  qaoa_n4_p1: {family: qaoa, params: {n_qubits: 4, p: 1, edge_prob: 0.5, graph_seed: 7}}
+  qaoa_n4_p2: {family: qaoa, params: {n_qubits: 4, p: 2, edge_prob: 0.5, graph_seed: 7}}
+  qaoa_n6_p1: {family: qaoa, params: {n_qubits: 6, p: 1, edge_prob: 0.5, graph_seed: 11}}
+  qaoa_n6_p2: {family: qaoa, params: {n_qubits: 6, p: 2, edge_prob: 0.5, graph_seed: 11}}

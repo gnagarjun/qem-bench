@@ -1,0 +1,190 @@
+{
+  "run_id": "pilot_20261119T034457Z_4b7d0bd7351ab767",
+  "profile": "pilot",
+  "config_hash": "4b7d0bd7351ab767",
+  "schema_version": "1.0.0",
+  "completed_utc": "2026-11-19T03:45:57.878094+00:00",
+  "wall_clock_s_this_invocation": 60.653376074973494,
+  "files": [
+    {
+      "path": "circuits/pilot_aer__bell_cx__high.parquet",
+      "sha256": "965cfc036d12fa7abecd48c47fcbaaa80b7d31fbcd034a739ff9e4d3af52cf23",
+      "rows": 9
+    },
+    {
+      "path": "circuits/pilot_aer__bell_cx__moderate.parquet",
+      "sha256": "069c1280c3a6f7e2a22094a60381b27b05f5a01dd88602eb0295c1a8f7f60465",
+      "rows": 9
+    },
+    {
+      "path": "circuits/pilot_aer__ghz_4__high.parquet",
+      "sha256": "4ced1ecc48693b52ec90945c7e565a5dcd5650df4f49c46c5dfda9170de0811c",
+      "rows": 6
+    },
+    {
+      "path": "circuits/pilot_aer__ghz_4__moderate.parquet",
+      "sha256": "904d76a5dc26deaa64c407304f2a4ea0ae7739bf6e124cfe64e2fcbd819d95ae",
+      "rows": 6
+    },
+    {
+      "path": "circuits/pilot_aer__qaoa_n4_p1__high.parquet",
+      "sha256": "cdc3a4473a17c8308f5590c7e90145ccaa600785d978427c12f5b10055756bb3",
+      "rows": 3
+    },
+    {
+      "path": "circuits/pilot_aer__qaoa_n4_p1__moderate.parquet",
+      "sha256": "27e4b0832a8ccb483c8d18a9d2e57ef932c095340f55e8be7adb792ecd98b695",
+      "rows": 3
+    },
+    {
+      "path": "circuits/pilot_exact__bell_cx__high.parquet",
+      "sha256": "5fb447073221c858c5d827c582a06d87406ca3ebb63be8d16e107d571e7691c1",
+      "rows": 9
+    },
+    {
+      "path": "circuits/pilot_exact__bell_cx__moderate.parquet",
+      "sha256": "1e4f1ef88d0fe9bd14ae1615a1927c1fc0dd265398c642890cdfdc8ad35045a4",
+      "rows": 9
+    },
+    {
+      "path": "circuits/pilot_exact__ghz_4__high.parquet",
+      "sha256": "a2d5abf9698b02ddb382b2077a7efa1ab2aba07037b64f5ff9f9af44fdab47bf",
+      "rows": 6
+    },
+    {
+      "path": "circuits/pilot_exact__ghz_4__moderate.parquet",
+      "sha256": "85eff5267607eeadc3e27c1654557f31f33d7a4a09b6cbceac518024812ddd25",
+      "rows": 6
+    },
+    {
+      "path": "circuits/pilot_exact__qaoa_n4_p1__high.parquet",
+      "sha256": "be2e095ce02d51a75f2b780dc27f2131b1eace8a663a6c0cafa7397b692d9906",
+      "rows": 3
+    },
+    {
+      "path": "circuits/pilot_exact__qaoa_n4_p1__moderate.parquet",
+      "sha256": "46342b7bdedcf314f2e3ae8096a6dca203fb796a83e0d9639a9139d4612e46af",
+      "rows": 3
+    },
+    {
+      "path": "raw/pilot_aer__bell_cx__high.parquet",
+      "sha256": "2d272f946ef2f02bb863a75d68d1062730542077417d99950a8f6457b43b4f36",
+      "rows": 2160
+    },
+    {
+      "path": "raw/pilot_aer__bell_cx__moderate.parquet",
+      "sha256": "01d67205143b5602eb17c6f04bfa6bc39e24ff4ae8781c5f1c4c266da9b61776",
+      "rows": 2160
+    },
+    {
+      "path": "raw/pilot_aer__ghz_4__high.parquet",
+      "sha256": "c627b96bf654eab4d6d518cdabc30c0a7de3b5974813088b4f74b09074439e14",
+      "rows": 1440
+    },
+    {
+      "path": "raw/pilot_aer__ghz_4__moderate.parquet",
+      "sha256": "d930e54101e60a8bcb3ca60a06c7d306d1bf751af93bb8c8e528b962c5ad8027",
+      "rows": 1440
+    },
+    {
+      "path": "raw/pilot_aer__qaoa_n4_p1__high.parquet",
+      "sha256": "690bd3d131cfdacc9b882dd0e3bcc8047e9e715c8aa63cbafa37cb538be8fecd",
+      "rows": 720
+    },
+    {
+      "path": "raw/pilot_aer__qaoa_n4_p1__moderate.parquet",
+      "sha256": "a781d7e0226ecd19914af5af014172b99796c08a160706068d6d7bdfdc1cccae",
+      "rows": 720
+    },
+    {
+      "path": "raw/pilot_exact__bell_cx__high.parquet",
+      "sha256": "f4fc91603d3b20676897b8b531957fac0e1e599d3b5d691aac29738c253f1556",
+      "rows": 2160
+    },
+    {
+      "path": "raw/pilot_exact__bell_cx__moderate.parquet",
+      "sha256": "a47e8876a543fd918ac7dceef6b4dd2827912094f5ed0e3c49029d11bc8446fc",
+      "rows": 2160
+    },
+    {
+      "path": "raw/pilot_exact__ghz_4__high.parquet",
+      "sha256": "7ca1c75d323baec243f0f7de803df322de8ba4d9899d327e2cf24efa13972671",
+      "rows": 1440
+    },
+    {
+      "path": "raw/pilot_exact__ghz_4__moderate.parquet",
+      "sha256": "c0c07e648138de69bb70fa450f7ff18cb33a7ca00f0934e2a57a950ee45ffd1c",
+      "rows": 1440
+    },
+    {
+      "path": "raw/pilot_exact__qaoa_n4_p1__high.parquet",
+      "sha256": "c3ad591e0efc73107bd1092bf65715a0e745ad5473e067d6ec55208d1cdfd7de",
+      "rows": 720
+    },
+    {
+      "path": "raw/pilot_exact__qaoa_n4_p1__moderate.parquet",
+      "sha256": "d4aac1d5ef3a0b4b07e0ece676abba1d3fe5251aa5d03516a7a468bd0daa8bc6",
+      "rows": 720
+    },
+    {
+      "path": "zne_points/pilot_aer__bell_cx__high.parquet",
+      "sha256": "28730d25d855eed8750cd9f61f80a51bdc3203e12665125a6da8d9a6737536e0",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/pilot_aer__bell_cx__moderate.parquet",
+      "sha256": "df3a8bee91a972054d02f0bc89027397d963cdfc6f4d3b9786c46377cb7136ee",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/pilot_aer__ghz_4__high.parquet",
+      "sha256": "067ccae62e25a7fe730b2e5ba735a6c92c330f7101a5c0b24d50e0baeb5e2c3b",
+      "rows": 360
+    },
+    {
+      "path": "zne_points/pilot_aer__ghz_4__moderate.parquet",
+      "sha256": "1864c8a3faf389c168caeba6a9996e6674fb960b21300e5669094345b64f237a",
+      "rows": 360
+    },
+    {
+      "path": "zne_points/pilot_aer__qaoa_n4_p1__high.parquet",
+      "sha256": "22a73837614aa7f3dfa435135c09af88a23a692324a61f6b8321ce809b433798",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/pilot_aer__qaoa_n4_p1__moderate.parquet",
+      "sha256": "cc833957cfc6cb088e987e6d174a087203b9e7ad1e325cefbebeb23c5c07c560",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/pilot_exact__bell_cx__high.parquet",
+      "sha256": "2d288b101f36d02445c665d3019fbe01562f2175c08b99b6644542bdc1a24ac8",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/pilot_exact__bell_cx__moderate.parquet",
+      "sha256": "d6a7903e3c3843031a988d07c466f49335d2db25e91a8b763496ef86b5813c75",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/pilot_exact__ghz_4__high.parquet",
+      "sha256": "fa91bcd0012c3d418ffcf5502842aef5be8c993959f15b717777ee3496fd14c6",
+      "rows": 360
+    },
+    {
+      "path": "zne_points/pilot_exact__ghz_4__moderate.parquet",
+      "sha256": "dc672016521bb228ec93a784d975bc88c2b9a30d6892559617b0d206fd4bc253",
+      "rows": 360
+    },
+    {
+      "path": "zne_points/pilot_exact__qaoa_n4_p1__high.parquet",
+      "sha256": "3caa30f4f6532522d00c3ad1b0170a238e18e6ed449c0f61e5506def9dbeccb0",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/pilot_exact__qaoa_n4_p1__moderate.parquet",
+      "sha256": "88ac383de464b3509cd22fb08479e5f8111925c5efd766d69c979b1417377596",
+      "rows": 180
+    }
+  ]
+}

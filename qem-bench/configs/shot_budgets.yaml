@@ -1,0 +1,7 @@
+# Shots per circuit execution (N). Totals per condition are derived, see docs/methodology.md.
+budgets:
+  all: [256, 512, 1024, 2048, 4096, 8192, 16384]
+  pilot: [1024, 4096]
+  smoke: [256, 1024]
+  sweep: [4096]
+  zne_design: [1024, 4096, 16384]

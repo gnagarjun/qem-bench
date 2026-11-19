@@ -1,0 +1,16 @@
+site_name: QEM-Bench
+repo_name: qem-bench
+theme: {name: material}
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Methodology: methodology.md
+  - Architecture: architecture.md
+  - Reproducibility: reproducibility.md
+  - Research:
+      - Literature review: research/literature_review.md
+      - Research gap: research/research_gap.md
+      - Hypotheses: research/hypotheses.md
+  - API: api/index.md
+plugins:
+  - search

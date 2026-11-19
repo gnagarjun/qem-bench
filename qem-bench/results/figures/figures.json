@@ -1,0 +1,86 @@
+[
+  {
+    "id": "fig01_architecture",
+    "png": "fig01_architecture.png",
+    "pdf": "fig01_architecture.pdf",
+    "caption": "QEM-Bench pipeline: configuration, circuits, noise, execution, mitigation, accounting, analysis.",
+    "source": "results/aggregated/standard"
+  },
+  {
+    "id": "fig02_depth_vs_error",
+    "png": "fig02_depth_vs_error.png",
+    "pdf": "fig02_depth_vs_error.pdf",
+    "caption": "Two-qubit gate count vs RMSE of the primary observable (core grid, comparison A, N=16384).",
+    "source": "results/aggregated/standard"
+  },
+  {
+    "id": "fig03_noise_vs_error",
+    "png": "fig03_noise_vs_error.png",
+    "pdf": "fig03_noise_vs_error.pdf",
+    "caption": "Sensitivity sweeps: gate-noise (top) and readout-noise (bottom) multipliers vs RMSE.",
+    "source": "results/aggregated/standard"
+  },
+  {
+    "id": "fig04_method_comparison",
+    "png": "fig04_method_comparison.png",
+    "pdf": "fig04_method_comparison.pdf",
+    "caption": "RMSE of all methods per instance at moderate noise, N=4096, comparisons A and B.",
+    "source": "results/aggregated/standard"
+  },
+  {
+    "id": "fig05_overhead_vs_improvement",
+    "png": "fig05_overhead_vs_improvement.png",
+    "pdf": "fig05_overhead_vs_improvement.pdf",
+    "caption": "Sampling overhead vs RMSE reduction relative to baseline (comparison A).",
+    "source": "results/aggregated/standard"
+  },
+  {
+    "id": "fig06_shots_vs_rmse",
+    "png": "fig06_shots_vs_rmse.png",
+    "pdf": "fig06_shots_vs_rmse.pdf",
+    "caption": "Shots per circuit vs RMSE under equal primary shots (A) and equal total budget (B).",
+    "source": "results/aggregated/standard"
+  },
+  {
+    "id": "fig07_family_comparison",
+    "png": "fig07_family_comparison.png",
+    "pdf": "fig07_family_comparison.pdf",
+    "caption": "Relative RMSE change vs baseline by circuit family (N=4096).",
+    "source": "results/aggregated/standard"
+  },
+  {
+    "id": "fig08_efficiency_heatmap",
+    "png": "fig08_efficiency_heatmap.png",
+    "pdf": "fig08_efficiency_heatmap.pdf",
+    "caption": "Resource efficiency eta (A) and RMSE reduction at equal total budget (B).",
+    "source": "results/aggregated/standard"
+  },
+  {
+    "id": "fig09_pareto_frontier",
+    "png": "fig09_pareto_frontier.png",
+    "pdf": "fig09_pareto_frontier.pdf",
+    "caption": "Pareto frontiers of RMSE vs total shots across methods and shot budgets.",
+    "source": "results/aggregated/standard"
+  },
+  {
+    "id": "fig10_confidence_intervals",
+    "png": "fig10_confidence_intervals.png",
+    "pdf": "fig10_confidence_intervals.pdf",
+    "caption": "Paired bootstrap 95% CIs of MSE differences vs baseline (moderate noise, N=4096).",
+    "source": "results/aggregated/standard"
+  },
+  {
+    "id": "fig11_zne_scale_factor",
+    "png": "fig11_zne_scale_factor.png",
+    "pdf": "fig11_zne_scale_factor.pdf",
+    "caption": "Expectation values vs noise-scale factor with linear/Richardson extrapolation; ZNE designs.",
+    "source": "results/aggregated/standard"
+  },
+  {
+    "id": "fig12_combined_vs_individual",
+    "png": "fig12_combined_vs_individual.png",
+    "pdf": "fig12_combined_vs_individual.pdf",
+    "caption": "Combined mitigation vs the better of its two components, all core conditions.",
+    "source": "results/aggregated/standard"
+  }
+]

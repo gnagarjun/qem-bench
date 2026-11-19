@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use QEM-Bench, please cite the software as below."
+title: "QEM-Bench: A Resource-Aware Benchmarking Framework for Quantum Error Mitigation Under Noisy Circuit Execution"
+version: 0.1.0
+date-released: 2026-06-01
+license: MIT
+type: software
+authors:
+  - family-names: Gopalaswamy
+    given-names: Nagarjun
+    affiliation: Independent researcher
+keywords: [quantum error mitigation, zero-noise extrapolation, readout error mitigation, benchmarking, qiskit]
+preferred-citation:
+  type: unpublished
+  title: "Resource-Aware Evaluation of Quantum Error Mitigation Techniques Under Noisy Circuit Execution"
+  authors:
+    - family-names: Gopalaswamy
+      given-names: Nagarjun
+      affiliation: Independent researcher
+  year: 2026
+  notes: "Draft manuscript; not peer reviewed."

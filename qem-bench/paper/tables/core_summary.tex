@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering
+\small
+\caption{Core grid: median relative RMSE change versus baseline, fraction of conditions significantly better/worse (BH $q<0.05$) and median sampling overhead.}
+\label{tab:core}
+\begin{tabular}{llllll}
+\toprule
+comparison & method & median\_rel\_rmse\_change & frac\_better & frac\_worse & sampling\_overhead \\
+\midrule
+A & combined\_linear & -0.806 & 0.99 & 0 & 4.33 \\
+A & combined\_richardson & -0.738 & 0.938 & 0.00621 & 4.33 \\
+A & readout & -0.597 & 1 & 0 & 2.33 \\
+A & zne\_linear & -0.222 & 0.99 & 0 & 3 \\
+A & zne\_richardson & -0.223 & 0.905 & 0.0145 & 3 \\
+B & combined\_linear & -0.681 & 0.932 & 0.00207 & 0.999 \\
+B & combined\_richardson & -0.553 & 0.797 & 0.0393 & 1 \\
+B & readout & -0.536 & 0.957 & 0 & 1 \\
+B & zne\_linear & -0.195 & 0.876 & 0.00207 & 1 \\
+B & zne\_richardson & -0.188 & 0.739 & 0.0393 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}

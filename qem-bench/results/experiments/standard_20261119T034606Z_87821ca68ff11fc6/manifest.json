@@ -1,0 +1,1780 @@
+{
+  "run_id": "standard_20261119T034606Z_87821ca68ff11fc6",
+  "profile": "standard",
+  "config_hash": "87821ca68ff11fc6",
+  "schema_version": "1.0.0",
+  "completed_utc": "2026-11-19T03:47:29.163332+00:00",
+  "wall_clock_s_this_invocation": 80.8715816870099,
+  "files": [
+    {
+      "path": "circuits/core__bell_cx__high.parquet",
+      "sha256": "6fede4c9e242ef8f6716cdd9e1e8ee06eb15fc4fdc159a9f1957f2356ed28208",
+      "rows": 9
+    },
+    {
+      "path": "circuits/core__bell_cx__low.parquet",
+      "sha256": "885bd4b8d9eb805583a3d50fd6254136b0c41680275827bd236d7ca2be80b5bb",
+      "rows": 9
+    },
+    {
+      "path": "circuits/core__bell_cx__moderate.parquet",
+      "sha256": "95b6133f4f9e01491020cf1d97958b7dcf9ec17a8b4c180f34e2feaf15e67ee3",
+      "rows": 9
+    },
+    {
+      "path": "circuits/core__bell_cx_pad2__high.parquet",
+      "sha256": "8d86beaaa50925fcb37e351a82a381559baeb3bfce7900baf7488dcc229e9cf9",
+      "rows": 9
+    },
+    {
+      "path": "circuits/core__bell_cx_pad2__low.parquet",
+      "sha256": "6b739e45eea08e9c53a74c64e25be1305fb297e97bb66954090afce00213d391",
+      "rows": 9
+    },
+    {
+      "path": "circuits/core__bell_cx_pad2__moderate.parquet",
+      "sha256": "4bd755baa2e57b103a5722592fad1327a1d9b45782fe9d6fba889c21249d0eea",
+      "rows": 9
+    },
+    {
+      "path": "circuits/core__bell_cz__high.parquet",
+      "sha256": "a1521366cc0c986527411bc9f025a73bb0db9c50f0bad20422466bea4b17ea60",
+      "rows": 9
+    },
+    {
+      "path": "circuits/core__bell_cz__low.parquet",
+      "sha256": "51a807ba35acbf467c5437c08ad7bb9e9cdb99e47fc61e480ebe6810fc7aa3f6",
+      "rows": 9
+    },
+    {
+      "path": "circuits/core__bell_cz__moderate.parquet",
+      "sha256": "2f357f928a516c6f7933dc7ba711190cf0746465399e334c42cdfd3e32d76e99",
+      "rows": 9
+    },
+    {
+      "path": "circuits/core__ghz_3__high.parquet",
+      "sha256": "a17151998e3625a4a108418a95d8515b78c45792abb10af611f1d3ff7258059c",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_3__low.parquet",
+      "sha256": "6b36f88278bc69284caba3d6d1b74dc1d5f03d375f0e1cb1c9f5784db17cde48",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_3__moderate.parquet",
+      "sha256": "55557ead6ddb2625b425d27652024827ff43ff7b2a98d310e720f28e84670a15",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_4__high.parquet",
+      "sha256": "b763ace0dcf2cec6c6f3e5315e1cff925d5c3041c847c771360c0abd498e9d10",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_4__low.parquet",
+      "sha256": "57ac478b294a04b86bd89ebc05ff1ae43306fffa4ac94465d77400ac34e423fd",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_4__moderate.parquet",
+      "sha256": "614c797ebe3334fa82c8d7e7b7c83cf5f2a35366255d16ec64acce3ec4734cca",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_5__high.parquet",
+      "sha256": "2c8b9bf052319be2a4c1b45c418f4dcb61d6bbb0a7d62bee6157bea8139cfece",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_5__low.parquet",
+      "sha256": "8adcc0f9c1bfb0fc29c892f93cb553644921a05c6f6443ea84ce6af388114454",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_5__moderate.parquet",
+      "sha256": "0d432cb478c86aaa814b5e62ec55ea6bd34338a8635a87e7d31e8de7d3571757",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_6__high.parquet",
+      "sha256": "89725931e669c8706e2427bd8636a2ce13a865459f4d030b33da7969e0b8e005",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_6__low.parquet",
+      "sha256": "7792ce63d002af92f9a1173b635529ef3683a1a20e4fd0eaf7ec97b02ef89b0e",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_6__moderate.parquet",
+      "sha256": "25619daa548a99e55bd8adc7d20be9dcd8742f9426a4b1435087f37bdf4ad529",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_8__high.parquet",
+      "sha256": "7150c4b5ca2e999b81968d75b6df85306e15eb21d8c55e84d87bf5df4a2cd95b",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_8__low.parquet",
+      "sha256": "76cf68fe2d8faa09c507d8124a9520cc80763e1346a2042489ff20ea693e38a4",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__ghz_8__moderate.parquet",
+      "sha256": "10344d1945471034456e1daa9e4d91b5a353f3bb8d5731437e68be3687575b44",
+      "rows": 6
+    },
+    {
+      "path": "circuits/core__qaoa_n4_p1__high.parquet",
+      "sha256": "bc91d3a8fa731d55994a48a1b0fbb81994be7c4f970d5cb0989153a707d5b775",
+      "rows": 3
+    },
+    {
+      "path": "circuits/core__qaoa_n4_p1__low.parquet",
+      "sha256": "d5670db202d781984021b79174146599a62f4a851820e69ebd9cb808807cc304",
+      "rows": 3
+    },
+    {
+      "path": "circuits/core__qaoa_n4_p1__moderate.parquet",
+      "sha256": "42e846edc4762bd53ed781bd922e9a6d02da9fba2e9af1c936271cfb226be3e8",
+      "rows": 3
+    },
+    {
+      "path": "circuits/core__qaoa_n4_p2__high.parquet",
+      "sha256": "47f89608b6a61533f6f92039fce43ca6047421d7c42b4d6846415e282bd7952b",
+      "rows": 3
+    },
+    {
+      "path": "circuits/core__qaoa_n4_p2__low.parquet",
+      "sha256": "4a31a971e4cf48462a52d00fedde7697b14b436a5e86f8ce181468e273824a24",
+      "rows": 3
+    },
+    {
+      "path": "circuits/core__qaoa_n4_p2__moderate.parquet",
+      "sha256": "357254f2c3fdb5e7b4f09f1feff5922db9e3108bbdf461963339835a4a1698c3",
+      "rows": 3
+    },
+    {
+      "path": "circuits/core__qaoa_n6_p1__high.parquet",
+      "sha256": "1ebf297e08ec328da25cf85d40d95d43938e6df193ac8b9db4ef76cff02e5ff6",
+      "rows": 3
+    },
+    {
+      "path": "circuits/core__qaoa_n6_p1__low.parquet",
+      "sha256": "334bc372b38398c4a0fcb5f3b2729056aded019153bc688864ce302300fd7e9d",
+      "rows": 3
+    },
+    {
+      "path": "circuits/core__qaoa_n6_p1__moderate.parquet",
+      "sha256": "ad7a34214ad6e8ef2ba6b3c47c057a9073d6de04ae9f16e51394c1f886d9aeba",
+      "rows": 3
+    },
+    {
+      "path": "circuits/core__qaoa_n6_p2__high.parquet",
+      "sha256": "2adbe010d24dd731b2df078c935aab2c4e20b98a98024a673e8c71a5b7dbd842",
+      "rows": 3
+    },
+    {
+      "path": "circuits/core__qaoa_n6_p2__low.parquet",
+      "sha256": "7871a79f6f7444db4b856e242d2c65af20f4a66f99d0885a0a69187fd9b8359c",
+      "rows": 3
+    },
+    {
+      "path": "circuits/core__qaoa_n6_p2__moderate.parquet",
+      "sha256": "15a6f24b4cc92eef3f63093a1bc02eb3c82c3799c019ab8ac517a75be6f36d3b",
+      "rows": 3
+    },
+    {
+      "path": "circuits/gate_sweep__bell_cx__g_x0.5.parquet",
+      "sha256": "24873c1d73a82fed6bfa41fbeaffff115aef90a5da449504776dace9360bea0d",
+      "rows": 9
+    },
+    {
+      "path": "circuits/gate_sweep__bell_cx__g_x0.parquet",
+      "sha256": "6c42c240d079f2e157f9ea500a416d2a30a6b182a064f226cafc94905e46217a",
+      "rows": 9
+    },
+    {
+      "path": "circuits/gate_sweep__bell_cx__g_x1.parquet",
+      "sha256": "3309f29fee7da80cc84159cd644c0559811787ea118e9ff64dfd24bdf3a93c41",
+      "rows": 9
+    },
+    {
+      "path": "circuits/gate_sweep__bell_cx__g_x2.parquet",
+      "sha256": "5c3c38873a6f1b0b5d281a546db6957ed6dd7e27eaee5af8bc2e9f157617aca0",
+      "rows": 9
+    },
+    {
+      "path": "circuits/gate_sweep__bell_cx__g_x3.parquet",
+      "sha256": "fad91b3cdcddfad1d8960773a9c773da348541317c5e0bd0f7b89888a6c9aec7",
+      "rows": 9
+    },
+    {
+      "path": "circuits/gate_sweep__bell_cx__g_x4.parquet",
+      "sha256": "772d17c1cbb96e0ce1c5e5087c878ed0c4a4b27cf647109c5376088cef673475",
+      "rows": 9
+    },
+    {
+      "path": "circuits/gate_sweep__bell_cx__g_x6.parquet",
+      "sha256": "3bce31cabdd3b74ba57878c2b030a6206a26aa8de80141d472a7c32e39e9c65f",
+      "rows": 9
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_4__g_x0.5.parquet",
+      "sha256": "f82e30f6cb5f0957b9e33f2a8178fc62ca6984ff1a2f454b788c0fd9c3a8a7f9",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_4__g_x0.parquet",
+      "sha256": "b167be6146418e8c7457e9b467b636c2e749ca6f40ced00b4d64b45d55aa8a82",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_4__g_x1.parquet",
+      "sha256": "682b82e78280359f9bee752eaf279d6669b3fc4284bbb67b2f15e303aa59df27",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_4__g_x2.parquet",
+      "sha256": "1b3e56a35fc349a486ac1e3cbe4c86389c22c91476deb29125790a2b5316a146",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_4__g_x3.parquet",
+      "sha256": "26bb40908d4e47eacfa4e171778ff5d5d1ef85411e6c6be061a4fb910f446a3f",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_4__g_x4.parquet",
+      "sha256": "5290a0888e00b23a36a1685592d24fa55c25126161b75601ffc2601fa4aa6fdd",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_4__g_x6.parquet",
+      "sha256": "bc42c40526dcd4da9de9674875b5ec4fa2f294677d86a779613f49ac80b5cd48",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_6__g_x0.5.parquet",
+      "sha256": "9667478c6a3fbb4fc473cd5c3f1408c3952b07b2033be39ad69a1bf9e829351f",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_6__g_x0.parquet",
+      "sha256": "a5a7bd5bcb4a1b6d7c6ac3188466d0bb290a29763c3329a5c4dec03ebf9dcf81",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_6__g_x1.parquet",
+      "sha256": "694abb103baff9c2b9db9c056b43e9df357a7e88b81bdd310596b3c7a9a281b9",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_6__g_x2.parquet",
+      "sha256": "7867577ceaaba7ca75a43c8cfb6e786516bce890ff3dc725ca017b3d17a321b4",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_6__g_x3.parquet",
+      "sha256": "0311b95c704545773a5987a4970ff60cf54566ba5ab738af6b05b6eb7af07f59",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_6__g_x4.parquet",
+      "sha256": "5bd6fa10e9744b4e79c3b8a753765810ec36e271fade2af126796f3d9695e3f3",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__ghz_6__g_x6.parquet",
+      "sha256": "8c9b1fb53db2fdc4b1df3e3d9bcc539563f8c9eaaa2094bb8238022a134d637e",
+      "rows": 6
+    },
+    {
+      "path": "circuits/gate_sweep__qaoa_n4_p1__g_x0.5.parquet",
+      "sha256": "6c0cea030a8d6e7b834b994c968206ea69320ab0d4775b12b07a224dde7bf7fd",
+      "rows": 3
+    },
+    {
+      "path": "circuits/gate_sweep__qaoa_n4_p1__g_x0.parquet",
+      "sha256": "a7e56d47d6e236764afc22501ee8eceeda335a265125dbffca902c9753ece925",
+      "rows": 3
+    },
+    {
+      "path": "circuits/gate_sweep__qaoa_n4_p1__g_x1.parquet",
+      "sha256": "53fe6f27c1131d19005aa15132598024bc9c31c63632e73980d46dc7134d94ac",
+      "rows": 3
+    },
+    {
+      "path": "circuits/gate_sweep__qaoa_n4_p1__g_x2.parquet",
+      "sha256": "99de14cd6dadbe73175438b703d52a58840004a0d33aaf06d6d8d54b4a273d97",
+      "rows": 3
+    },
+    {
+      "path": "circuits/gate_sweep__qaoa_n4_p1__g_x3.parquet",
+      "sha256": "ada629f93c7c1b637e19b00961ccd9680975ff4730a08bd008d36d74e69f0af1",
+      "rows": 3
+    },
+    {
+      "path": "circuits/gate_sweep__qaoa_n4_p1__g_x4.parquet",
+      "sha256": "3ce1a0845150a20ba78fe0c117f0f19b92293b13c72b85fa4de42b0430985f2c",
+      "rows": 3
+    },
+    {
+      "path": "circuits/gate_sweep__qaoa_n4_p1__g_x6.parquet",
+      "sha256": "02f328e8c8ce5ae5df4658d6e336e63e44c548fe7b9d58a5d2ddd885413b5245",
+      "rows": 3
+    },
+    {
+      "path": "circuits/noise_variants__ghz_4__moderate_symmetric.parquet",
+      "sha256": "8604bd35df420f5537b751782fcd1eb2c91d9652fca0a17e919cf692addcd65c",
+      "rows": 6
+    },
+    {
+      "path": "circuits/noise_variants__ghz_4__moderate_thermal.parquet",
+      "sha256": "e8cee173d7f7527947315e6bed5f658393f644743e103600cbf09ccec7675d7e",
+      "rows": 6
+    },
+    {
+      "path": "circuits/noise_variants__qaoa_n4_p1__moderate_symmetric.parquet",
+      "sha256": "009dabf4819246ee947dacf4cb2e889acdfc33fc3dc918f4d6af78969f34d8a1",
+      "rows": 3
+    },
+    {
+      "path": "circuits/noise_variants__qaoa_n4_p1__moderate_thermal.parquet",
+      "sha256": "792c7b10a149ba9e19f4c113885d791cf6800ea63dd6e0eb91b3e17d170a6b34",
+      "rows": 3
+    },
+    {
+      "path": "circuits/readout_sweep__bell_cx__ro_x0.25.parquet",
+      "sha256": "2d770fa292e32b3515de6267904368919713938308e3b6b8659c2b74a19bc2f4",
+      "rows": 9
+    },
+    {
+      "path": "circuits/readout_sweep__bell_cx__ro_x0.5.parquet",
+      "sha256": "66aa20237b6cf730df10a91448d7a9bd42f04efe62a44936b46fbc4fff7a1220",
+      "rows": 9
+    },
+    {
+      "path": "circuits/readout_sweep__bell_cx__ro_x0.parquet",
+      "sha256": "808886df7449332eb7a6baded637aae40599e14450e6aec06ac48d239fe14f55",
+      "rows": 9
+    },
+    {
+      "path": "circuits/readout_sweep__bell_cx__ro_x1.5.parquet",
+      "sha256": "8f0e214867eba48197d26ab983e4329acf303c09ed51de38a2aceb3f9a06ebac",
+      "rows": 9
+    },
+    {
+      "path": "circuits/readout_sweep__bell_cx__ro_x1.parquet",
+      "sha256": "cfdb6809c9c1f74306c041bd16d03ab0d1a9cf92918e8a4c60062104dc6450e5",
+      "rows": 9
+    },
+    {
+      "path": "circuits/readout_sweep__bell_cx__ro_x2.5.parquet",
+      "sha256": "e3908526ebf191d291d79215ed5d7bc1b247c6d182c7ae764ec9b6c7d7a2c394",
+      "rows": 9
+    },
+    {
+      "path": "circuits/readout_sweep__bell_cx__ro_x4.parquet",
+      "sha256": "bd1186e5010fb209099bbf08de7de4e9b682637ea5fdf0e0a7cdd6919a2df0ee",
+      "rows": 9
+    },
+    {
+      "path": "circuits/readout_sweep__bell_cx__ro_x6.parquet",
+      "sha256": "d68b1c74b398c7c3b6d6a842b3de7c4691354c3f9279e5761150d5b1d3715dd9",
+      "rows": 9
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_4__ro_x0.25.parquet",
+      "sha256": "4418b9067be9fd07de56edbada17444918f897ed7e6fc4d64c8d6f57bfb88898",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_4__ro_x0.5.parquet",
+      "sha256": "5fa5dbd0954ebb94983d1bba2a7227c43c109f6bd08e7193e3f21417c673e580",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_4__ro_x0.parquet",
+      "sha256": "cad021ecc0ba131e811707c2c9802f143b291844ceb0100c190d4f659025eb4c",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_4__ro_x1.5.parquet",
+      "sha256": "13d58bf51752b9d2c7ada9d26cb1f37df131560bf69cc668041e2ea5c3b1a58d",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_4__ro_x1.parquet",
+      "sha256": "28690be54d59005cb1720be98e2c38750da3a3be81c2d7d14b6e850ba877aaf4",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_4__ro_x2.5.parquet",
+      "sha256": "78de9fd2a6bf4ae15216e0d1d51c6cedfd31abd102513e4259276ad231271838",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_4__ro_x4.parquet",
+      "sha256": "8dd1e18a64531b832f2c1da9306ea232403f6ba446cb80dffd6f18040de42851",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_4__ro_x6.parquet",
+      "sha256": "06256cd008ca516867dcf2e85ae8ca0fa91b447f324f98ba8540aa863b1c88cc",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_6__ro_x0.25.parquet",
+      "sha256": "c80dc9c8945af09e99aefd4aa6a11b72d34f95db9b284fdb51edd84606f51f9f",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_6__ro_x0.5.parquet",
+      "sha256": "eeea01d3be2fab28329368ee6bf32483f9afbd41de938668fe58f99ab0f424ea",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_6__ro_x0.parquet",
+      "sha256": "f5a5ca4bbd4b7e1f0687524842e4752eaf39cfd6a5d74c9a04f4b22123ee8d30",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_6__ro_x1.5.parquet",
+      "sha256": "dc8e4d837041a6f529bbeb849cc519aacb021e320bee41c92273b4ca7102bed9",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_6__ro_x1.parquet",
+      "sha256": "cfb6943e436bfd26815f684c769489f9b79b05fbd87e148ea492b44ab3c934ef",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_6__ro_x2.5.parquet",
+      "sha256": "649f57727f8c76a836b0345142c52ea92451987a87de598dbfd90f636cc0d3f6",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_6__ro_x4.parquet",
+      "sha256": "9a1fa16158bf473ea8ba68fb0cf35987cd795a4a2da2c5ad831ddab722308454",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__ghz_6__ro_x6.parquet",
+      "sha256": "624a00fdd250dd036f3e4595293478e74598a70f3cd339b350cee4f255b961ea",
+      "rows": 6
+    },
+    {
+      "path": "circuits/readout_sweep__qaoa_n4_p1__ro_x0.25.parquet",
+      "sha256": "ff9cc4fcbfa6d0aeaa9c1695b8e5da5b89972bd59df90a95e41796cb244a1013",
+      "rows": 3
+    },
+    {
+      "path": "circuits/readout_sweep__qaoa_n4_p1__ro_x0.5.parquet",
+      "sha256": "d4a6788f60c8fca39fa0c9b4e62cc1c02bc43fe76ae2a3c8aafe5af8d95619d9",
+      "rows": 3
+    },
+    {
+      "path": "circuits/readout_sweep__qaoa_n4_p1__ro_x0.parquet",
+      "sha256": "fe968363a22196812f3101d7adfc524c3aef9e23417cb0fcc50340c5c0f9389d",
+      "rows": 3
+    },
+    {
+      "path": "circuits/readout_sweep__qaoa_n4_p1__ro_x1.5.parquet",
+      "sha256": "1ecdb5d28a661712ef04ad0d6559fe788871d0588b1df2a35a4a983902f2ac4a",
+      "rows": 3
+    },
+    {
+      "path": "circuits/readout_sweep__qaoa_n4_p1__ro_x1.parquet",
+      "sha256": "2379afae2a13f1b2a6ad257730eb78f0172dc95ae9afc2d9a4fac912cfda8b31",
+      "rows": 3
+    },
+    {
+      "path": "circuits/readout_sweep__qaoa_n4_p1__ro_x2.5.parquet",
+      "sha256": "c770bd7623bb27d1ae9a5a5612546fc289f65134bfda2e71e83adce1fc64b592",
+      "rows": 3
+    },
+    {
+      "path": "circuits/readout_sweep__qaoa_n4_p1__ro_x4.parquet",
+      "sha256": "c86a17812f19137204b92486968cb6ea63864f66f687252673a8e76889c1c588",
+      "rows": 3
+    },
+    {
+      "path": "circuits/readout_sweep__qaoa_n4_p1__ro_x6.parquet",
+      "sha256": "0f175a762b329bafc766dc7ce3840efd1353d8f8455de7327dae2f6742fd7c48",
+      "rows": 3
+    },
+    {
+      "path": "circuits/zne_global_123__ghz_4__high.parquet",
+      "sha256": "d76d7521b4d620e511e517db031fa13b1d687c15a9f18ed6cf2703aaef67b86e",
+      "rows": 6
+    },
+    {
+      "path": "circuits/zne_global_123__ghz_4__moderate.parquet",
+      "sha256": "698d184949e39a74bd8e802ddd745db87e331980842e8e6c63c695683a0510f8",
+      "rows": 6
+    },
+    {
+      "path": "circuits/zne_global_123__ghz_6__high.parquet",
+      "sha256": "2e0c2057d086df2e55c9d3b82ae701521378e3ebf74c4ccaf7e63b8ec45ea837",
+      "rows": 6
+    },
+    {
+      "path": "circuits/zne_global_123__ghz_6__moderate.parquet",
+      "sha256": "c1c289a3de5a6c64b14ac8363486bab6a942c20c5285a1e2bfb808a9873ec87a",
+      "rows": 6
+    },
+    {
+      "path": "circuits/zne_global_123__qaoa_n4_p1__high.parquet",
+      "sha256": "11e53b36bec2f890b79cc7383ccce66ad965bfe17709cdfac42024bc24c2b502",
+      "rows": 3
+    },
+    {
+      "path": "circuits/zne_global_123__qaoa_n4_p1__moderate.parquet",
+      "sha256": "84271787845b438116e7e1404da91006177986f43e702977acee3140d47f92ef",
+      "rows": 3
+    },
+    {
+      "path": "circuits/zne_global_1357__ghz_4__high.parquet",
+      "sha256": "e222baa10015c995343cd030e9f003464c27ad576e66ea4c79bc959b6d47f98f",
+      "rows": 8
+    },
+    {
+      "path": "circuits/zne_global_1357__ghz_4__moderate.parquet",
+      "sha256": "809168bdfe45ee222142a89902cdeec8fc01717b529f515e8635daf8bf7eaef8",
+      "rows": 8
+    },
+    {
+      "path": "circuits/zne_global_1357__ghz_6__high.parquet",
+      "sha256": "70e4311db1a292d82e949ba7324db067babd029ef1da33d57aad11d99e27534a",
+      "rows": 8
+    },
+    {
+      "path": "circuits/zne_global_1357__ghz_6__moderate.parquet",
+      "sha256": "3bb770935f08cad02c7cf349466961c1b3fea279a1cc7e1772793e6381520131",
+      "rows": 8
+    },
+    {
+      "path": "circuits/zne_global_1357__qaoa_n4_p1__high.parquet",
+      "sha256": "2666821928518fb3f5d7c49e9dc31363d847791b497d9115a7fc46e8e1f70c4d",
+      "rows": 4
+    },
+    {
+      "path": "circuits/zne_global_1357__qaoa_n4_p1__moderate.parquet",
+      "sha256": "d8e86cc282a34161be6b3ad583b30236d67c261324c853f4dfd774684a2f2dc1",
+      "rows": 4
+    },
+    {
+      "path": "circuits/zne_local_135__ghz_4__high.parquet",
+      "sha256": "c25baa0639a24c4488f80a5ac8940cb12de94a10603d490f0ae29ea0631fe192",
+      "rows": 6
+    },
+    {
+      "path": "circuits/zne_local_135__ghz_4__moderate.parquet",
+      "sha256": "31041853d8ecb88093c6104ddc2ef8f0a500b035171b98556546ba89a54f6b7b",
+      "rows": 6
+    },
+    {
+      "path": "circuits/zne_local_135__ghz_6__high.parquet",
+      "sha256": "02697153c214c61f102cb98be4c98bbd7a3c04b2912ae52b145a3d8c99a2d6ed",
+      "rows": 6
+    },
+    {
+      "path": "circuits/zne_local_135__ghz_6__moderate.parquet",
+      "sha256": "3bcc3ec01ec214d6f240bc65055932d0ed4fffdcd82a176d37e7f87acb3d7985",
+      "rows": 6
+    },
+    {
+      "path": "circuits/zne_local_135__qaoa_n4_p1__high.parquet",
+      "sha256": "6ee188445444ff46d54c7b4ddd92e74d45792107fd41a767d570a9207ad7f059",
+      "rows": 3
+    },
+    {
+      "path": "circuits/zne_local_135__qaoa_n4_p1__moderate.parquet",
+      "sha256": "8d6f4d1a89ce53419c1a191f37543401c9e661b31f9d0665321a698851468822",
+      "rows": 3
+    },
+    {
+      "path": "raw/core__bell_cx__high.parquet",
+      "sha256": "907ce0cea098bb11bf738e20af5f7c9eff99a2e0ff1aeb72c27ef515acb87ccf",
+      "rows": 7560
+    },
+    {
+      "path": "raw/core__bell_cx__low.parquet",
+      "sha256": "6ee221016cf81a44ea720560a6a8b75ef204498d0ce2852709602c4491ef7db9",
+      "rows": 7560
+    },
+    {
+      "path": "raw/core__bell_cx__moderate.parquet",
+      "sha256": "fce87ef16f79d6ca83b5fdb7bed0aa91cfef6ec0a0d0323f0e7bf1c030aae610",
+      "rows": 7560
+    },
+    {
+      "path": "raw/core__bell_cx_pad2__high.parquet",
+      "sha256": "fd352b95976096f13de1120fa537c7b39bc7fbf120afc76c0fa4e28324d1057b",
+      "rows": 7560
+    },
+    {
+      "path": "raw/core__bell_cx_pad2__low.parquet",
+      "sha256": "fead954c11fabc6c659203d77d4b0106e6223f80c87c97985d92981ca68b7c56",
+      "rows": 7560
+    },
+    {
+      "path": "raw/core__bell_cx_pad2__moderate.parquet",
+      "sha256": "26e14de5e128ed9d69d7b20e675a4fdf6ed75bcd6ed7837fed5007b130e46135",
+      "rows": 7560
+    },
+    {
+      "path": "raw/core__bell_cz__high.parquet",
+      "sha256": "4a1186fa80e4e22e8f11bfb498ea5dec16b0496c89e9a9569c80576e8dd5b78f",
+      "rows": 7560
+    },
+    {
+      "path": "raw/core__bell_cz__low.parquet",
+      "sha256": "10b28586d4439a4105047266eed95a3bd24641236d7ff4d33aa7e72c927147c4",
+      "rows": 7560
+    },
+    {
+      "path": "raw/core__bell_cz__moderate.parquet",
+      "sha256": "d56c542031636295d6bb8fe342032b465469e05044d2fb5f00ebc8d228a31f9f",
+      "rows": 7560
+    },
+    {
+      "path": "raw/core__ghz_3__high.parquet",
+      "sha256": "5a7b0b38db5eb7a010f8e2f9fb64382882c55cfdf856de2af783d0704130254b",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_3__low.parquet",
+      "sha256": "82749d91e4e29b8292e59e9823c63994a43db89a0ab0dfd5f33d1d014075e13a",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_3__moderate.parquet",
+      "sha256": "ac5c4b42f59b3c560b574b486c3a81c7a07c4143de2a005da689dcdc6eeda5c9",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_4__high.parquet",
+      "sha256": "a913c87d88f1aff6843e37c51074b2e38d2a3ce46adf02c06d65a77e514905a6",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_4__low.parquet",
+      "sha256": "fec6b4e9ddb89b9d98296b8916f6f9476f53a3f573e900edf1f719c1339d0f26",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_4__moderate.parquet",
+      "sha256": "abff4e2f361d2573382889c4001610e6c00135f723743fce08a20025c710ff8d",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_5__high.parquet",
+      "sha256": "7e7b9f7d5f87d6f3b6a7e4aa052fce32213432ecf5beadf41a2827436ff25c65",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_5__low.parquet",
+      "sha256": "5c9f142f5f1a8c3948ffb4e2ef3d6f7881592058b42b0c806ccd3addbe2073d0",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_5__moderate.parquet",
+      "sha256": "5ce63059ee9124645fbaf192d8d2ad9300a29033b9e13a062e291e88f3033d3e",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_6__high.parquet",
+      "sha256": "05189da1dd2ece0a95405839caf021abca4d922a0cbd2bc52e0841ee5e15d177",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_6__low.parquet",
+      "sha256": "133d1ee5ae66dd473ac2c575cb7975917ccd2ef94fbf83b0188b3b932893cb25",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_6__moderate.parquet",
+      "sha256": "7e1083303eb0eacda239dab97d3da8118094db1223e5d7945e5eaa97e2f480ae",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_8__high.parquet",
+      "sha256": "ac724389909b3caa4ea095a1851e2ae6afab01776017571a1665d5f235cfd4a1",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_8__low.parquet",
+      "sha256": "77e461653c95646d761c0df08391fd8075a45f7a8b87981f96f6f62d2ba28328",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__ghz_8__moderate.parquet",
+      "sha256": "5cc522cc9c6a429d582ad45e4c3ad064ce00f94637c71f5403806a4f78f87616",
+      "rows": 5040
+    },
+    {
+      "path": "raw/core__qaoa_n4_p1__high.parquet",
+      "sha256": "0dc5b64405421739352e5e64e98699810efc1303d8ee466926f4a3c772ff299b",
+      "rows": 2520
+    },
+    {
+      "path": "raw/core__qaoa_n4_p1__low.parquet",
+      "sha256": "412ed229de7d457668b7542d8fa4fe10d64a66aac6ca1ce846c9ca98a4b2225f",
+      "rows": 2520
+    },
+    {
+      "path": "raw/core__qaoa_n4_p1__moderate.parquet",
+      "sha256": "32edd74c6c786b62933b1f757ffbb6aa9346eef13e322aca7959269662d1b930",
+      "rows": 2520
+    },
+    {
+      "path": "raw/core__qaoa_n4_p2__high.parquet",
+      "sha256": "0a04c08568115130af42cac3ac02630247b6ef3c8c064ceaf860ab08b30e7332",
+      "rows": 2520
+    },
+    {
+      "path": "raw/core__qaoa_n4_p2__low.parquet",
+      "sha256": "9b34e89d963a2b0d7854435a61b66cd624d252cf5d4ecd4b4f785bddc0d8871d",
+      "rows": 2520
+    },
+    {
+      "path": "raw/core__qaoa_n4_p2__moderate.parquet",
+      "sha256": "6cd464b8b2aa2c4fcbb007683697d6dd5d2479f479b4ff5c73d9ccd61b718dab",
+      "rows": 2520
+    },
+    {
+      "path": "raw/core__qaoa_n6_p1__high.parquet",
+      "sha256": "21dec719af65ff0203e520d8e491ad68342b2b8cd18a2e900c3de8cbe2addf5e",
+      "rows": 2520
+    },
+    {
+      "path": "raw/core__qaoa_n6_p1__low.parquet",
+      "sha256": "09fc250bb89993d398c53de5e07a6614d4fd812fadabd360473e016a95582616",
+      "rows": 2520
+    },
+    {
+      "path": "raw/core__qaoa_n6_p1__moderate.parquet",
+      "sha256": "e2183ce862101ec8ac16f72e99ae29e85cc18e777508805a43f286bcfe727e95",
+      "rows": 2520
+    },
+    {
+      "path": "raw/core__qaoa_n6_p2__high.parquet",
+      "sha256": "3fe6dd25249092dfe9b03a7fac65a4b55f61d4f809c8b1ff86323969184d0a29",
+      "rows": 2520
+    },
+    {
+      "path": "raw/core__qaoa_n6_p2__low.parquet",
+      "sha256": "03b16ae42c3427029602f5c9b62b01c835133681292ca062e1d8101397e827c1",
+      "rows": 2520
+    },
+    {
+      "path": "raw/core__qaoa_n6_p2__moderate.parquet",
+      "sha256": "adab7c4163dd5a27ec964f51f0ecc207fc2238f001fc23eeed92f06c537137f6",
+      "rows": 2520
+    },
+    {
+      "path": "raw/gate_sweep__bell_cx__g_x0.5.parquet",
+      "sha256": "b0de22faf5c649c134a2b666450c6d133a4790dd19e23c6b0020b79e55e10e22",
+      "rows": 1080
+    },
+    {
+      "path": "raw/gate_sweep__bell_cx__g_x0.parquet",
+      "sha256": "dc062b5f78ef8227895c55d49957386832efab3afd9a82c92d5ef44fc03956f2",
+      "rows": 1080
+    },
+    {
+      "path": "raw/gate_sweep__bell_cx__g_x1.parquet",
+      "sha256": "f5c56ee1280b6b49b85906ded8ae26450bc43066c73e4a01474e146ca7d52278",
+      "rows": 1080
+    },
+    {
+      "path": "raw/gate_sweep__bell_cx__g_x2.parquet",
+      "sha256": "645a146c40b7380657685652a60196a53c85a2cab4bb8da01657e5e8101b75ce",
+      "rows": 1080
+    },
+    {
+      "path": "raw/gate_sweep__bell_cx__g_x3.parquet",
+      "sha256": "e7b8f04ce34046674549798eb5349a5c47e68a018a915d7cb97c943df91af198",
+      "rows": 1080
+    },
+    {
+      "path": "raw/gate_sweep__bell_cx__g_x4.parquet",
+      "sha256": "bc2417fcac35fed7c9f8a2267da54c835d1ebcaaf50da0440098b80cfb15c503",
+      "rows": 1080
+    },
+    {
+      "path": "raw/gate_sweep__bell_cx__g_x6.parquet",
+      "sha256": "e22d22338828db34793b3d52a35b77de0109c589627d9f7cb120ea0b7bb508cb",
+      "rows": 1080
+    },
+    {
+      "path": "raw/gate_sweep__ghz_4__g_x0.5.parquet",
+      "sha256": "47d3a4b3eed646a69cab942fd279919ebdee426fdfbb4f8045be2d034b1828a7",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_4__g_x0.parquet",
+      "sha256": "7c636f50fb08b7eeaa103022084c31b1ad709a6c13558d2d20dcc54c0f6d1bc7",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_4__g_x1.parquet",
+      "sha256": "9fd489889a84cea3b31da5001d736e8798cbd613ab902a07162b2c16be83fa55",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_4__g_x2.parquet",
+      "sha256": "a2e5784f7d54924d82931fd18a837c5ca7743b85777972b9a111920f18c6c625",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_4__g_x3.parquet",
+      "sha256": "0f3cd15c14da479006b33e0bb4190aa440e0ad5afb92c653e5a03b4c66c785a5",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_4__g_x4.parquet",
+      "sha256": "6d63c46c804b28f273d79fe7b42f147c5f190eef491e008cf5663d595689357e",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_4__g_x6.parquet",
+      "sha256": "245e88ae5f8caf8e142f7fd08e1281877ee7f4975b25c8f2344e2c858e56f29c",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_6__g_x0.5.parquet",
+      "sha256": "1ec3830520681e3e2eae1f081fbe3dfb78586380f05fc376ea980f449b4cb19e",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_6__g_x0.parquet",
+      "sha256": "dd779acf4f1c042d111d5a1b7a06b58dbad7289a26308f081bb89eb65e5086fb",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_6__g_x1.parquet",
+      "sha256": "d16415e3b396fcc55f86ba58599ac1bd4a21bed9798a3815a7725c003d68d8e5",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_6__g_x2.parquet",
+      "sha256": "33dbe83e862a1c3087a3852439f9bc518614de37b631be087149a516ed7adbe5",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_6__g_x3.parquet",
+      "sha256": "a8bde95d06065a57e85a7b72f750105fe0cd19da34c51c0fd269f55580cefc36",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_6__g_x4.parquet",
+      "sha256": "fe6ba46269876a23741d8706ad2747fdf9e6527e9e9cc96c27db8c30043ae16f",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__ghz_6__g_x6.parquet",
+      "sha256": "16dd972515721029ba8560d2b350e1c28d8e8f1320860e629908265ec6415058",
+      "rows": 720
+    },
+    {
+      "path": "raw/gate_sweep__qaoa_n4_p1__g_x0.5.parquet",
+      "sha256": "6946728d49041cdf9af7fa33de63dd963cee8460546c89fcdf399c1377d2e77b",
+      "rows": 360
+    },
+    {
+      "path": "raw/gate_sweep__qaoa_n4_p1__g_x0.parquet",
+      "sha256": "39dea9b170a073915b6b30fa77c872b8fbfbfdb7a0eec8a25b1529962949b6f9",
+      "rows": 360
+    },
+    {
+      "path": "raw/gate_sweep__qaoa_n4_p1__g_x1.parquet",
+      "sha256": "b50342189270a824a55b8175047b931f307782d421d3a7e9ef50f28993401ee5",
+      "rows": 360
+    },
+    {
+      "path": "raw/gate_sweep__qaoa_n4_p1__g_x2.parquet",
+      "sha256": "c9255a5f702f89933e2e9a0248f45b222b30e25ee662fe90adaedcff68ba1a51",
+      "rows": 360
+    },
+    {
+      "path": "raw/gate_sweep__qaoa_n4_p1__g_x3.parquet",
+      "sha256": "421accb79b454a1cc56a7ae1439c9ed5da4894023d0136fa10db6f5539524c8e",
+      "rows": 360
+    },
+    {
+      "path": "raw/gate_sweep__qaoa_n4_p1__g_x4.parquet",
+      "sha256": "8cf08f9bb5a7887e76ac8d6cd6f501bbd0974f3b6fb06193382918ca20b8a4eb",
+      "rows": 360
+    },
+    {
+      "path": "raw/gate_sweep__qaoa_n4_p1__g_x6.parquet",
+      "sha256": "bc19b4d3e54aa07417f42d796af64faf211defd6c026c740f8d694deead9572b",
+      "rows": 360
+    },
+    {
+      "path": "raw/noise_variants__ghz_4__moderate_symmetric.parquet",
+      "sha256": "fa0a1dc8dcc40fe00314074a5f822aaf35f6d95f631d6ebe479509afcb6233d1",
+      "rows": 2160
+    },
+    {
+      "path": "raw/noise_variants__ghz_4__moderate_thermal.parquet",
+      "sha256": "a9aacf614178543a284e9ef236d15e4feac8907f5135304b6acae944f63474c6",
+      "rows": 2160
+    },
+    {
+      "path": "raw/noise_variants__qaoa_n4_p1__moderate_symmetric.parquet",
+      "sha256": "6e5fe46a1cdcbacd695cf53c2aef105920f30ca5069db48abaf9c07cc8b92359",
+      "rows": 1080
+    },
+    {
+      "path": "raw/noise_variants__qaoa_n4_p1__moderate_thermal.parquet",
+      "sha256": "48157f81c76302ff2ebbb9b2664bdc009df7e8a37ce94d9f5383bb9423517b94",
+      "rows": 1080
+    },
+    {
+      "path": "raw/readout_sweep__bell_cx__ro_x0.25.parquet",
+      "sha256": "04af7553467bfee7f66a26893399fd1087ce3fc31ba7cc6ee0d70ca05dd4f117",
+      "rows": 1080
+    },
+    {
+      "path": "raw/readout_sweep__bell_cx__ro_x0.5.parquet",
+      "sha256": "ff8595c1248dbf58db752ecc3512bd71ba3b2889876dc82a87d70c4bc2112a1c",
+      "rows": 1080
+    },
+    {
+      "path": "raw/readout_sweep__bell_cx__ro_x0.parquet",
+      "sha256": "347fc2ce45aa409246133c3c606ddadc74066ddf7aa9d741cb58ff8fe48e663d",
+      "rows": 1080
+    },
+    {
+      "path": "raw/readout_sweep__bell_cx__ro_x1.5.parquet",
+      "sha256": "8d6d63d407084ae2f82805a4f71ec3c0d573a9d9a08d352e1a089b8d5d9053f4",
+      "rows": 1080
+    },
+    {
+      "path": "raw/readout_sweep__bell_cx__ro_x1.parquet",
+      "sha256": "0b01936c08a90bab7782c42f99942975930a45da3cd99e92631ad19354d9b21d",
+      "rows": 1080
+    },
+    {
+      "path": "raw/readout_sweep__bell_cx__ro_x2.5.parquet",
+      "sha256": "1acff8193f69e773f52a34cffa995455160b01644ffd880e343effdc1f3b3005",
+      "rows": 1080
+    },
+    {
+      "path": "raw/readout_sweep__bell_cx__ro_x4.parquet",
+      "sha256": "02596d792b5c878ede19a69f2a281d2df82150248315677836486ee74cb9977e",
+      "rows": 1080
+    },
+    {
+      "path": "raw/readout_sweep__bell_cx__ro_x6.parquet",
+      "sha256": "386b9b5bcde8b3052b6142a4223e942006fa9b9278f457f9b168a8bf95836e25",
+      "rows": 1080
+    },
+    {
+      "path": "raw/readout_sweep__ghz_4__ro_x0.25.parquet",
+      "sha256": "0e755075445ea0eb07623deee96a68188c9fe15a199ae9857f1640a0f8d9959e",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_4__ro_x0.5.parquet",
+      "sha256": "1e1f2153c796c846569df76ddf07ae58db42a9a26fb5ca2e9c532b6e218b6799",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_4__ro_x0.parquet",
+      "sha256": "9ec9b5d3f91436871dd290ec63be884b96bddd304aca02f5131087c7bb5410a7",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_4__ro_x1.5.parquet",
+      "sha256": "90cd45771f917686233bfc9ca7198634c4c112670181fe4fed523cd20936e8eb",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_4__ro_x1.parquet",
+      "sha256": "7cf26fe2584ac49243f2050a081b0a25d1d503aac4b6003961d956151e18c311",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_4__ro_x2.5.parquet",
+      "sha256": "8c9bf25f29b6a149d380c4875d268d991eb6e35f8e24b9d1cdf07341b0009c5e",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_4__ro_x4.parquet",
+      "sha256": "02ef0e20a130c0bb4d9717dd036d16ae188f9fed67221bdaa16ae2f160c95239",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_4__ro_x6.parquet",
+      "sha256": "713d6aff8db05cdd4c7490dc647206a3414ebabf9fe7eae691533fff25c90baf",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_6__ro_x0.25.parquet",
+      "sha256": "dc69a058cfa5e3d467b101f5215b80986b6d4239eb42883995e5ed178a79dfc8",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_6__ro_x0.5.parquet",
+      "sha256": "c26351f37afceb0cc0e5d2a2a030487788ff2629d74d2b6255c0f32f923e3c85",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_6__ro_x0.parquet",
+      "sha256": "3e80ab660f7d5b76c4b49f2cd9ee42a6cae05c83dc18c0c8ac5ed320f7e793bd",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_6__ro_x1.5.parquet",
+      "sha256": "b519cffca1b49511d8adc9569a202d138eefff579e4bf7056e29efd8ef1c9fde",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_6__ro_x1.parquet",
+      "sha256": "8d5921dabfc20a444b45f4fb2092535a8bdb5807a36efb3a1b28d63f05fc9e7a",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_6__ro_x2.5.parquet",
+      "sha256": "b1d104ee8c55c85745e2d1cdc300847cac380f7ce9ca45651f8bd0704a5baf27",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_6__ro_x4.parquet",
+      "sha256": "d16007eef50a328702c32b550c808082266565d14aaae50c2286809e7639482a",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__ghz_6__ro_x6.parquet",
+      "sha256": "6f4102b84b38ace5f3c733169dbd12444022675db079e3722601e5ef439def2c",
+      "rows": 720
+    },
+    {
+      "path": "raw/readout_sweep__qaoa_n4_p1__ro_x0.25.parquet",
+      "sha256": "ce85c808b009f8be2e4101549da9a2e07eea357f8b6d185d14f2363414936ee1",
+      "rows": 360
+    },
+    {
+      "path": "raw/readout_sweep__qaoa_n4_p1__ro_x0.5.parquet",
+      "sha256": "afd96fd0de283c6c4cc4a823332070c7fab5077d2c579f893d8b3151a50dba3d",
+      "rows": 360
+    },
+    {
+      "path": "raw/readout_sweep__qaoa_n4_p1__ro_x0.parquet",
+      "sha256": "86f2565b0d51db417d7e1a0982cb05403d778302cac3913a970c134e9c0044f3",
+      "rows": 360
+    },
+    {
+      "path": "raw/readout_sweep__qaoa_n4_p1__ro_x1.5.parquet",
+      "sha256": "dda5fd081564424f41181b9d0fdd1402c2593f68d7932f0ed8ec63afd79bf416",
+      "rows": 360
+    },
+    {
+      "path": "raw/readout_sweep__qaoa_n4_p1__ro_x1.parquet",
+      "sha256": "4b1d28a975cecb10f43a04baa4e02a42c7844f2684e9bde7ae0e5c3c4334abab",
+      "rows": 360
+    },
+    {
+      "path": "raw/readout_sweep__qaoa_n4_p1__ro_x2.5.parquet",
+      "sha256": "cfc84df9436de873610132df4987ce75edeaace3054cb0e2fa7e4a4a2f00338b",
+      "rows": 360
+    },
+    {
+      "path": "raw/readout_sweep__qaoa_n4_p1__ro_x4.parquet",
+      "sha256": "c1fcc615023cd3e91c731caa7d627be22ab634fe95eba6ba5a4b1ff28cdc6949",
+      "rows": 360
+    },
+    {
+      "path": "raw/readout_sweep__qaoa_n4_p1__ro_x6.parquet",
+      "sha256": "94efb4863ba9ed581eb93f7621091530c3fbc4122bdbd045382a508a019f2297",
+      "rows": 360
+    },
+    {
+      "path": "raw/zne_global_123__ghz_4__high.parquet",
+      "sha256": "616aef268236469a07c22e06b699701945db6d9b7da36b600ca94cd0cafa4cfb",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_global_123__ghz_4__moderate.parquet",
+      "sha256": "3060119ed007af04951b12f346b7d253e0d617bfa1e3bf8e7fa92a117c7c2960",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_global_123__ghz_6__high.parquet",
+      "sha256": "6303ad956f15b04960346a3787e32b6664364f0b1a381694639b6bd76db25336",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_global_123__ghz_6__moderate.parquet",
+      "sha256": "aa751ff504a2fe0c8216ddb2541bd8769fce1e3038c2f5c542d8765688341ba3",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_global_123__qaoa_n4_p1__high.parquet",
+      "sha256": "45bc067934e3709f9b704e304bd5692a3865058df3f6af0b0b501b699896b697",
+      "rows": 1080
+    },
+    {
+      "path": "raw/zne_global_123__qaoa_n4_p1__moderate.parquet",
+      "sha256": "7b41c2687c389a4bc0dc941d9d77bbd97715d4bc34a6dc378507c4ea26293f17",
+      "rows": 1080
+    },
+    {
+      "path": "raw/zne_global_1357__ghz_4__high.parquet",
+      "sha256": "349e9a8c070e05699d716737d235247d9c9d134c2096135725dd71d4c7a65d6f",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_global_1357__ghz_4__moderate.parquet",
+      "sha256": "a7116ba6786396c45428bf452ed0f2d7be0a3e92689c3c076f3dcccd026e96e2",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_global_1357__ghz_6__high.parquet",
+      "sha256": "d1b2a73664758fc7414c3ed2dffd020ad72d943fdc0b74917e316c2fdee1ae76",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_global_1357__ghz_6__moderate.parquet",
+      "sha256": "3281c44700b3d90af036583d9da3664e48e85a352d12bf9045529aed863cbaff",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_global_1357__qaoa_n4_p1__high.parquet",
+      "sha256": "6b1e0fc6b9529931aa49ca13f5130f4bf2c2fd4c398ffc12f203a45e34b5e3c8",
+      "rows": 1080
+    },
+    {
+      "path": "raw/zne_global_1357__qaoa_n4_p1__moderate.parquet",
+      "sha256": "3f15e5c09a53c55a2a1b06c1d51d37e2660aa093760f53a66f6a917d9ceb4ff8",
+      "rows": 1080
+    },
+    {
+      "path": "raw/zne_local_135__ghz_4__high.parquet",
+      "sha256": "f713ebed8ddbd594a04780fad62d56180f349b39f89dec6bd0d3193550189956",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_local_135__ghz_4__moderate.parquet",
+      "sha256": "0c705833ebbe7a5bc1636325585645bb4bd2a55f83bfdfd2dbc9da5b38029ded",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_local_135__ghz_6__high.parquet",
+      "sha256": "c17a8a603a939a8384a0d30e39a50024a32188f16495faeccb140e275ff7be2f",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_local_135__ghz_6__moderate.parquet",
+      "sha256": "e022a15358c410536865b2551ba765c871c439a1063064af41033b2f3dfa87fa",
+      "rows": 2160
+    },
+    {
+      "path": "raw/zne_local_135__qaoa_n4_p1__high.parquet",
+      "sha256": "9bf5a44c90615fd9f7d4a8e381accfbd2bdcd71f03735bdaabb20a361195ecb4",
+      "rows": 1080
+    },
+    {
+      "path": "raw/zne_local_135__qaoa_n4_p1__moderate.parquet",
+      "sha256": "be59810777ff5f417945f6d09a833c3fc04798c55d8f759f7f431103c6a92ab6",
+      "rows": 1080
+    },
+    {
+      "path": "zne_points/core__bell_cx__high.parquet",
+      "sha256": "6f4e00dc3fdc27ade49f3d492c45d42925141b7083fda5b8abf59d02f755ec18",
+      "rows": 1890
+    },
+    {
+      "path": "zne_points/core__bell_cx__low.parquet",
+      "sha256": "15047b2e4143b265da344b001331953f72ced27e73635f5e2cbba43c38e108e4",
+      "rows": 1890
+    },
+    {
+      "path": "zne_points/core__bell_cx__moderate.parquet",
+      "sha256": "229bd03a20ebc599f6974d131c1da48004c527a4fbf02d07368ff8a5507ea9de",
+      "rows": 1890
+    },
+    {
+      "path": "zne_points/core__bell_cx_pad2__high.parquet",
+      "sha256": "91b0fbd076f34682e725edb0bf568864e7ed6faa0c62a31e233dc8b9cd41e990",
+      "rows": 1890
+    },
+    {
+      "path": "zne_points/core__bell_cx_pad2__low.parquet",
+      "sha256": "4fd91409c8c33eeb22bbfe9602317dbb694522daaf23f2b6efcca539bf2e6cc2",
+      "rows": 1890
+    },
+    {
+      "path": "zne_points/core__bell_cx_pad2__moderate.parquet",
+      "sha256": "1b5d67ff075ec04e540c5b40fe243bd49e0577fbc86cf6bd0a9fdd879a1a29fc",
+      "rows": 1890
+    },
+    {
+      "path": "zne_points/core__bell_cz__high.parquet",
+      "sha256": "d31bbf6b4ffd3921df12a718f9c6bc64b6ab80abfa9667978f070dde2475da32",
+      "rows": 1890
+    },
+    {
+      "path": "zne_points/core__bell_cz__low.parquet",
+      "sha256": "25e62868e1aaea8bb5d2fdc34efec10478d434ffc03aec26d09e934b755c0225",
+      "rows": 1890
+    },
+    {
+      "path": "zne_points/core__bell_cz__moderate.parquet",
+      "sha256": "6c83783450fe8f583bdd33bca50e52230efc061227fae9d9c9ce81fc92826227",
+      "rows": 1890
+    },
+    {
+      "path": "zne_points/core__ghz_3__high.parquet",
+      "sha256": "6c7fdc5410231bc332c5f589c628e9092ee28166f769b34494222947d58580c7",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_3__low.parquet",
+      "sha256": "ae2baca866606797aa200671b72a9efed81a591f2c51490529cb7bd79124101b",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_3__moderate.parquet",
+      "sha256": "f2b80d28eecf21de0848121e510cb515c86dddd98fdb135588434fe066841834",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_4__high.parquet",
+      "sha256": "f303dc212c1ef6d54f44b0136c18e11ee68817129922a0cae11f40341c574134",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_4__low.parquet",
+      "sha256": "3ae29c06c39c6cfb0add8d56acc32f22803bafdb8370984fd145779c4ce94ec5",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_4__moderate.parquet",
+      "sha256": "023ddbf5a8d672ead1a498bbc1a05c858b6dad1e3082f55639f509f09d0c458b",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_5__high.parquet",
+      "sha256": "60b08ebcc3a68e26fcb7f3a2bf58048d662923605ade216f51d037583d04d6cf",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_5__low.parquet",
+      "sha256": "8dd4a167d4f61bdbef2ebd67389ac1714e20ee8efbf722391334bebedb4401ad",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_5__moderate.parquet",
+      "sha256": "916147bc2c15b3fd60201c19b4b427c656095abd0f579fb56613044784835923",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_6__high.parquet",
+      "sha256": "acf9d874742970d94588114cacc4d701d770d5ced80246682a0e23bb2bfe9f9c",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_6__low.parquet",
+      "sha256": "8a8807564a52d3e8ed5e139056f8fafa50efb3b124fb499cefd59f8a1217ed6d",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_6__moderate.parquet",
+      "sha256": "fea88ef0d9fcaf91492f6e464f976caa4b1b52ee16f41483c335bbe721c67020",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_8__high.parquet",
+      "sha256": "8dd33c91336a1f5e462f662ae9db82d6473a92021b91d9a60e45340be338be30",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_8__low.parquet",
+      "sha256": "f9a2559fa4b4037a635c34684a4b198216918d8134d23f14267c7844d8249650",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__ghz_8__moderate.parquet",
+      "sha256": "aa29c61c7f49c6bb63412f3d1736aa79dd71cc6420158f1885a05f4cb7798d18",
+      "rows": 1260
+    },
+    {
+      "path": "zne_points/core__qaoa_n4_p1__high.parquet",
+      "sha256": "38cc94d61d19da0bc7c662ad419cf499419eaa19fe53da422ac2bd2cf6d9fd15",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/core__qaoa_n4_p1__low.parquet",
+      "sha256": "8eaf89e0d16792e649b0dcb42424aec5599579633fc588688841772df750a4a3",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/core__qaoa_n4_p1__moderate.parquet",
+      "sha256": "c9790a13b7f363d8a89f23c4df5e424b362e7f4d483f26e41926bb032ddfa17d",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/core__qaoa_n4_p2__high.parquet",
+      "sha256": "fc04f56768c1498349c9a31c39a583224a6b465746d7e63d893cf29fc7a79b80",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/core__qaoa_n4_p2__low.parquet",
+      "sha256": "a05950c565748f8df1227a1855bb997dc05bd6dd87de90e77fcf5ef89bee0bfc",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/core__qaoa_n4_p2__moderate.parquet",
+      "sha256": "66717d6b609775d968a449cc448178f80b3934619be5af4f4d847144a3c963e9",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/core__qaoa_n6_p1__high.parquet",
+      "sha256": "5209e193eb4147d5f28a34e6b4a2517a258531e9f59ec2bd7b0a623543e7b126",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/core__qaoa_n6_p1__low.parquet",
+      "sha256": "9273d3fe479277754bf9be59f7c27af4825b1e27187847f5c4bf4cfa677257d4",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/core__qaoa_n6_p1__moderate.parquet",
+      "sha256": "a310b0701a2facc1c680037d83fbe62b1abe56df25ba7f4e3d560a89fc6fa1ae",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/core__qaoa_n6_p2__high.parquet",
+      "sha256": "b533b4719b08d38d6e437c663b3f45e8e02d01fd7eeb6c39c0d078359663c173",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/core__qaoa_n6_p2__low.parquet",
+      "sha256": "0a23d8d2b4ea4741470a86c18b5edbc91f0279b6e3d2b054af7459b65e340767",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/core__qaoa_n6_p2__moderate.parquet",
+      "sha256": "42ba675b13c396a68618427d86b4ab6155e43688870ffcf5a68280a2fc55d787",
+      "rows": 630
+    },
+    {
+      "path": "zne_points/gate_sweep__bell_cx__g_x0.5.parquet",
+      "sha256": "b74f100486ececcb30b66739078e557687a737c84de7abe69f712463d814b39f",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/gate_sweep__bell_cx__g_x0.parquet",
+      "sha256": "031228d933ac09cf5437dadd9724dc0529b6d6448a5eb69ad86e5ab3d5f25036",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/gate_sweep__bell_cx__g_x1.parquet",
+      "sha256": "a6eb4d2f9f25feaeb67afcf0446aaa79b43b8cbaefa3b9e47946c442611be611",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/gate_sweep__bell_cx__g_x2.parquet",
+      "sha256": "2c8122c65c849707efe671362a20063cf1c59c570299b57714fdcdeb8ffae4ff",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/gate_sweep__bell_cx__g_x3.parquet",
+      "sha256": "1fc96f712e46eb476ff22c69329833e9b484a71f5223a64fd76ac6594c6b5fa3",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/gate_sweep__bell_cx__g_x4.parquet",
+      "sha256": "e3bf6f9ddab8bf251686ebee7b0e03f56bd920f90814aac9736cc14a21bea5d7",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/gate_sweep__bell_cx__g_x6.parquet",
+      "sha256": "00f5c8b794cf4ef07b796e9d4c33d697fae00da998f830707fcafcfe6d34062c",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_4__g_x0.5.parquet",
+      "sha256": "930aac7f2ad0773581d13db4276229f747c6d577755c4153763494024702f962",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_4__g_x0.parquet",
+      "sha256": "9ddbe0393b43888627c538f335e68c3f5bfd69f0513229e7638446bd8bd016f8",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_4__g_x1.parquet",
+      "sha256": "1a4c676179960e30c104fcf1ae34cee749a679422c64590e1173c62e34f46fb6",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_4__g_x2.parquet",
+      "sha256": "8a7d713fa5c7be6f84f90d152651d607a5bcfcf4be6a8061fb13de35bd8a11b9",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_4__g_x3.parquet",
+      "sha256": "70f8f61afbb36b752ef7cbf08ac469063ca3028406848e2765b13b80b3ee56b4",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_4__g_x4.parquet",
+      "sha256": "cfb0ae2761d9649aa0da7041e3b95212835586798e2ddc13fbd07bb8cd74d097",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_4__g_x6.parquet",
+      "sha256": "fe0cdceec7f07e9e2a678d81d237284ba608cb16be3c4d7550583c03ebafc8b5",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_6__g_x0.5.parquet",
+      "sha256": "ee357917522cc4cbbca2d342c9c4d582ca0f6a361653eef73c65fc1fb0365fb6",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_6__g_x0.parquet",
+      "sha256": "0a9f971bf46b0859c82a6b78c5b0a783cedf318d63de2a1db4de6d7b8ad94bbd",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_6__g_x1.parquet",
+      "sha256": "d1800352d866f028642366dfa2c1b1188fd88f68c7a972f0a8955d3069951e0b",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_6__g_x2.parquet",
+      "sha256": "a05cf9e77fa390e0eeea441922a5c3d023330f04ff1f891b01b2d8ae2e27dba6",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_6__g_x3.parquet",
+      "sha256": "2800ffd13a9d7852b5458660283f1a01da2d2d200f8259da13d9c1c53e14ca41",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_6__g_x4.parquet",
+      "sha256": "5cc856ac9239239234f88de61ce2746c3a94e1e6131d59726d0b85b191e4ab60",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__ghz_6__g_x6.parquet",
+      "sha256": "366f04b8553123d3fd123218c6b7e1d53bebe9a6c972d0f562063c592f0e9545",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/gate_sweep__qaoa_n4_p1__g_x0.5.parquet",
+      "sha256": "c0c4abb34e5e06737495c2ae00e69454cb957668cebdb16f40e4fa9c841383cb",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/gate_sweep__qaoa_n4_p1__g_x0.parquet",
+      "sha256": "60398b11502dec266c9bca29e1dafcf1ab7098f6e4fc7cb49065e6dacf472d1a",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/gate_sweep__qaoa_n4_p1__g_x1.parquet",
+      "sha256": "5cd20d87e46c747cb5e9a6b275b36a8a6edd850f34355b2c77d285266fb9bb6e",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/gate_sweep__qaoa_n4_p1__g_x2.parquet",
+      "sha256": "dd68b48714ac40ea134b51becca90ea8dd363efe799e92b5bd588416c3c0def5",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/gate_sweep__qaoa_n4_p1__g_x3.parquet",
+      "sha256": "3cc10a5f0b6a650f9f62a013e6030d3da8649e14dba00e26db2934b0c4887888",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/gate_sweep__qaoa_n4_p1__g_x4.parquet",
+      "sha256": "87386bd7e135708066a2b080b5a5fa8159be47c1bb00f50c7476615bff5392c0",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/gate_sweep__qaoa_n4_p1__g_x6.parquet",
+      "sha256": "3ade02a8bc8bb91dce674d500d8ccb1e7abe141d7a63bcba394f230a3052c92d",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/noise_variants__ghz_4__moderate_symmetric.parquet",
+      "sha256": "3aa1bd952c059451384f96c3485690f542d44ea11189769e25ecf594f7f6e53f",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/noise_variants__ghz_4__moderate_thermal.parquet",
+      "sha256": "65f5340426c2d806d49d9b7d836dd424837577c7e52d0c38a2e0249c274ef0b7",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/noise_variants__qaoa_n4_p1__moderate_symmetric.parquet",
+      "sha256": "f8af1cf5f6f9bea9d575452216c7fa6116f330ab6a4d91228a53fd84fa736e32",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/noise_variants__qaoa_n4_p1__moderate_thermal.parquet",
+      "sha256": "7e9ebdb2ea4da12aecdcdafec606ded124665b5cecd120ba635c36833906791f",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/readout_sweep__bell_cx__ro_x0.25.parquet",
+      "sha256": "40f942b12a662e8cc5ce09aa9f14650ea4e0dc5de1adb149c29efc024de507d2",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/readout_sweep__bell_cx__ro_x0.5.parquet",
+      "sha256": "ad061f08f7f2f12d8b10bb16a1b87589ae014c839f716c245ab139adbbaf5384",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/readout_sweep__bell_cx__ro_x0.parquet",
+      "sha256": "74cd7283acb31119b5d8a8122a5b2053c1208bbade8e1115e710f5ac6b636aa1",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/readout_sweep__bell_cx__ro_x1.5.parquet",
+      "sha256": "8d31ff26173b4cca2378039fa4c4b4dc784398caee887e027b6b026658008648",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/readout_sweep__bell_cx__ro_x1.parquet",
+      "sha256": "a78baf414d4fa6e78173404b7970ec6428fe25613a47af9b5b0baf1a550744ca",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/readout_sweep__bell_cx__ro_x2.5.parquet",
+      "sha256": "04b0f80b18b5f16f5a33d6d239e1d441017ef655ae49f6d782b72be218c16a4a",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/readout_sweep__bell_cx__ro_x4.parquet",
+      "sha256": "a6cc8eb4120a51e1b16596bed3ed566b9560f5a6f061cd6c132ded17367fc513",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/readout_sweep__bell_cx__ro_x6.parquet",
+      "sha256": "4aac7e3d5a9b4eeadd6f1290427534c23e211208c7be87785f4d972a04a8eebd",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_4__ro_x0.25.parquet",
+      "sha256": "b218d42a9ba644625ea6ac72a808a2e009ffb8b500a931bbb9c51d14e0b89ef5",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_4__ro_x0.5.parquet",
+      "sha256": "3c61153eb2176d25d4bfb46818953a4327277d016f1fef88fb82a795989c6338",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_4__ro_x0.parquet",
+      "sha256": "e4698e88b94d5643cad5f456f326066cc968405180392195e1ca8249361b3e75",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_4__ro_x1.5.parquet",
+      "sha256": "c9ddec0944cbddc6e6fd67590ab07e3f03d6b741d5eed6a35f775cfb0e08dec5",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_4__ro_x1.parquet",
+      "sha256": "4537f3262f14258d9b25075e915a7e791bc5a514b23e1b2efd51de5fb7113c75",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_4__ro_x2.5.parquet",
+      "sha256": "cf92603a890de899303c1caf7ea3415b287c60b4c87e030da2b5dddc10bd46ca",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_4__ro_x4.parquet",
+      "sha256": "90f1aca46dceea2b84e81aa508f2215a7892faadca6535e22d5e6d8cd025ba2d",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_4__ro_x6.parquet",
+      "sha256": "08e925d916078b5dfef25bf1b166002a4a1ad69b649e737a533c4a3d5c42d31a",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_6__ro_x0.25.parquet",
+      "sha256": "ab79f7a2d1836ee4fb6b54fe570258b4f5bbb2a5e589f6189862681e8a4347d5",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_6__ro_x0.5.parquet",
+      "sha256": "bd19a13d2882715f83d196f6137e3e4a9c1633600bb1c3c134e09977311b9f35",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_6__ro_x0.parquet",
+      "sha256": "040136aceb0cb2e52e5f52a70b1bb38bdc2b3fd7bacbaa4833cc6c23d770fe5b",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_6__ro_x1.5.parquet",
+      "sha256": "bdb5ca3e7d9a8cb8d3d33dba3b4cad40d71b4a501b1baf61f14737de5a6e6075",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_6__ro_x1.parquet",
+      "sha256": "2d9eb7237b208ecbea24068946ec4a6e73ef5811b2375055b59c79acae7028eb",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_6__ro_x2.5.parquet",
+      "sha256": "800f955c8947fb5f4b9633f770f4a097ef184324f9a77c799aee829b3e06e521",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_6__ro_x4.parquet",
+      "sha256": "aac52693a33119da1750e20793dc37a578f1f2cd48eb1098445b3e6569e86e9d",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__ghz_6__ro_x6.parquet",
+      "sha256": "b84f5c0dfa5b56f5c2da15873f89ad16fae7ffbd2292e92ac4e63bbe29218c2f",
+      "rows": 180
+    },
+    {
+      "path": "zne_points/readout_sweep__qaoa_n4_p1__ro_x0.25.parquet",
+      "sha256": "ee9a60c95a9d9aaa0a2a5fc4a0a55d889ffd24b21eab5ccd27050471f6736403",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/readout_sweep__qaoa_n4_p1__ro_x0.5.parquet",
+      "sha256": "68ac9e0b708af63361166a73c4332497197e1e519bb7853b045c6c81e8317b00",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/readout_sweep__qaoa_n4_p1__ro_x0.parquet",
+      "sha256": "06199f2f83907e2228b8fe44767a17aa70563deffb2d943b30844ba8186ba2d8",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/readout_sweep__qaoa_n4_p1__ro_x1.5.parquet",
+      "sha256": "746bdf210fb52ed04b93bf2af6f0605b9a9ff775d153d1ae0c353231db7a4fca",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/readout_sweep__qaoa_n4_p1__ro_x1.parquet",
+      "sha256": "9e696d90006fa3c7246b675a28860cfa6197e0aef68fc63ead7c3075a1e5d733",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/readout_sweep__qaoa_n4_p1__ro_x2.5.parquet",
+      "sha256": "4da1aac60d8a56ca83598818abf20176b1cfaea8c98f150560f085a2974aa551",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/readout_sweep__qaoa_n4_p1__ro_x4.parquet",
+      "sha256": "aba8d5b0547bafc573ccd4a1e976f0ad849921107a535125de0d09e0a9dda301",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/readout_sweep__qaoa_n4_p1__ro_x6.parquet",
+      "sha256": "9b054114c15d5244a9af427038eaa4433753481c3787cbf24e60f29d6756dc78",
+      "rows": 90
+    },
+    {
+      "path": "zne_points/zne_global_123__ghz_4__high.parquet",
+      "sha256": "3dddc16f72c56799b2884ef7b38cbbaf28822a233c4027ab667ffebb712cc8d7",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/zne_global_123__ghz_4__moderate.parquet",
+      "sha256": "e6d2167cb981cfeef4e3a07ef1a7745c2339450be49eabce07757107454f73a1",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/zne_global_123__ghz_6__high.parquet",
+      "sha256": "2271224f0c5863d7b3268cdd3f087be595019bb4ddda765a1d360de72e040541",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/zne_global_123__ghz_6__moderate.parquet",
+      "sha256": "7d9c3f15bb71e105d246287d7ebb337c4b3e238321b65bdc17a7777c0a294b6c",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/zne_global_123__qaoa_n4_p1__high.parquet",
+      "sha256": "67261eabf56098697f8db44f9c774fd9b474db848826ad442846975d0d338be0",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/zne_global_123__qaoa_n4_p1__moderate.parquet",
+      "sha256": "79fdcf20919ac5cfc5dd45a06cce239ea716676280824e49b4a0cfd7a6bf04b6",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/zne_global_1357__ghz_4__high.parquet",
+      "sha256": "c16acd02d590a3957be44b7b1368e5ac900b22f3e4fd378765296b0076018e4c",
+      "rows": 720
+    },
+    {
+      "path": "zne_points/zne_global_1357__ghz_4__moderate.parquet",
+      "sha256": "d3690e73a748ad7a9b252d2295adb95c0322bdd894e5644649b0528c121f509a",
+      "rows": 720
+    },
+    {
+      "path": "zne_points/zne_global_1357__ghz_6__high.parquet",
+      "sha256": "738685c54fd59800dd0832c09e6aa6e0f17512a311892dae629d11087ae3923e",
+      "rows": 720
+    },
+    {
+      "path": "zne_points/zne_global_1357__ghz_6__moderate.parquet",
+      "sha256": "295d0ccd784a02c8962d5338e75aa5e729f0107e94238c8123a919a77bf417ca",
+      "rows": 720
+    },
+    {
+      "path": "zne_points/zne_global_1357__qaoa_n4_p1__high.parquet",
+      "sha256": "a2f5ceac70790655edc8684ea797f79f920a20d8b31557173b316bddcc37399c",
+      "rows": 360
+    },
+    {
+      "path": "zne_points/zne_global_1357__qaoa_n4_p1__moderate.parquet",
+      "sha256": "93528edce9b3fcf6149f7456d3cac5fb3f2b34eddf3c2de5cad8881d60e60453",
+      "rows": 360
+    },
+    {
+      "path": "zne_points/zne_local_135__ghz_4__high.parquet",
+      "sha256": "3580496c3f4fa27151cc602b0511d6512accfd699ecefbe983d11af2ee29cd44",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/zne_local_135__ghz_4__moderate.parquet",
+      "sha256": "58310a99c8a667b7ba2a2a4cc19d8164a3c283aaf003356940eb6f59b4854fc7",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/zne_local_135__ghz_6__high.parquet",
+      "sha256": "68368fe5ac623c133f02df426fdbf18f456f26932747e4fd2b787a0823a0e8ce",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/zne_local_135__ghz_6__moderate.parquet",
+      "sha256": "6e1d2c3ddeb0bc4d1e15217ebd7998dffa7de126549e132d58fb9a544e9ee21d",
+      "rows": 540
+    },
+    {
+      "path": "zne_points/zne_local_135__qaoa_n4_p1__high.parquet",
+      "sha256": "66d5494b0be1e5716c725f1a20305052f3d4bf9aa9a303af441a702199a7fcba",
+      "rows": 270
+    },
+    {
+      "path": "zne_points/zne_local_135__qaoa_n4_p1__moderate.parquet",
+      "sha256": "3d48023244c4bffe1c91f0af258a3a1f92824caa580843f78ae92902b7a1d040",
+      "rows": 270
+    }
+  ]
+}

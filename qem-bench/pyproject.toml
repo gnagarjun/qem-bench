@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "qem-bench"
+version = "0.1.0"
+description = "Resource-aware benchmarking framework for quantum error mitigation under noisy circuit execution"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Nagarjun Gopalaswamy", email = "nagarjun.gopalaswamy@example.org" }]
+requires-python = ">=3.11,<3.13"
+classifiers = [
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Scientific/Engineering :: Physics",
+  "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+  "qiskit==2.2.3",
+  "qiskit-aer==0.17.2",
+  "numpy>=2.0,<2.5",
+  "scipy>=1.13,<1.18",
+  "pandas>=2.2,<3.2",
+  "pyarrow>=16",
+  "matplotlib>=3.9,<3.12",
+  "seaborn>=0.13,<0.14",
+  "pyyaml>=6.0",
+  "pydantic>=2.7,<3",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10", "pre-commit>=3.7"]
+docs = ["mkdocs>=1.6", "mkdocs-material>=9.5"]
+notebooks = ["jupyter>=1.0", "nbformat>=5.10"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/qem_bench"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["slow: longer-running scientific validation tests"]
+
+[tool.ruff]
+line-length = 150
+target-version = "py311"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "NPY"]
+ignore = ["E741"]
+
+[tool.mypy]
+python_version = "3.11"
+ignore_missing_imports = true
+warn_unused_ignores = true
+files = ["src/qem_bench"]

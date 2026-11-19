@@ -1,0 +1,23 @@
+project:
+  name: qem-bench
+  seed: 20260601
+
+execution:
+  simulator: aer
+  sampling_mode: exact        # exact | aer  (see docs/methodology.md, "Sampling modes")
+  repetitions: 30
+  optimization_level: 1
+
+readout:
+  full_max_qubits: 3          # dense 2^n calibration up to this size, tensored model above
+  calibration_shots_equal_primary: match_primary
+  calibration_fraction_equal_budget: 0.2
+  physicality: none           # none (unbiased quasi-probabilities) | simplex (projected, biased)
+  condition_warning: 1000.0
+  condition_failure: 1.0e12
+
+analysis:
+  confidence_level: 0.95
+  bootstrap_samples: 2000
+  alpha: 0.05
+  practical_threshold: 0.10   # |relative RMSE change| considered practically meaningful

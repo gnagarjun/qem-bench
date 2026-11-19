@@ -1,0 +1,18 @@
+# Phenomenological experimental-design settings -- NOT claims about any real quantum hardware.
+# p1 / p2: Qiskit depolarizing parameters (lambda) for single-qubit (sx, x) and two-qubit (cx) gates.
+# readout_p01 = P(read 1 | prepared 0), readout_p10 = P(read 0 | prepared 1).
+# The nominal readout error r of the design table is split asymmetrically: p01 = 0.8 r, p10 = 1.2 r.
+levels:
+  ideal:
+    {p1: 0.0, p2: 0.0, readout_p01: 0.0, readout_p10: 0.0}
+  low:
+    {p1: 0.0005, p2: 0.005, readout_p01: 0.004, readout_p10: 0.006}
+  moderate:
+    {p1: 0.002, p2: 0.015, readout_p01: 0.016, readout_p10: 0.024}
+  high:
+    {p1: 0.005, p2: 0.030, readout_p01: 0.040, readout_p10: 0.060}
+  moderate_symmetric:
+    {p1: 0.002, p2: 0.015, readout_p01: 0.020, readout_p10: 0.020}
+  moderate_thermal:
+    {p1: 0.002, p2: 0.015, readout_p01: 0.016, readout_p10: 0.024, thermal: true,
+     t1_us: 100.0, t2_us: 80.0, gate_time_1q_ns: 35.0, gate_time_2q_ns: 300.0}
