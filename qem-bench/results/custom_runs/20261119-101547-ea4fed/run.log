@@ -1,0 +1,6 @@
+design: {"blocks": 1, "conditions": 1, "condition_repetitions": 3}
+2026-11-19 10:15:50,085 INFO qem_bench.experiments.runner: running custom__ghz_3__high (1 shots settings x 3 reps, mode=exact)
+validation passed: True
+analysing
+{}
+done
