@@ -1,0 +1,9 @@
+design: {"blocks": 1, "conditions": 8, "condition_repetitions": 80}
+2026-11-19 07:06:57,524 INFO qem_bench.experiments.runner: running custom__bell_cx__moderate (2 shots settings x 10 reps, mode=exact)
+2026-11-19 07:06:57,680 INFO qem_bench.experiments.runner: running custom__bell_cx__high_g2_r1 (2 shots settings x 10 reps, mode=exact)
+2026-11-19 07:06:57,817 INFO qem_bench.experiments.runner: running custom__ghz_4__moderate (2 shots settings x 10 reps, mode=exact)
+2026-11-19 07:06:57,977 INFO qem_bench.experiments.runner: running custom__ghz_4__high_g2_r1 (2 shots settings x 10 reps, mode=exact)
+validation passed: True
+analysing
+{}
+done
