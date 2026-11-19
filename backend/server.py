@@ -11,6 +11,7 @@ import pandas as pd
 from dotenv import load_dotenv
 from fastapi import APIRouter, FastAPI, HTTPException, Query
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from motor.motor_asyncio import AsyncIOMotorClient
 from starlette.middleware.cors import CORSMiddleware
 
@@ -38,6 +39,11 @@ def table(name: str) -> pd.DataFrame:
 @lru_cache(maxsize=None)
 def blob(name: str) -> dict:
     return json.loads((DATA / name).read_text())
+
+
+@api.get("/health")
+def health():
+    return {"ok": True}
 
 
 @api.get("/")
@@ -138,7 +144,7 @@ app.include_router(runs.router)
 async def startup():
     await auth.db.login_attempts.create_index("identifier")
     await runs.db.custom_runs.create_index("run_id", unique=True)
-    await runs.mark_interrupted()
+    await runs.startup()
 
 
 @app.on_event("shutdown")
@@ -146,3 +152,18 @@ def shutdown():
     mongo.close()
 app.add_middleware(CORSMiddleware, allow_credentials=True, allow_origins=os.environ.get("CORS_ORIGINS", "*").split(","),
                    allow_methods=["*"], allow_headers=["*"])
+
+# Production image: the same process serves the built React app (set FRONTEND_BUILD_DIR).
+BUILD = os.environ.get("FRONTEND_BUILD_DIR")
+if BUILD:
+    BUILD_DIR = (ROOT_DIR / BUILD).resolve()
+    app.mount("/static", StaticFiles(directory=BUILD_DIR / "static"), name="static")
+
+    @app.get("/{path:path}", include_in_schema=False)
+    def spa(path: str):
+        if path.startswith("api/"):
+            raise HTTPException(404, "Not found")
+        f = (BUILD_DIR / path).resolve()
+        if path and f.is_file() and BUILD_DIR in f.parents:
+            return FileResponse(f)
+        return FileResponse(BUILD_DIR / "index.html")

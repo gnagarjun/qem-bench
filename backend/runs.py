@@ -1,6 +1,8 @@
 """Owner-started simulation runs: launched as subprocesses, each saved separately with its own analysis."""
 
 import asyncio
+import gzip
+import io
 import json
 import os
 import signal
@@ -13,13 +15,15 @@ from typing import Literal, Optional
 import pandas as pd
 import yaml
 from fastapi import APIRouter, Depends, HTTPException, Query
+from motor.motor_asyncio import AsyncIOMotorGridFSBucket
 from pydantic import BaseModel, Field, field_validator
 
 from auth import require_owner
 from util import filt, records
 
 QEM = (Path(__file__).parent / os.environ["QEM_BENCH_DIR"]).resolve()
-RUNS = QEM / "results" / "custom_runs"
+RUNS = (Path(__file__).parent / os.environ["QEM_RUNS_DIR"]).resolve()
+STORED = ["analysis/aggregated.csv", "analysis/comparisons.csv", "analysis/summary.json", "spec.json", "run.log"]
 METHODS = ["baseline", "readout", "zne_linear", "zne_richardson", "combined_linear", "combined_richardson"]
 ZNE_PRESETS = {"1-3-5": [1.0, 3.0, 5.0], "1-2-3": [1.0, 2.0, 3.0], "1-3-5-7": [1.0, 3.0, 5.0, 7.0]}
 MAX_UNITS = 20000
@@ -27,6 +31,7 @@ router = APIRouter(prefix="/api/runs")
 db = None
 _procs: dict[str, asyncio.subprocess.Process] = {}
 _start_lock = asyncio.Lock()
+_cache: dict[str, pd.DataFrame] = {}
 
 
 def _yaml(name: str) -> dict:
@@ -103,7 +108,7 @@ def _log(run_id: str) -> Path:
 
 def _progress(doc: dict) -> dict:
     total = len(doc["spec"]["instances"]) * len(doc["spec"]["noise"])
-    text = _log(doc["run_id"]).read_text() if _log(doc["run_id"]).exists() else ""
+    text = _log(doc["run_id"]).read_text() if _log(doc["run_id"]).exists() else "\n".join(doc.get("log_tail") or [])
     done = text.count("running custom__")
     stage = "finished" if doc["status"] == "completed" else "analysing" if "analysing" in text else "simulating"
     return {"chunks_total": total, "chunks_started": done, "stage": stage, "log_tail": text.splitlines()[-12:]}
@@ -118,16 +123,39 @@ async def _watch(run_id: str, proc: asyncio.subprocess.Process, t0: datetime):
     end = datetime.now(timezone.utc)
     upd = {"status": "completed" if code == 0 else "failed", "finished_at": end.isoformat(),
            "wall_s": (end - t0).total_seconds()}
+    lines = _log(run_id).read_text().splitlines()
+    upd["log_tail"] = lines[-12:]
     if code == 0:
         s = json.loads((RUNS / run_id / "analysis" / "summary.json").read_text())
         upd["result"] = {k: s.get(k) for k in ("n_raw_rows", "n_failed_rows", "n_conditions", "n_tests")}
+        upd["stored"] = await _store(run_id)
     else:
-        upd["error"] = "\n".join(_log(run_id).read_text().splitlines()[-5:])
+        upd["error"] = "\n".join(lines[-5:])
     await db.custom_runs.update_one({"run_id": run_id}, {"$set": upd})
 
 
-async def mark_interrupted():
+def _fs() -> AsyncIOMotorGridFSBucket:
+    return AsyncIOMotorGridFSBucket(db, bucket_name="run_files")
+
+
+async def _store(run_id: str) -> bool:
+    """Copy a run's analysis outputs into MongoDB so they survive container restarts and redeploys."""
+    for rel in STORED:
+        path = RUNS / run_id / rel
+        if not path.exists():
+            if rel.startswith("analysis/"):
+                return False
+            continue
+        if not await db["run_files.files"].find_one({"filename": f"{run_id}/{rel}"}):
+            await _fs().upload_from_stream(f"{run_id}/{rel}", gzip.compress(path.read_bytes()))
+    return True
+
+
+async def startup():
     await db.custom_runs.update_many({"status": "running"}, {"$set": {"status": "failed", "error": "Server restarted during the run"}})
+    async for d in db.custom_runs.find({"status": "completed", "stored": {"$ne": True}}, {"run_id": 1}):
+        if await _store(d["run_id"]):
+            await db.custom_runs.update_one({"run_id": d["run_id"]}, {"$set": {"stored": True}})
 
 
 @router.get("/options")
@@ -204,17 +232,25 @@ async def delete_run(run_id: str, _: str = Depends(require_owner)):
     return {"ok": True}
 
 
-def _table(doc: dict, name: str) -> pd.DataFrame:
+async def _table(doc: dict, name: str) -> pd.DataFrame:
     if doc["status"] != "completed":
         raise HTTPException(409, "Results are available once the run has completed")
-    return pd.read_csv(RUNS / doc["run_id"] / "analysis" / f"{name}.csv")
+    key = f"{doc['run_id']}/analysis/{name}.csv"
+    if key not in _cache:
+        if not doc.get("stored"):
+            raise HTTPException(404, "Result files for this run are no longer available")
+        stream = await _fs().open_download_stream_by_name(key)
+        _cache[key] = pd.read_csv(io.BytesIO(gzip.decompress(await stream.read())))
+        if len(_cache) > 40:
+            _cache.pop(next(iter(_cache)))
+    return _cache[key]
 
 
 @router.get("/{run_id}/conditions")
 async def run_conditions(run_id: str, instance: Optional[str] = None, noise: Optional[str] = None,
                          shots_per_circuit: Optional[int] = None, comparison: Optional[str] = None,
                          method: Optional[str] = None, limit: int = Query(500, le=2000)):
-    a = _table(await _get(run_id), "aggregated")
+    a = await _table(await _get(run_id), "aggregated")
     a = filt(a[a.primary_observable], instance=instance, noise=noise, shots_per_circuit=shots_per_circuit,
              comparison=comparison, method=method)
     return {"total": len(a), "rows": records(a.head(limit))}
@@ -222,6 +258,6 @@ async def run_conditions(run_id: str, instance: Optional[str] = None, noise: Opt
 
 @router.get("/{run_id}/tests")
 async def run_tests(run_id: str, comparison: Optional[str] = None, limit: int = Query(500, le=2000)):
-    c = _table(await _get(run_id), "comparisons")
+    c = await _table(await _get(run_id), "comparisons")
     c = filt(c[c.primary_observable], comparison=comparison)
     return {"total": len(c), "outcome_counts": c.outcome.value_counts().to_dict(), "rows": records(c.sort_values("q_bh").head(limit))}

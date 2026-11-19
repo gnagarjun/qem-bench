@@ -23,7 +23,9 @@ Repository + web results viewer; pilot + reduced standard run executed; simulato
 - Viewer tested (iteration_1): backend 100%, frontend fixes applied (block 'All', mobile repro overflow, header nav).
 
 - 2026-06: Run Simulations tab: owner-password login (JWT, lockout), design picker (circuits, noise incl. scaled, shots, methods, A/B, reps, ZNE scales/folding, seed), background runs via scripts/run_custom.py, separate saved runs (results/custom_runs, Mongo custom_runs), live progress, cancel/soft-delete, per-run conditions + statistical tests. Tested (iteration_2).
+- 2026-06: AWS Lightsail-ready: root Dockerfile (React build + FastAPI serving SPA + Qiskit), backend/requirements.prod.txt, deploy/lightsail/{deploy.sh,deployment.template.json,lightsail.env.example}, DEPLOY_AWS_LIGHTSAIL.md (Atlas, IAM, deploy, ops, custom domain). Custom-run outputs now persisted in MongoDB GridFS (bucket run_files); QEM_RUNS_DIR env = scratch dir; /api/health. Verified prod layout locally in clean venv (no docker in pod).
 ## Backlog
+- P2 GitHub Actions workflow to auto-deploy to Lightsail on push
 - P1 Compare two custom runs side by side; optional figure generation per run
 - P0 before submission: manually verify [K] references; systematic literature search; external review of hypothesis rules.
 - P1: run `full` profile (100 reps); exponential extrapolation; correlated readout + M3; coupling-map routing.

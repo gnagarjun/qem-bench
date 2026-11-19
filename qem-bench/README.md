@@ -24,6 +24,9 @@ enforceable accounting rules, with full statistical testing.
 7. [Running the experiments on real quantum hardware](#7-running-the-experiments-on-real-quantum-hardware)
 8. [Limitations](#8-limitations) · [Citation](#citation) · [License](#license)
 
+> Hosting the web viewer on AWS? See [`../DEPLOY_AWS_LIGHTSAIL.md`](../DEPLOY_AWS_LIGHTSAIL.md).
+
+
 ---
 
 ## 1. The project in five minutes
