@@ -1,0 +1,42 @@
+{
+  "summary": "Ran the full first test pass. Research repo: pytest 76/76 pass, ruff clean, mypy clean (48 files). The smoke profile ran end-to-end into /tmp/smoke_test and printed 'validation passed: True'. validate_results on results/aggregated/standard printed ALL CHECKS PASSED. Backend: 21/21 pytest pass covering overview, filters, conditions, series, pareto, tests, figures, the figure PNGs, path traversal (6 variants, all 404) and reproducibility. Frontend: all 6 tabs render with no console errors (Recharts gives only some ResponsiveContainer width(-1) warnings). Overview values match summary.json (255,960 rows; 8,532 conditions; 12,798 tests; H1/H2/H3/H5 SUPPORTED, H4 NOT SUPPORTED). Explorer filters, chart selects, stat selects, the 12 figures, the zoom modal, the toasts, the clipboard and the JSON download all work. Found 3 real issues: (1) choosing 'All' in the Explorer block filter still shows only the core block; (2) the Reproducibility tab is wider than the 390px mobile screen; (3) at 1920px desktop the tab nav overflows, so the Reproducibility tab is hidden until you scroll the nav.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "/api/qem/conditions, /api/qem/tests", "issue": "Defaults are block='core' and reference='baseline'. A missing parameter means core/baseline, and only an empty string means all. Clients that leave out null params (axios does) can never ask for all blocks. Default block to None, or accept block=all."}
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [
+      {"component": "ExplorerTab block filter", "issue": "Choosing 'All' in the block select gives null, and axios leaves the param out, so the backend falls back to block=core. Result: 1512 rows, same as core, when it should be 2268 for comparison A across all blocks. Confirmed via API: block= gives 2268, no param gives 1512.", "selector": "[data-testid='filter-block-select']", "priority": "MEDIUM"},
+      {"component": "ReproTab (mobile 390px)", "issue": "The page scrollWidth is 579px at a 390px viewport. The grid column grows to fit the long run id, the platform string and the <pre> commands, so the cards and the Export button are cut off on the right. Fix: add min-w-0 to the grid children, plus break-all on reproducibility-run-id and the environment line.", "selector": "[data-testid='reproducibility-tab']", "priority": "MEDIUM"},
+      {"component": "Header tab nav (desktop 1920px)", "issue": "In the max-w-7xl header, nav scrollWidth 831 > clientWidth 682. The 'Reproducibility' tab is off-screen and 'Publication Figures' is cut off until you scroll the nav, and the scrolled tabs slide under the subtitle text. Fix: shorten the subtitle, hide it below 2xl, or wrap the nav onto its own row.", "selector": "[data-testid='main-tabs']", "priority": "MEDIUM"}
+    ],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Condition Explorer", "issues": ["Rows are capped at limit=500 with no pagination or notice. For example, the header says 1512 conditions but only 500 rows are shown."]},
+      {"screen": "Statistical Tests", "issues": ["When filters return 0 rows (e.g. A + zne_richardson + worse_practical), the table and the count area are just blank. Add an empty-state message."]},
+      {"screen": "Pareto chart", "issues": ["The 'Pareto frontier' legend entry has no icon because fill='none'. Use legendType='line' or set a stroke."]},
+      {"screen": "Charts", "issues": ["Recharts warns 'width(-1) and height(-1)' on the first render of ResponsiveContainer. This is harmless, but it can be fixed with minWidth={0} or initialDimension."]}
+    ]
+  },
+  "test_report_links": ["/app/backend/tests/test_qem_viewer_api.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [
+    "ExplorerTab: make block 'All' actually mean all blocks. Either send block='' explicitly, or change the backend default for block to None and make the frontend default 'core'.",
+    "ReproTab: add min-w-0 to the grid children and break-all/overflow handling on the run id, the environment line and the <pre> commands, so the 390px mobile view doesn't overflow.",
+    "Header: fix the desktop tab nav overflow at 1920px so all 6 tabs are visible without scrolling.",
+    "Optional: explorer pagination or a 'showing 500 of N' notice; an empty state on the stats table; a Pareto legend icon."
+  ],
+  "critical_code_review_comments": [
+    "server.py filt(): int()/float() casts on query values are only safe because FastAPI types shots_per_circuit as int. Any future str-typed numeric filter would raise ValueError and return a 500.",
+    "server.py: the figures path check (resolve + parent + suffix) is solid. All 6 traversal variants returned 404.",
+    "lru_cache on CSV reads means a restart is needed if the viewer_data files change. This is fine for a read-only viewer.",
+    "Frontend data-testid coverage is good. The Select component uses native <select>, which is fine for this dashboard."
+  ],
+  "updated_files": ["/app/backend/tests/test_qem_viewer_api.py"],
+  "success_rate": {"backend": "100% (21/21 API tests; qem-bench 76/76 pytest, ruff, mypy, smoke and validate all pass)", "frontend": "~85% (all flows work; 3 layout/filter bugs)"},
+  "seed_data_creation": "None. Read-only app; no data modified. Smoke output written only to /tmp/smoke_test.",
+  "retest_needed": true,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Read-only viewer, no auth. Run the API tests with: cd /app/backend && REACT_APP_BACKEND_URL=<url> python -m pytest tests/test_qem_viewer_api.py. Do not touch /app/qem-bench/results or /app/backend/viewer_data. Retest: Explorer block 'All' (expect 2268 for A/no other filters), mobile 390px reproducibility tab scrollWidth == 390, desktop 1920px nav scrollWidth <= clientWidth."
+}

@@ -27,12 +27,12 @@ from qem_bench.metrics.statistics import benjamini_hochberg
 def tex_table(df: pd.DataFrame, path: Path, caption: str, label: str, fmt: str = "{:.3g}") -> None:
     cols = list(df.columns)
     lines = ["\\begin{table}[t]", "\\centering", "\\small", f"\\caption{{{caption}}}", f"\\label{{{label}}}",
-             "\\begin{tabular}{" + "l" * len(cols) + "}", "\\toprule",
+             "\\resizebox{\\linewidth}{!}{%", "\\begin{tabular}{" + "l" * len(cols) + "}", "\\toprule",
              " & ".join(str(c).replace("_", "\\_") for c in cols) + " \\\\", "\\midrule"]
     for _, r in df.iterrows():
         cells = [fmt.format(v) if isinstance(v, float | np.floating) else str(v).replace("_", "\\_") for v in r]
         lines.append(" & ".join(cells) + " \\\\")
-    lines += ["\\bottomrule", "\\end{tabular}", "\\end{table}"]
+    lines += ["\\bottomrule", "\\end{tabular}}", "\\end{table}"]
     path.write_text("\n".join(lines) + "\n")
 
 

@@ -70,7 +70,7 @@ def filters():
 
 
 @api.get("/qem/conditions")
-def conditions(block: Optional[str] = "core", instance: Optional[str] = None, noise: Optional[str] = None,
+def conditions(block: Optional[str] = None, instance: Optional[str] = None, noise: Optional[str] = None,
                shots_per_circuit: Optional[int] = None, comparison: Optional[str] = None, method: Optional[str] = None,
                primary_only: bool = True, limit: int = Query(200, le=2000), offset: int = 0):
     a = filt(table("aggregated"), block=block, instance=instance, noise=noise, shots_per_circuit=shots_per_circuit,
@@ -100,7 +100,7 @@ def pareto(instance: str, noise: str = "moderate", block: str = "core"):
 
 
 @api.get("/qem/tests")
-def tests(block: Optional[str] = "core", instance: Optional[str] = None, noise: Optional[str] = None,
+def tests(block: Optional[str] = None, instance: Optional[str] = None, noise: Optional[str] = None,
           shots_per_circuit: Optional[int] = None, comparison: Optional[str] = None, method: Optional[str] = None,
           reference: Optional[str] = "baseline", outcome: Optional[str] = None, primary_only: bool = True,
           limit: int = Query(200, le=2000), offset: int = 0):

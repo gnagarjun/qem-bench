@@ -6,13 +6,14 @@ import Select from "@/components/qem/Select";
 const OUTCOME_CLS = { better_practical: "text-emerald-400", better_marginal: "text-emerald-300/70", worse_practical: "text-rose-400", worse_marginal: "text-rose-300/70" };
 
 export default function StatsTab({ filters }) {
-  const [f, setF] = useState({ comparison: "B", shots_per_circuit: "256", noise: null, method: null, reference: "baseline", outcome: null });
+  const [f, setF] = useState({ block: "core", comparison: "B", shots_per_circuit: "256", noise: null, method: null, reference: "baseline", outcome: null });
   const set = (k) => (v) => setF((s) => ({ ...s, [k]: v }));
   const q = useQuery({ queryKey: ["tests", f], queryFn: () => get("/tests", { ...f, limit: 400 }) });
   const counts = q.data?.outcome_counts || {};
   return (
     <div className="space-y-6" data-testid="statistical-tests-tab">
       <div className="card p-4 flex flex-wrap gap-3 items-end">
+        <Select id="stat-block-select" label="Block" value={f.block} onChange={set("block")} options={filters.block} />
         <Select id="stat-comparison-select" label="Accounting" value={f.comparison} onChange={set("comparison")} options={[{ value: "A", label: "A · equal primary" }, { value: "B", label: "B · equal budget" }]} />
         <Select id="stat-shots-select" label="Shots / circuit" value={f.shots_per_circuit} onChange={set("shots_per_circuit")} options={filters.shots_per_circuit.map(String)} />
         <Select id="stat-noise-select" label="Noise" value={f.noise} onChange={set("noise")} options={["low", "moderate", "high"]} />
@@ -28,7 +29,7 @@ export default function StatsTab({ filters }) {
       <p className="text-xs text-slate-400 max-w-3xl">Two-sided Wilcoxon signed-rank tests on paired absolute errors (30 repetitions). q = Benjamini–Hochberg over all {">"}12k tests. r = matched-pairs rank-biserial (negative means the method has smaller errors). "Practical" means |ΔRMSE| ≥ 10%. η = relative error reduction per relative extra shot cost; μ = shot-normalised improvement factor (Russo et al. 2023).</p>
       <div className="card overflow-auto max-h-[620px]">
         <table className="qtable" data-testid="stat-comparison-table">
-          <thead><tr>{["Instance", "Noise", "N", "Method", "vs", "ΔRMSE", "ΔMSE [95% CI]", "p", "q (BH)", "r", "η", "μ", "Outcome"].map((h) => <th key={h}>{h}</th>)}</tr></thead>
+          <thead><tr>{["Instance", "Noise", "N", "Method", "vs", "ΔRMSE", "ΔMSE [95% CI]", "p", "q (BH)", "r", "eta (η)", "mu (μ)", "Outcome"].map((h) => <th key={h}>{h}</th>)}</tr></thead>
           <tbody>{(q.data?.rows || []).map((r, i) => (
             <tr key={i} data-testid="stat-row">
               <td>{r.instance}</td><td>{r.noise}</td><td className="num">{r.shots_per_circuit}</td>

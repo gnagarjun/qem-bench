@@ -23,18 +23,18 @@ export default function ReproTab({ overview }) {
   if (!d) return <div className="overline animate-pulse">Loading…</div>;
   return (
     <div className="grid lg:grid-cols-2 gap-6" data-testid="reproducibility-tab">
-      <div className="card p-5 space-y-3">
+      <div className="card p-5 space-y-3 min-w-0">
         <div className="overline">Run provenance</div>
-        <div className="text-sm">Run: <span className="num" data-testid="reproducibility-run-id">{d.runs.join(", ")}</span></div>
+        <div className="text-sm">Run: <span className="num" data-testid="reproducibility-run-id" style={{ wordBreak: "break-all" }}>{d.runs.join(", ")}</span></div>
         <div className="text-sm">Config hash: <span className="num text-sky-300" data-testid="reproducibility-config-hash">{d.config_hashes.join(", ")}</span></div>
         <div className="text-sm">Schema: <span className="num">{d.schema_version}</span> · raw files: <span className="num">{d.manifest.aggregated_from[0].raw_files ? Object.keys(d.manifest.aggregated_from[0].raw_files).length : 0}</span> (SHA-256 in manifest)</div>
         <div className="overline pt-3">Environment</div>
-        <div className="num text-xs text-slate-300 space-y-1" data-testid="reproducibility-environment">
+        <div className="num text-xs text-slate-300 space-y-1 break-all" data-testid="reproducibility-environment">
           <div>python {d.environment.python} · {d.environment.platform} · {d.environment.cpu_count} CPUs</div>
           {Object.entries(d.environment.packages).map(([k, v]) => <div key={k}>{k}=={v}</div>)}
         </div>
       </div>
-      <div className="space-y-6">
+      <div className="space-y-6 min-w-0">
         <div className="card p-5">
           <div className="overline mb-3">Reproduce</div>
           <pre className="num text-xs bg-black/40 rounded-lg p-4 overflow-x-auto" data-testid="reproducibility-commands">{d.commands.join("\n")}</pre>

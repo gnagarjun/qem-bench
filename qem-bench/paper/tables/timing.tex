@@ -3,6 +3,7 @@
 \small
 \caption{Wall-clock time per condition-repetition (s), per-shot Aer sampling, N=4096, comparison A (machine-specific).}
 \label{tab:timing}
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{lllllll}
 \toprule
 instance & method & t\_total\_mean & t\_total\_sd & t\_sampling\_mean & t\_calibration\_mean & t\_postprocess\_mean \\
@@ -26,5 +27,5 @@ qaoa\_n4\_p1 & readout & 0.0256 & 0.0037 & 0.0089 & 0.0166 & 0.0001 \\
 qaoa\_n4\_p1 & zne\_linear & 0.0339 & 0.0045 & 0.0338 & 0.0000 & 0.0001 \\
 qaoa\_n4\_p1 & zne\_richardson & 0.0339 & 0.0045 & 0.0338 & 0.0000 & 0.0001 \\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}

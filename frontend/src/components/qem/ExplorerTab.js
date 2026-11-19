@@ -26,7 +26,7 @@ export default function ExplorerTab({ filters }) {
           </div>
         </div>
       </div>
-      <div className="overline" data-testid="explorer-row-count">{q.data ? `${q.data.total} conditions (primary observable)` : "loading…"}</div>
+      <div className="overline" data-testid="explorer-row-count">{q.data ? `${q.data.total} conditions (primary observable)${q.data.total > 500 ? " · showing the first 500, narrow the filters to see more" : ""}` : "loading…"}</div>
       <div className="card overflow-auto max-h-[640px]">
         <table className="qtable" data-testid="condition-explorer-table">
           <thead><tr>{["Instance", "Noise", "N", "Method", "Mean", "Ideal", "Bias", "RMSE [95% CI]", "Total shots", "Overhead", "ΔRMSE", "Var ratio"].map((h) => <th key={h}>{h}</th>)}</tr></thead>

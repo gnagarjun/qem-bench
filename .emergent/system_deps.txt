@@ -1,0 +1,4 @@
+texlive-fonts-recommended=2022.20230122-3
+texlive-latex-base=2022.20230122-3
+texlive-latex-extra=2022.20230122-4
+texlive-latex-recommended=2022.20230122-3

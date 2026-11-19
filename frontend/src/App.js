@@ -29,10 +29,10 @@ export default function App() {
     <div className="min-h-screen relative">
       <div className="grid-bg absolute inset-x-0 top-0 h-80 pointer-events-none" />
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0b0e14]/90 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col gap-3">
           <div className="flex items-baseline gap-3">
             <h1 data-testid="header-brand-title" className="font-display text-2xl font-bold tracking-tight whitespace-nowrap">QEM-Bench</h1>
-            <span className="overline hidden sm:inline whitespace-nowrap">Resource-aware QEM results · simulated (Qiskit Aer)</span>
+            <span className="overline hidden md:inline whitespace-nowrap">Resource-aware QEM results · simulated (Qiskit Aer)</span>
           </div>
           <nav className="flex gap-1 overflow-x-auto -mx-1 px-1" data-testid="main-tabs">
             {TABS.map(([id, label]) => (

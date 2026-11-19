@@ -31,3 +31,6 @@ reproduce:
 	PYTHON=$(PY) bash scripts/reproduce_all.sh
 docs:
 	mkdocs build
+
+paper:
+	cd paper && pdflatex main && bibtex main && pdflatex main && pdflatex main

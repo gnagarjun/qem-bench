@@ -67,6 +67,7 @@ the data, so $\mathrm{Var}(E_0)=\sum_i\gamma_i^2\mathrm{Var}(E_i)$. For $\lambda
 $\gamma=(15/8,-5/4,3/8)$, $\sum\gamma_i^2\approx4.2$. The \emph{sampling overhead} is $O=N^{\rm tot}_{\rm mit}/N^{\rm tot}_{\rm base}$.
 
 \section{Methodology}
+\begin{figure}[t]\fig{fig01_architecture}\caption{QEM-Bench pipeline.}\label{fig:arch}\end{figure}
 \textbf{Circuits.} Bell ($|\Phi^+\rangle$ via CX or CZ, and a depth-padded variant with two barrier-protected CX--CX pairs), with observables
 $XX, ZZ, YY$. GHZ with $n\in\{3,4,5,6,8\}$, observables $X^{\otimes n}$ and $Z_0Z_{n-1}$. QAOA Max-Cut on seeded connected $G(n,0.5)$ graphs, $n\in\{4,6\}$,
 $p\in\{1,2\}$, with angles optimised noiselessly and then fixed, and the normalised cut $\langle C\rangle/|E|$ as observable. Exact references come from statevector
@@ -122,6 +123,7 @@ readout-dominated conditions (H1 SUPPORTED). The 7\% gain with \emph{zero} reado
 calibration circuits are attributed to readout, and the partial inversion happens to counteract depolarizing contraction. The REM
 variance was 1.23$\times$ the shot-noise prediction (median), because calibration uncertainty is not included in the analytic error bar.
 
+\begin{figure}[t]\fig{fig03_noise_vs_error}\caption{Sensitivity sweeps over gate-noise (top) and readout-noise (bottom) multipliers (comparison A, $N=4096$).}\label{fig:sweeps}\end{figure}
 \textbf{ZNE (RQ2, H2).} Under A, ZNE was significantly better than baseline in 100\% of moderate-noise conditions with $N\ge4096$, but in only
 78\% at $N=256$. Contrary to the noise component of H2, the fraction \emph{rose} with noise level (low 87\%, moderate 98\%, high 99\%), and in the
 gate sweep the relative improvement of Richardson ZNE grew with the gate-noise multiplier for Bell and GHZ-4 (up to $6\times$), saturating at 3--4$\times$ for GHZ-6 and QAOA. In this regime there is more bias to remove,
@@ -193,7 +195,7 @@ mitigation at small budgets. Future work includes the \texttt{full} profile, cor
 exponential and optimised-node extrapolation~\cite{krebsbach2022}, PEC and CDR, coupling-map-aware compilation, and hardware validation.
 
 \paragraph{Data and code availability.} All code, configurations, raw data manifests and figure scripts are in the QEM-Bench repository
-(MIT license). Figures and tables are regenerated from saved data by \texttt{scripts/reproduce\_all.sh}.
+(MIT license). Figures 5, 7 and 10 (overhead, family and CI plots) are in \texttt{paper/figures/} and the supplement. Figures and tables are regenerated from saved data by \texttt{scripts/reproduce\_all.sh}.
 
 \bibliographystyle{unsrtnat}
 \bibliography{references}

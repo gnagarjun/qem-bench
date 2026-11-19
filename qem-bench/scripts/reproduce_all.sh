@@ -10,3 +10,4 @@ $PY scripts/analyze_results.py --run "$(ls -d results/experiments/standard_* | t
 $PY scripts/generate_figures.py --agg results/aggregated/standard --out results/figures --copy-to paper/figures
 $PY scripts/validate_results.py --agg results/aggregated/standard
 mkdir -p paper/tables && cp results/aggregated/standard/tables/*.tex results/aggregated/pilot/tables/timing.tex paper/tables/
+$PY scripts/export_viewer_data.py --std results/aggregated/standard --pilot results/aggregated/pilot --figures results/figures --out ../backend/viewer_data
