@@ -204,6 +204,11 @@ ones under *Images* if it complains.
 Updating the **published** results (e.g. after `scripts/reproduce_all.sh` and the viewer export) means rebuilding the
 image, because those files are baked in: commit, push, run the workflow.
 
+Storage: each finished run keeps its tables in Atlas (usually 20–500 KB). *Remove* in the viewer only hides a run, and
+its files stay, so you can recover it. The free M0 tier's 512 MB holds roughly a thousand typical runs. To free space,
+delete hidden runs in Atlas (*Browse Collections*): remove the `custom_runs` documents with `deleted: true` and the
+`run_files.files` and `run_files.chunks` entries whose filename starts with that `run_id`.
+
 ---
 
 ## 8. Troubleshooting

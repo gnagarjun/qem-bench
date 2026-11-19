@@ -1,0 +1,19 @@
+{
+  "aggregated_from": [
+    {
+      "run": "custom_20261119T101550Z_329c07d7d86ccf65",
+      "raw_files": {
+        "custom__ghz_3__high.parquet": "685b8b5fbdd53d7c4c01ddfb987fd1641f7d9368b9ad3736f2d68491160be054"
+      }
+    }
+  ],
+  "outputs": {
+    "aggregated.csv": "0622d5f77c472219e68863214a293e1e0d4ba1064a5bf622beb176be8b0b6ff7",
+    "aggregated.parquet": "d3386d9d2538b78c551e76e5df35bb03f624952765edbe8bd121606e92816f53",
+    "circuits.csv": "c2f5af33b46bc054cd833e6cd00c578ec59ea6fd31a802566ffa0a4a6a041686",
+    "comparisons.csv": "ccfcbdef1ac0b21fe5a02eef107cb1d1f969df86ca216f4da2dd18d446747d53",
+    "comparisons.parquet": "9d63962d8165aca3c2feea23bdaf8a3f5acaefb8062e4ffce985de64088b178b",
+    "pareto.csv": "d4efdc5643e489a0627e3e4129049fa3c58ab116d99a59a4b9bd5a1346847786",
+    "zne_points.parquet": "c0ea9c7bb0920bcf5a472ec951073763b8cbd0011813d7e2bf64c535abcfc2df"
+  }
+}

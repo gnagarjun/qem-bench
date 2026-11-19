@@ -19,7 +19,8 @@ test "$(curl -fsS "$B/api/qem/overview" | j "len(d['standard']['runs'])")" -ge 1
 test "$(curl -fsS "$B/api/qem/conditions?limit=5" | j "len(d['rows'])")" -ge 1
 echo "-- owner login"
 test "$(curl -s -o /dev/null -w '%{http_code}' -X POST "$B/api/auth/login" -H 'Content-Type: application/json' -d '{"password":"wrong"}')" = 401
-TOKEN=$(curl -fsS -X POST "$B/api/auth/login" -H 'Content-Type: application/json' -d "$(python3 -c 'import json,sys;print(json.dumps({"password":sys.argv[1]}))' "$PW")" | j "d['token']")
+TOKEN=$(curl -fsS -X POST "$B/api/auth/login" -H 'Content-Type: application/json' -d "$(python3 -c 'import json,sys;print(json.dumps({"password":sys.argv[1]}))' "$PW")" | j "d['token']") \
+  || { echo "owner login failed: check the password"; exit 1; }
 curl -fsS "$B/api/auth/me" -H "Authorization: Bearer $TOKEN" >/dev/null
 if [ "$MODE" = "--no-run" ]; then echo "SMOKE TEST PASSED (no simulation)"; exit 0; fi
 echo "-- tiny simulation run"

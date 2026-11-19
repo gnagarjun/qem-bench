@@ -5,6 +5,7 @@ import gzip
 import io
 import json
 import os
+import shutil
 import signal
 import sys
 import uuid
@@ -117,6 +118,14 @@ def _progress(doc: dict) -> dict:
 async def _watch(run_id: str, proc: asyncio.subprocess.Process, t0: datetime):
     code = await proc.wait()
     _procs.pop(run_id, None)
+    try:
+        await _finish(run_id, code, t0)
+    except Exception as e:  # never leave a run stuck in "running"
+        await db.custom_runs.update_one({"run_id": run_id, "status": "running"},
+                                        {"$set": {"status": "failed", "error": f"Could not save results: {e}"}})
+
+
+async def _finish(run_id: str, code: int, t0: datetime):
     doc = await db.custom_runs.find_one({"run_id": run_id}, {"_id": 0, "status": 1})
     if doc and doc["status"] == "cancelled":
         return
@@ -129,6 +138,8 @@ async def _watch(run_id: str, proc: asyncio.subprocess.Process, t0: datetime):
         s = json.loads((RUNS / run_id / "analysis" / "summary.json").read_text())
         upd["result"] = {k: s.get(k) for k in ("n_raw_rows", "n_failed_rows", "n_conditions", "n_tests")}
         upd["stored"] = await _store(run_id)
+        if upd["stored"]:
+            shutil.rmtree(RUNS / run_id / "raw_runs", ignore_errors=True)
     else:
         upd["error"] = "\n".join(lines[-5:])
     await db.custom_runs.update_one({"run_id": run_id}, {"$set": upd})

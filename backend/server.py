@@ -161,7 +161,7 @@ if BUILD:
 
     @app.get("/{path:path}", include_in_schema=False)
     def spa(path: str):
-        if path.startswith("api/"):
+        if path == "api" or path.startswith("api/"):
             raise HTTPException(404, "Not found")
         f = (BUILD_DIR / path).resolve()
         if path and f.is_file() and BUILD_DIR in f.parents:

@@ -1,0 +1,33 @@
+{
+  "name": "post-fix check",
+  "seed": 273481997,
+  "repetitions": 3,
+  "instances": [
+    "ghz_3"
+  ],
+  "noise": [
+    {
+      "base": "high"
+    }
+  ],
+  "shots": [
+    1024
+  ],
+  "methods": [
+    "baseline",
+    "readout"
+  ],
+  "comparisons": [
+    "A",
+    "B"
+  ],
+  "zne": {
+    "scale_factors": [
+      1.0,
+      3.0,
+      5.0
+    ],
+    "folding": "global"
+  },
+  "units": 3
+}
