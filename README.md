@@ -8,10 +8,12 @@ owner-only "Run Simulations" tab.
 | `qem-bench/` | The Python/Qiskit research framework, experiments, paper and docs. Start with [`qem-bench/README.md`](qem-bench/README.md) |
 | `backend/` | FastAPI API: published results, owner login and custom simulation runs |
 | `frontend/` | React results viewer |
-| `Dockerfile`, `deploy/lightsail/` | Production image and AWS Lightsail deployment scripts |
+| `Dockerfile`, `deploy/`, `.github/workflows/deploy-lightsail.yml` | Production image, AWS Lightsail deploy scripts and the manual GitHub Actions deploy workflow |
 
-**Deploying to AWS:** follow [`DEPLOY_AWS_LIGHTSAIL.md`](DEPLOY_AWS_LIGHTSAIL.md). It covers the Lightsail container
-service with MongoDB Atlas and moving to a custom domain later.
+**Deploying to AWS:** follow [`DEPLOY_AWS_LIGHTSAIL.md`](DEPLOY_AWS_LIGHTSAIL.md). After a one-time setup you deploy
+from GitHub → Actions → *Deploy to AWS Lightsail* → *Run workflow*. The workflow runs the tests, smoke-tests the
+image, then deploys to the Lightsail container service using a keyless AWS role, with MongoDB Atlas as the database.
+The guide also covers moving to a custom domain later.
 
 Run the production image locally:
 ```bash

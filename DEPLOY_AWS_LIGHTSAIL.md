@@ -1,7 +1,11 @@
-# Deploying QEM-Bench to AWS Lightsail (container service + MongoDB Atlas)
+# Deploying QEM-Bench to AWS Lightsail with GitHub Actions
 
-This guide takes you from the GitHub repository to a live QEM-Bench site on **Amazon Lightsail container service**,
-with the database on **MongoDB Atlas (free tier)**. Section 10 explains how to move to your own domain later.
+This guide takes you from your GitHub repository to a live QEM-Bench site on an **Amazon Lightsail container
+service**, with the database on **MongoDB Atlas (free tier)**. Deploys run from **GitHub Actions** when you
+press a button. GitHub signs in to AWS through a trusted link (OpenID Connect), so **no AWS keys are stored
+anywhere**. Section 9 explains how to move to your own domain later.
+
+**The short version, once set up:** GitHub → **Actions** → **Deploy to AWS Lightsail** → **Run workflow**.
 
 ---
 
@@ -34,7 +38,7 @@ Browser ──HTTPS──▶ Lightsail public endpoint (managed TLS, load balanc
   files are temporary scratch data, and the results tables are rebuilt from them before they are deleted.
 * **About "the server IP":** Lightsail *container services* do not hand out a fixed IP address. Instead you get a
   permanent HTTPS address like `https://qem-bench.abc123xyz.us-east-1.cs.amazonlightsail.com`. That is the address
-  you use until you add your own domain (section 10). It already has a valid TLS certificate, so the owner
+  you use until you add your own domain (section 9). It already has a valid TLS certificate, so the owner
   password is never sent in plain text.
 
 ### Cost (as of 2026, check the [pricing page](https://aws.amazon.com/lightsail/pricing/))
@@ -50,36 +54,38 @@ MongoDB Atlas M0 is free (512 MB storage, which is plenty: a typical run stores 
 > **Keep the scale at 1 node.** The "one simulation at a time" rule and the live progress tracking live inside the
 > single container process. Adding nodes would let two runs start at once.
 
----
 
-## 1. Prerequisites on your Mac
+### What the workflow does (`.github/workflows/deploy-lightsail.yml`)
 
-| Tool | Install | Check |
-|---|---|---|
-| Git | `xcode-select --install` | `git --version` |
-| Docker Desktop | https://www.docker.com/products/docker-desktop/ (start it) | `docker buildx version` |
-| AWS CLI v2 | `brew install awscli` | `aws --version` |
-| Lightsail container plugin (`lightsailctl`) | `brew install aws/tap/lightsailctl` | `lightsailctl --version` |
-| Python 3 | ships with macOS / `brew install python` | `python3 --version` |
+```
+Run workflow (manual, branch main)
+  └─ job "tests"   : uv + Python 3.11 → full qem-bench pytest suite (unit, integration, scientific, reproducibility)
+       │ any failure → stop, nothing is deployed
+  └─ job "deploy"  : build the Docker image (linux/amd64, cached between runs)
+                     → start it next to a throw-away MongoDB and run deploy/ci/smoke_test.sh
+                       (site loads, published data, owner login, one tiny simulation)
+                     → sign in to AWS with the trusted role (no stored keys)
+                     → create the Lightsail service on first use, push the image, roll out a deployment
+                     → wait until ACTIVE, then check the live site (health, pages, data, login; no simulation)
+```
 
-`lightsailctl` is required by `aws lightsail push-container-image`. On Apple Silicon (M1–M4) the deploy script builds
-for `linux/amd64` automatically, because Lightsail runs x86-64 containers.
-
----
-
-## 2. Get the code from GitHub
-
-1. In Emergent, click **Save to GitHub** to push the project to your repository.
-2. On your Mac:
-   ```bash
-   git clone https://github.com/<your-user>/<your-repo>.git qem-bench-app
-   cd qem-bench-app
-   ```
-   The repository root contains `Dockerfile`, `backend/`, `frontend/`, `qem-bench/` and `deploy/lightsail/`.
+A failed test or smoke check stops the workflow before anything reaches AWS. A failed Lightsail rollout leaves the
+previous version serving traffic, and the workflow prints the container log.
 
 ---
 
-## 3. Create the MongoDB Atlas database (free)
+## 1. Put the code on GitHub
+
+1. In Emergent, click **Save to GitHub** and choose or create your repository (for example `you/qem-bench`).
+2. Make sure the default branch is **`main`**. The workflow only deploys from `main`, and the AWS trust in step 3 is
+   limited to that branch.
+
+The repository root must contain `Dockerfile`, `.github/workflows/deploy-lightsail.yml`, `backend/`, `frontend/`,
+`qem-bench/` and `deploy/`.
+
+---
+
+## 2. Create the MongoDB Atlas database (free)
 
 1. Sign up at https://www.mongodb.com/cloud/atlas/register.
 2. **Create a cluster**: choose **M0 (Free)**, provider **AWS**, and the **same region** you will use for Lightsail
@@ -98,140 +104,131 @@ The app creates its collections (`custom_runs`, `login_attempts`, `run_files.*`)
 
 ---
 
-## 4. Give the AWS CLI access to Lightsail
+## 3. One-time AWS setup: let your repository deploy (no keys)
 
-1. Sign in to the AWS console and open **IAM → Users → Create user**, e.g. `qem-bench-deployer`
-   (no console access needed).
-2. **Permissions → Attach policies directly → Create policy → JSON**:
-   ```json
-   {
-     "Version": "2012-10-17",
-     "Statement": [{ "Effect": "Allow", "Action": "lightsail:*", "Resource": "*" }]
-   }
-   ```
-   Name it `LightsailFullAccess` and attach it to the user.
-3. Open the user → **Security credentials → Create access key → Command Line Interface (CLI)**. Copy both values.
-4. On your Mac:
+You do this once, in the browser, using **AWS CloudShell** (a terminal built into the AWS console).
+
+1. Sign in to the AWS console as an administrator and pick your region in the top-right (for example **N. Virginia,
+   us-east-1**, ideally the same as Atlas).
+2. Click the **CloudShell** icon (`>_`) in the top bar and wait for the prompt.
+3. Paste these lines, replacing `you/qem-bench` with your GitHub `owner/repository`:
    ```bash
-   aws configure
-   # AWS Access Key ID:     <paste>
-   # AWS Secret Access Key: <paste>
-   # Default region name:   us-east-1        (any Lightsail region; match Atlas)
-   # Default output format: json
-   aws lightsail get-regions --query 'regions[].name' --output text   # should list regions
+   curl -fsSLO https://raw.githubusercontent.com/you/qem-bench/main/deploy/lightsail/setup-github-oidc.sh
+   bash setup-github-oidc.sh you/qem-bench main
    ```
+   If the repository is private, the `curl` will fail. Instead open `deploy/lightsail/setup-github-oidc.sh` on GitHub,
+   click **Raw**, copy everything, run `nano setup-github-oidc.sh` in CloudShell, paste, press `Ctrl+O`, `Enter`,
+   `Ctrl+X`, and run the `bash` line.
+4. The script:
+   * registers GitHub (`token.actions.githubusercontent.com`) as a trusted identity provider in your account (only if
+     it isn't already);
+   * creates the role **`qem-bench-github-deploy`**, which **only** workflows from `you/qem-bench` on branch `main`
+     can use;
+   * allows that role Lightsail actions only (`lightsail:*`), with no access to the rest of AWS.
+5. It finishes by printing a role ARN like `arn:aws:iam::123456789012:role/qem-bench-github-deploy`. **Copy it.**
+
+If you rename the repository or deploy from another branch, run the script again with the new values. It updates the
+role.
 
 ---
 
-## 5. Fill in the deployment settings
+## 4. Add the settings to GitHub
 
-```bash
-cp deploy/lightsail/lightsail.env.example deploy/lightsail/lightsail.env
-python3 -c "import secrets; print(secrets.token_hex(32))"     # copy the output for JWT_SECRET
-open -e deploy/lightsail/lightsail.env                        # or: nano deploy/lightsail/lightsail.env
-```
+In your repository: **Settings → Secrets and variables → Actions**.
 
-| Variable | What to put |
+**Secrets** tab → **New repository secret** (hidden values):
+
+| Name | Value |
 |---|---|
-| `AWS_REGION` | the region from step 4, e.g. `us-east-1` |
-| `SERVICE_NAME` | `qem-bench` (lowercase letters, digits, hyphens; it becomes part of the URL) |
-| `SERVICE_POWER` | `medium` (or `small` to save money) |
-| `MONGO_URL` | the Atlas connection string from step 3 |
+| `AWS_DEPLOY_ROLE_ARN` | the role ARN from step 3 |
+| `MONGO_URL` | the Atlas connection string from step 2 |
+| `ADMIN_PASSWORD` | a new, long owner password for the *Run Simulations* tab. Don't reuse the preview password |
+| `JWT_SECRET` | 64 random hex characters, e.g. from `python3 -c "import secrets; print(secrets.token_hex(32))"` or run `openssl rand -hex 32` in CloudShell |
+
+**Variables** tab → **New repository variable** (visible values):
+
+| Name | Value |
+|---|---|
+| `AWS_REGION` | `us-east-1` (the region you chose in step 3) |
+| `LIGHTSAIL_SERVICE_NAME` | `qem-bench` (lowercase letters, digits and hyphens; becomes part of the URL) |
+| `LIGHTSAIL_POWER` | `medium` (or `small` to save money; only used when the service is first created) |
 | `DB_NAME` | `qem_bench` |
-| `ADMIN_PASSWORD` | a **new**, long password for the *Run Simulations* tab. Don't reuse the preview password |
-| `JWT_SECRET` | the 64 hex characters you just generated |
-| `CORS_ORIGINS` | leave the placeholder for now; you will set it in step 7 |
+| `CORS_ORIGINS` | for the first deploy put `https://example.invalid`; you will replace it with the real URL in step 6 |
 
-`lightsail.env` is git-ignored, so it never goes to GitHub.
+If any of these are missing, the workflow stops at **Check settings** and names the missing one.
 
 ---
 
-## 6. First deployment (one command)
+## 5. Deploy: press the button
 
-```bash
-chmod +x deploy/lightsail/deploy.sh
-./deploy/lightsail/deploy.sh --create
-```
+1. Repository → **Actions** tab. If GitHub asks, click **I understand my workflows, go ahead and enable them**.
+2. Click **Deploy to AWS Lightsail** in the list on the left, then **Run workflow** → branch **main** → **Run workflow**.
+3. Watch the two jobs:
+   * **Research test suite**: about 2–4 minutes.
+   * **Build, smoke-test and deploy**: about 10–15 minutes the first time, because the service is created and the
+     image built from scratch. Later runs take about 5–8 minutes thanks to the build cache.
+4. When it is green, open the run. The **summary** shows `Deployed to https://qem-bench.xxxxxxxx.us-east-1.cs.amazonlightsail.com/`.
 
-The script:
-
-1. creates the container service (`--power medium --scale 1`) and waits until it is `READY` (about 3–5 min, first
-   time only);
-2. builds the image for `linux/amd64` from the root `Dockerfile` (about 5–10 min the first time; later builds are
-   cached);
-3. pushes it to the service's private registry (`aws lightsail push-container-image`);
-4. creates a deployment from `deploy/lightsail/deployment.template.json` with your environment variables, using health
-   check `GET /api/health`;
-5. waits for the deployment to go `ACTIVE` and prints the public URL, then runs a health check (`{"ok":true}`).
-
-<details><summary>Prefer the console instead of the script for steps 1 and 4?</summary>
-
-* **Create service:** Lightsail console → *Containers* → *Create container service* → choose a region, power
-  *Medium*, scale *1*, name `qem-bench` → *Create*.
-* **Push the image:** still run `docker buildx build --platform linux/amd64 -t qem-bench:latest --load .` and
-  `aws lightsail push-container-image --service-name qem-bench --label app --image qem-bench:latest`.
-* **Deployment:** *qem-bench → Deployments → Create your first deployment*. Container name `app`. Choose the stored
-  image `:qem-bench.app.N`. Open port `8000` / HTTP. Add the environment variables `MONGO_URL`, `DB_NAME`,
-  `ADMIN_PASSWORD`, `JWT_SECRET` and `CORS_ORIGINS`. Set the public endpoint to container `app` on port 8000 with
-  health check path `/api/health`.
-</details>
+Only people with write access to the repository can press **Run workflow**.
 
 ---
 
-## 7. Check the live site
+## 6. Check the live site
 
-1. Open the printed URL (also on the Lightsail console under *Containers → qem-bench*), e.g.
-   `https://qem-bench.abc123xyz.us-east-1.cs.amazonlightsail.com`.
+1. Open the URL from the workflow summary (also on the Lightsail console under *Containers → qem-bench*).
 2. The Overview, Explorer, Statistics, Figures and Reproducibility tabs should show the published study.
 3. Open **Run Simulations**, sign in with your `ADMIN_PASSWORD` and start a small run (e.g. `bell_cx`, `moderate`,
    1,024 shots, 5 repetitions). It should finish in a few seconds on *medium*.
-4. Put the real URL into `CORS_ORIGINS` in `lightsail.env` and redeploy once: `./deploy/lightsail/deploy.sh`.
-   The site works without this because it is same-origin, but it limits which other websites can call the API.
-
-Persistence test: redeploy (`./deploy/lightsail/deploy.sh`) and confirm your finished run still opens with its table.
-That shows it is being served from Atlas.
+4. Set the GitHub variable `CORS_ORIGINS` to that URL without the trailing slash (e.g.
+   `https://qem-bench.xxxxxxxx.us-east-1.cs.amazonlightsail.com`) and run the workflow once more.
+5. Persistence check: after that redeploy, your finished run should still open with its table. That shows it is
+   being served from Atlas.
 
 ---
 
-## 8. Everyday operations
+## 7. Everyday operations
 
-| Task | Command |
+| Task | How |
 |---|---|
-| Ship new code | `git pull && ./deploy/lightsail/deploy.sh` |
-| Live logs | `aws lightsail get-container-log --service-name qem-bench --container-name app` |
-| Service status / URL | `aws lightsail get-container-services --service-name qem-bench` |
-| Change password or secrets | edit `lightsail.env`, then `./deploy/lightsail/deploy.sh` |
-| Bigger machine | `aws lightsail update-container-service --service-name qem-bench --power large` |
-| Roll back | console → *qem-bench → Deployments → Deployment history* → pick a previous version → *Modify and redeploy* |
-| Pause billing permanently | `aws lightsail delete-container-service --service-name qem-bench` (Atlas data stays) |
+| Ship new code | push or merge to `main` (e.g. Emergent **Save to GitHub**), then **Actions → Deploy to AWS Lightsail → Run workflow** |
+| Change the owner password or other secrets | edit the GitHub secret or variable, then run the workflow |
+| See logs | Lightsail console → *Containers → qem-bench → Logs*, or in CloudShell: `aws lightsail get-container-log --service-name qem-bench --container-name app` |
+| Service status / URL | Lightsail console → *Containers*, or `aws lightsail get-container-services --service-name qem-bench` |
+| Bigger machine | console → *qem-bench → Capacity → Change capacity*, or `aws lightsail update-container-service --service-name qem-bench --power large` |
+| Roll back | console → *qem-bench → Deployments → Deployment history* → pick a previous version → *Modify and redeploy*. Or re-run an older successful workflow run (*Actions → run → Re-run all jobs*), which redeploys that commit |
+| Stop paying | `aws lightsail delete-container-service --service-name qem-bench` (Atlas data stays; the next workflow run recreates the service) |
 
 Each push creates a new stored image (`:qem-bench.app.1`, `.2`, …). Lightsail keeps a limited number, so delete old
 ones under *Images* if it complains.
 
 Updating the **published** results (e.g. after `scripts/reproduce_all.sh` and the viewer export) means rebuilding the
-image, because those files are baked in: commit, push, `./deploy/lightsail/deploy.sh`.
+image, because those files are baked in: commit, push, run the workflow.
 
 ---
 
-## 9. Troubleshooting
+## 8. Troubleshooting
 
-| Symptom | Likely cause and fix |
+| Where it fails | Likely cause and fix |
 |---|---|
-| `push-container-image` says *lightsailctl not found* | install the plugin (section 1) and open a new terminal |
-| Deployment goes `FAILED` straight away | read `get-container-log`. `KeyError: 'MONGO_URL'` (or another name) means a variable is missing from `lightsail.env` |
-| Logs show `ServerSelectionTimeoutError` | Atlas *Network Access* is missing `0.0.0.0/0`, or the password in `MONGO_URL` is wrong or not URL-encoded |
-| `exec format error` in the logs | the image was built for arm64. The script forces `--platform linux/amd64`; don't push a plain `docker build` image from an M-series Mac |
-| Sign-in says *Too many failed attempts* | 5 wrong passwords from one client, or 20 in total, lock sign-in for 15 minutes |
-| Run marked *failed: Server restarted during the run* | a redeploy or crash happened mid-run. Start it again |
-| Runs feel slow | move from `small` to `medium` (section 8) |
+| **Check settings** | the named secret or variable is missing or misspelled (step 4). Names are case-sensitive |
+| **Research test suite** | a real test failure. Open the log, fix it, push and run again. Nothing was deployed |
+| **Smoke-test the image** | the image doesn't start or a check fails. The step prints the container log (`docker logs`) |
+| **Sign in to AWS**: *Not authorized to perform sts:AssumeRoleWithWebIdentity* | the role trust doesn't match. Check the repository name and branch, and re-run `setup-github-oidc.sh owner/repo main`. Also check that you ran the workflow on `main` |
+| **Sign in to AWS**: *No OpenIDConnect provider found* | step 3 wasn't run in this AWS account |
+| **Push image and deploy**: *AccessDenied* on a `lightsail:` action | the role's inline policy is missing. Re-run the setup script |
+| **Push image and deploy**: deployment `FAILED` | the step prints the container log. `ServerSelectionTimeoutError` means Atlas *Network Access* is missing `0.0.0.0/0`, or the password in `MONGO_URL` is wrong or not URL-encoded. `KeyError: 'X'` means variable X is missing |
+| **Check the live site** fails but the deploy is ACTIVE | usually the `ADMIN_PASSWORD` secret changed since the last deploy, or sign-in is locked after failed attempts. Wait 15 minutes and re-run |
+| Sign-in on the site says *Too many failed attempts* | 5 wrong passwords from one client, or 20 in total, lock sign-in for 15 minutes |
+| Run marked *failed: Server restarted during the run* | a deploy or crash happened mid-run. Start it again |
+| Runs feel slow | move from `small` to `medium` (section 7) |
 
 ---
 
-## 10. Moving to your own domain later
+## 9. Moving to your own domain later
 
 You can do this at any time. The Lightsail URL keeps working alongside the new domain.
 
-### 10.1 Register a domain
+### 9.1 Register a domain
 
 Either option works:
 
@@ -244,7 +241,7 @@ Either option works:
   **nameservers** at the registrar to the four `ns-*.awsdns-*` servers shown in the zone. Nameserver changes can take
   up to 48 h, usually under 1 h.
 
-### 10.2 Create a TLS certificate for the container service
+### 9.2 Create a TLS certificate for the container service
 
 Console: **Containers → qem-bench → Custom domains → Create certificate**. Enter `qem-bench.org` and
 `www.qem-bench.org`.
@@ -262,7 +259,7 @@ The certificate stays *Pending validation* until you add the **CNAME validation 
 
 Validation usually completes in 5–30 minutes (status *Valid*).
 
-### 10.3 Attach the domain and point DNS at it
+### 9.3 Attach the domain and point DNS at it
 
 1. Console: **Containers → qem-bench → Custom domains → Attach certificate** → pick `qem-bench-cert` → select both
    names → *Attach*. CLI:
@@ -279,11 +276,11 @@ Validation usually completes in 5–30 minutes (status *Valid*).
      Otherwise use the provider's "redirect bare domain → www" feature.
 3. Wait a few minutes, then open `https://qem-bench.org` and `https://www.qem-bench.org`.
 
-### 10.4 Finish the switch
+### 9.4 Finish the switch
 
-1. In `deploy/lightsail/lightsail.env` set
+1. In GitHub, set the variable
    `CORS_ORIGINS=https://qem-bench.org,https://www.qem-bench.org,https://qem-bench.abc123xyz.us-east-1.cs.amazonlightsail.com`.
-2. Redeploy: `./deploy/lightsail/deploy.sh`.
+2. Run the **Deploy to AWS Lightsail** workflow.
 3. Update links in `qem-bench/README.md`, the paper's data-availability statement and anywhere you have shared the URL.
 4. Optional: once everyone is using the domain, remove the long Lightsail URL from `CORS_ORIGINS`. Lightsail still
    serves it, but other sites can no longer call the API through it.
@@ -293,7 +290,7 @@ rebuild is needed for the domain itself.
 
 ---
 
-## 11. Security checklist
+## 10. Security checklist
 
 * Use a production `ADMIN_PASSWORD` and `JWT_SECRET` that differ from the preview environment. Changing
   `JWT_SECRET` signs everyone out.
@@ -303,3 +300,25 @@ rebuild is needed for the domain itself.
   your custom runs matter long-term.
 * The image runs as a non-root user (`uid 10001`) and does not contain `.env` files, tests, the paper or the
   `.git` folder (see `.dockerignore`).
+* GitHub can only reach AWS through the `qem-bench-github-deploy` role. That role is limited to Lightsail, and only
+  workflows on `main` of your repository can use it. To revoke access, delete the role in IAM.
+* Secrets are never printed in the workflow logs (GitHub masks them). The workflow file's permissions are read-only
+  apart from `id-token: write`, which is required for the trusted link.
+
+---
+
+## Appendix A: deploy from your Mac instead (optional)
+
+The same script the workflow uses also runs locally.
+
+1. Install Docker Desktop, the AWS CLI (`brew install awscli`) and the Lightsail plugin
+   (`brew install aws/tap/lightsailctl`). Then sign in with `aws configure`, using an IAM user that has `lightsail:*`,
+   or `aws configure sso`.
+2. `cp deploy/lightsail/lightsail.env.example deploy/lightsail/lightsail.env` and fill in the same values as step 4
+   (`SERVICE_NAME`, `SERVICE_POWER`, …). The file is git-ignored.
+3. `./deploy/lightsail/deploy.sh`, which builds a linux/amd64 image, creates the service if needed, pushes and deploys.
+   `./deploy/lightsail/deploy.sh build` only builds. `./deploy/lightsail/deploy.sh release` pushes an already-built
+   `qem-bench:latest`.
+4. To smoke-test the image locally first:
+   `docker run -d --name qem -p 8000:8000 -e MONGO_URL=... -e DB_NAME=test -e ADMIN_PASSWORD=pw -e JWT_SECRET=$(openssl rand -hex 32) -e CORS_ORIGINS=http://127.0.0.1:8000 qem-bench:latest`
+   and then `bash deploy/ci/smoke_test.sh http://127.0.0.1:8000 pw`.
