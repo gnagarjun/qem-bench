@@ -45,7 +45,7 @@ All 12 figures are in `results/figures/` (PNG at 300 dpi and PDF), indexed with 
 ```bash
 uv sync --extra dev && uv run pytest && uv run bash scripts/reproduce_all.sh
 ```
-Expected runtime is about 10 minutes on 4 cores. Outputs are verified by `scripts/validate_results.py`.
+Expected runtime is about 4–5 minutes on the 4-vCPU container used (pilot 61 s, standard 81 s, analysis + figures about 90 s). Outputs are verified by `scripts/validate_results.py`.
 
 ## S7. Known deviations and fixes during development
 - Partial global folding originally selected gates by raw gate count, giving λ_eff ∈ {1.18, 2.93} for nominal λ = 2 on

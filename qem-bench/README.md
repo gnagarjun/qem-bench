@@ -15,6 +15,7 @@ enforceable accounting rules, with full statistical testing.
 
 ## Contents
 1. [The project in five minutes](#1-the-project-in-five-minutes)
+   - [Execution record: how the reported results were produced](#execution-record-how-the-reported-results-were-produced)
 2. [How to read the results](#2-how-to-read-the-results)
 3. [Why this matters to a quantum computing company today](#3-why-this-matters-to-a-quantum-computing-company-today)
 4. [Running it on your Mac](#4-running-it-on-your-mac-local-simulator)
@@ -90,6 +91,77 @@ The decision rules were fixed in advance in [`docs/research/hypotheses.md`](docs
 | H5: sometimes no mitigation is just as good at equal budget | **Supported (weak form):** 3.3 % of equal-budget conditions, all at low noise and small budgets |
 
 Unfavourable and null results are reported deliberately.
+
+---
+
+## Execution record: how the reported results were produced
+
+**Yes. Every number in this README, in `summary.json` and in the paper comes from simulations that were actually run**, with the code in
+this repository, inside the Emergent development container where the project was built. No value was typed in by hand. The figures
+and tables are regenerated from the saved Parquet data, and `scripts/validate_results.py` checks the SHA-256 hashes of that data.
+
+### Machine and software
+| Item | Value (from `results/experiments/<run>/environment.json`) |
+|---|---|
+| Host | Cloud development container (Linux 6.12, **aarch64**), 4 vCPUs, about 15 GB RAM. CPU model not reported by the container |
+| Python | 3.11.18 (isolated virtual environment `/app/qem-bench/.venv`, created with `uv`) |
+| Quantum stack | qiskit 2.2.3, qiskit-aer 0.17.2 (CPU only, no GPU) |
+| Scientific stack | numpy 2.4.6, scipy 1.17.1, pandas 3.1.1, pyarrow 26.0.1, matplotlib 3.11.2, seaborn 0.13.2, pydantic 2.14.3 |
+| Code version | git commit `503f25e` (recorded automatically in `environment.json`) |
+| Root seed | 20260601 (all repetition streams derive from it with `SeedSequence`) |
+
+The timestamps below come from the container clock, as written into the run IDs and manifests.
+
+### What was executed, and how long it took
+| Step | Command | Run ID / output | Wall-clock |
+|---|---|---|---|
+| 1. Pilot experiment | `scripts/run_experiment.py --profile pilot` | `pilot_20261119T034457Z_4b7d0bd7351ab767`: 24 conditions × 30 reps, 17,280 estimates | **60.7 s** |
+| 2. Pilot analysis | `scripts/analyze_results.py` | `results/aggregated/pilot/` (sampling-mode equivalence, timing study) | about 7 s |
+| 3. Standard experiment | `scripts/run_experiment.py --profile standard` | `standard_20261119T034606Z_87821ca68ff11fc6`: 8,532 conditions × 30 reps, **255,960 estimates**, 354 Parquet files, 25 MB | **80.9 s** |
+| 4. Standard analysis | `scripts/analyze_results.py` | aggregation, 12,798 paired tests (2,000 bootstrap resamples each), Pareto, hypothesis verdicts | about 60 s |
+| 5. Figures, tables, validation | `generate_figures.py`, `validate_results.py` | 12 figures (PNG + PDF), LaTeX tables, `ALL CHECKS PASSED` | about 20 s |
+| 6. Paper build | `pdflatex` + `bibtex` | `paper/main.pdf` (12 pages) | about 10 s |
+
+**End to end, the whole study takes about 4–5 minutes on this 4-vCPU container** (all steps were chained in `scripts/reproduce_all.sh`).
+A modern Mac should be in the same range, but timings are machine-specific.
+
+### Why it is that fast, and what "simulated" means here
+The circuits are small (2–8 qubits), so Qiskit Aer can simulate them exactly.
+
+- **Standard run (`sampling_mode: exact`).** For each distinct physical circuit (setting × noise-scale fold × noise model, 685 circuit/noise
+  combinations in total), Aer's **density-matrix simulator** computes the full noisy output distribution once. Gate noise comes from the Aer noise model, and
+  readout error is applied by the exact classical channel. Each repetition then draws its N shots from that distribution with a seeded multinomial sampler.
+  For circuits that end in measurements, this is statistically the same as shot-by-shot simulation. The total Aer density-matrix time was only **about 3 s**.
+  Most of the 81 s is the Python bookkeeping for the 6 methods × 2 comparisons × 30 repetitions, plus calibration and extrapolation.
+- **Pilot (`sampling_mode: aer` block).** Every execution was a genuine per-shot `AerSimulator.run(..., shots=N, seed_simulator=...)` with the
+  full noise model, including readout error. The pilot also repeated the identical design in exact mode. Across 288 matched conditions,
+  **no mean differed after FDR correction** (raw p < 0.05 in 4.9 % of conditions, close to the 5 % expected by chance), and 1 of 288 variances differed. This is the
+  evidence that the fast mode is valid. The wall-clock timing study in the paper (REM about 2.6×, ZNE about 3.6×, REM+ZNE about 5.2× the baseline time) also comes
+  from this per-shot pilot.
+
+### What was **not** executed
+- No real quantum hardware was used (see Section 7).
+- The `full` profile (100 repetitions, larger grid) is configured but was not run.
+- No GPU, no MPS or tensor-network methods, and nothing above 8 qubits.
+
+### Development history that affected the data
+1. A first pilot and standard run were executed and then **discarded** before any results were reported. Validation tests showed that partial gate folding
+   (scale factor 2) achieved λ_eff = 1.18 and 2.93 instead of 2.0. The fix (error-weighted folding plus extrapolation on the measured λ_eff) was
+   added with a regression test, and **both runs were re-executed from scratch**. The run IDs above are the re-executed runs. Only the `zne_global_123`
+   design block was materially affected; the odd-integer folds (1, 3, 5) used everywhere else were exact in both versions.
+2. After the re-run, the figures were regenerated once with a layout-only style change (no data change).
+
+### How to check this yourself
+```bash
+cat results/experiments/standard_*/manifest.json   # run ID, completion time, wall-clock seconds, SHA-256 + row count per file
+cat results/experiments/standard_*/environment.json
+cat results/experiments/standard_*/validation_report.json
+uv run python scripts/validate_results.py --agg results/aggregated/standard     # re-verifies hashes and accounting
+uv run bash scripts/reproduce_all.sh                                             # re-runs everything; fixed seeds give the same estimates
+```
+Re-running with the same configuration reproduces **bit-identical estimates**: `tests/reproducibility/` checks this. Only the timings and run IDs change.
+Note that raw Parquet files are git-ignored because of their size. After cloning, run `reproduce_all.sh` (about 5 min) to regenerate them, or
+use the bundled `data/reference/demo/` subset.
 
 ---
 
@@ -200,7 +272,7 @@ uv run python scripts/analyze_results.py --run data/reference/demo/run --out /tm
 ### 4.3 Reproduce the full reported study
 ```bash
 uv run bash scripts/reproduce_all.sh
-# = pilot + standard run + analysis + 12 figures + validation + paper tables + viewer bundle (about 10 min on a 4-core machine)
+# = pilot + standard run + analysis + 12 figures + validation + paper tables + viewer bundle (about 5 min on the 4-core machine used here)
 uv run python scripts/validate_results.py --agg results/aggregated/standard   # prints ALL CHECKS PASSED
 ```
 Optional: build the paper (`brew install --cask mactex-no-gui`, then `make paper`), and open the notebooks with `uv run --with jupyter jupyter lab notebooks/`.
